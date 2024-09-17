@@ -1,7 +1,7 @@
-# deze code is niet door mij geschreven. Thanks chatgpt, ik had dit nodig voor een opdracht
+# deze code is niet volledig door mij geschreven. Thanks chatgpt, ik had dit nodig voor een opdracht
 
 import os
-import shutil
+# import shutil
 from pydub import AudioSegment
 from vosk import Model, KaldiRecognizer
 import json
@@ -11,8 +11,9 @@ import spacy
 nlp = spacy.load("nl_core_news_sm")
 
 # Define the paths for the audio file and the output folders
-audio_file_path = "/Users/dylan/Cage/organising soundinput/wouter/Lecture1_comp1.wav"
-output_base_folder = "/Users/dylan/Library/Mobile Documents/com~apple~CloudDocs/Documents/wacko weirdo /turfolder /AUDIOCAT/pos_categorized"
+audio_file_path = "/Users/dylan/Cage/Interviews/MoNOburger.wav"
+# lecture 1 comp1 gehad
+output_base_folgder = "/Users/dylan/Library/Mobile Documents/com~apple~CloudDocs/Documents/wacko weirdo /turfolder /AUDIOCAT/pos_categorized"
 
 # Load your Vosk model (make sure it's downloaded)
 model = Model("/Users/dylan/Cage/CageDotLog/LANGMODEL/vosk-model-small-nl-0.22")
