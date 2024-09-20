@@ -1,24 +1,18 @@
-# deze code is niet volledig door mij geschreven. Thanks chatgpt, ik had dit nodig voor een opdracht
-
 import os
-# import shutil
 from pydub import AudioSegment
 from vosk import Model, KaldiRecognizer
 import json
 import spacy
 
-
+# Load the spaCy Dutch language model
 nlp = spacy.load("nl_core_news_sm")
 
 # Define the paths for the audio file and the output folders
 audio_file_path = "/Users/dylan/Cage/Interviews/MoNOburger.wav"
-# lecture 1 comp1 gehad
-output_base_folgder = "/Users/dylan/Library/Mobile Documents/com~apple~CloudDocs/Documents/wacko weirdo /turfolder /AUDIOCAT/pos_categorized"
+output_base_folder = "/Users/dylan/Library/Mobile Documents/com~apple~CloudDocs/Documents/wacko weirdo/turfolder/AUDIOCAT/pos_categorized"
 
 # Load your Vosk model (make sure it's downloaded)
 model = Model("/Users/dylan/Cage/CageDotLog/LANGMODEL/vosk-model-small-nl-0.22")
-
-
 
 # Transcribe the audio with word-level timestamps
 def transcribe_audio_with_timestamps(audio_file):
@@ -33,15 +27,34 @@ def transcribe_audio_with_timestamps(audio_file):
         if recognizer.AcceptWaveform(segment.raw_data):
             result = json.loads(recognizer.Result())
             transcript.append(result)
-            print(f"i am currently at{result}")
+            print(f"Currently at: {result}")
 
     # Process the final result
     final_result = json.loads(recognizer.FinalResult())
     transcript.append(final_result)
 
-    print(json.dumps(transcript, indent=4))  # Print the transcript to check its structure
+    # Print the transcript to check its structure
+    print(json.dumps(transcript, indent=4))
 
     return transcript
+
+# Save the transcribed text to a .txt file
+def save_transcript_to_txt(transcript, audio_file):
+    # Extract the base name of the audio file (without extension)
+    base_name = os.path.splitext(os.path.basename(audio_file))[0]
+    txt_file_path = os.path.join(output_base_folder, f"{base_name}.txt")
+
+    # Collect the transcribed text
+    transcribed_text = ""
+    for result in transcript:
+        if 'text' in result:
+            transcribed_text += result['text'] + " "
+
+    # Write the text to a .txt file
+    with open(txt_file_path, "w") as txt_file:
+        txt_file.write(transcribed_text.strip())
+
+    print(f"Transcription saved to {txt_file_path}")
 
 # Tag each word with its part of speech (POS) and categorize by POS or "etc"
 def categorize_audio_by_pos_or_etc(transcript, audio_file):
@@ -93,13 +106,10 @@ def categorize_audio_by_pos_or_etc(transcript, audio_file):
 def process_audio_file(audio_file_path):
     transcript = transcribe_audio_with_timestamps(audio_file_path)
     categorize_audio_by_pos_or_etc(transcript, audio_file_path)
+    save_transcript_to_txt(transcript, audio_file_path)
 
 # Run the process
-print("im done")
 process_audio_file(audio_file_path)
-
-
-
 
 
 

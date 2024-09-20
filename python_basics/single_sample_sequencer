@@ -1,0 +1,15 @@
+import time
+import simpleaudio as sa
+
+num_playback = []
+playbacktime = []
+
+wave_obj = sa.WaveObject.from_wave_file('python_basics/sample/[weirdloop].wav')
+
+# for timestamps in timestamps16th
+bpm = 60/int(input("what bpm would you like? : "))
+bps = bpm
+
+print(time.time())
+
+timestamps16th = [0, 2, 4, 8, 11]
