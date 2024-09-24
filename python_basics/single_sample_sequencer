@@ -4,12 +4,76 @@ import simpleaudio as sa
 num_playback = []
 playbacktime = []
 
-wave_obj = sa.WaveObject.from_wave_file('python_basics/sample/[weirdloop].wav')
+wave_obj = sa.WaveObject.from_wave_file('python_basics/ciskavriezenga CSD_24-25 main blok2a/assignment_3/audioFiles/Pop.wav')
 
 # for timestamps in timestamps16th
-bpm = 60/int(input("what bpm would you like? : "))
-bps = bpm
 
-print(time.time())
 
-timestamps16th = [0, 2, 4, 8, 11]
+#in measures
+noteDur = []
+quarterNoteLength = 4
+quarterNotes = []
+
+
+timestamps16th = []
+bpm = int(input("what bpm would you like?: "))
+
+quarterNoteDuration = 60 / bpm
+stepDuration = quarterNoteDuration / quarterNoteLength
+print(stepDuration," _stepduration")
+# bpm = 60 / int(input("what bpm would you like?: "))
+sequenceLen = int(input("how long is the sequence? "))
+stamps = []
+print(bpm)
+
+
+
+for i in range(sequenceLen):
+    noteDur.append(float(input("how long until next note? (0.25 = quarternote): ")))
+    
+
+def durationsToTimestamps16th(noteDur):
+    #hoezo als ik 
+    # for notes in noteDur: doe krijg ik maar 3 console logs
+    currentstamp = 0
+    
+    for notes in (noteDur):
+        stamps.append(currentstamp)
+        currentstamp += float(notes*quarterNoteLength)
+        
+        
+        # print(quarterNotes)
+        # print(stamps,"stamps")
+    return 
+
+
+
+def timestampsToBpm(timestamps16th, stepDuration):
+    startTime = time.time()
+    while True:
+        currentTime = time.time()
+        # for currentTimeStamp in timestamps16th:
+            # print(currentTimeStamp * 60, "hello")
+        for timestamp in timestamps16th:
+            nxtTimeStamp = stepDuration * timestamp
+            print("nextStepInTime: ",stepDuration * timestamp)
+        if(currentTime - startTime == nxtTimeStamp):
+                # print("doing stuff")
+            playobj = wave_obj.play()
+            time.sleep(0.01)
+        elif(currentTime >= startTime * stepDuration*12):
+            return
+
+                
+    
+    
+
+    
+
+    
+durationsToTimestamps16th(noteDur)
+
+timestampsToBpm(stamps, stepDuration)
+
+    
+    
