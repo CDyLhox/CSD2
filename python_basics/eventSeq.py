@@ -9,6 +9,12 @@ ride = sa.WaveObject.from_wave_file("/Users/dylan/Desktop/file wavs:mp3/noise im
 instruments = [kick, snare, ride]
 
 numOfEvents = int(input("how many total events? "))
+numKick = 4
+numSnare = 6
+numRide = 8
+# numKick = int(input('how many kicks? '))
+# numSnare = int(input('how many snares? '))
+# numRide = int(input('how many ride? '))
 
 kickEvents = []
 timestamp = 0
@@ -37,6 +43,6 @@ def handleEvents():
         print(kickEvents[events]['instrument'])    
         print(kickEvents[events]['velocity'])    
         print(kickEvents[events]['duration'])    
-        time.sleep()
+        time.sleep(randint(0,1))
         kickEvents[events]['instrument'].play()
 handleEvents()
