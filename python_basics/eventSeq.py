@@ -10,6 +10,7 @@ instruments = [kick, snare, ride]
 
 numOfEvents = int(input("how many total events? "))
 quarterNoteDur = 60/int(input("what bpm? "))
+loops = int(input("how many loops?: "))
 stepDuration  = quarterNoteDur 
 totNumEvents = []
 numKick = 4
@@ -58,7 +59,7 @@ def eventGen():
         rideEvents.append(int)
         
         rideEvents[i] = {
-            'timestamp':  i * random.randint(0,2),
+            'timestamp':  1+ (i * random.randint(0,2)),
             'instrumentName': "ride",
             'instrument': instruments[2],
             'velocity': 82 * 10, 
@@ -70,25 +71,24 @@ totNumEvents = kickEvents + snareEvents + rideEvents
 def getTimeStamp(totNumEvents):
     return totNumEvents['timestamp']
 
-def handleEvents(stepDuration):
+def handleEvents(stepDuration, loops):
     startTime = time.time()
 
     totNumEvents.sort(key=getTimeStamp)
-    for y in range(len(totNumEvents)):
-        print("totnumevents, timestamp:", totNumEvents[y]['timestamp'])
-        print("totnumevents, instrument:", totNumEvents[y]['instrumentName'])
 
-    for events in range(len(totNumEvents)): 
+    for loop in range(loops):
+        for events in range(len(totNumEvents)): 
             currentTime = time.time()
+            nxtTimeStamp = stepDuration * (totNumEvents[events]['timestamp'] * loop)
             
-            # print(nxtTimeStamp)
-            for x in totNumEvents:
-                nxtTimeStamp = stepDuration * totNumEvents[events]['timestamp']
-                if(currentTime - startTime >= nxtTimeStamp):
-                    print(currentTime - startTime)
-                    totNumEvents[events]['instrument'].play()
-                    time.sleep(0.1)
-                else:
-                    time.sleep(0.01)
-handleEvents(stepDuration)
+            print("1 calc: ",currentTime - startTime)
+            print(nxtTimeStamp)
+
+            timeToWait = nxtTimeStamp - (currentTime - startTime)
+        
+            if timeToWait > 0:
+                time.sleep(timeToWait)
+            totNumEvents[events]['instrument'].play()
+
+handleEvents(stepDuration, loops)
 
