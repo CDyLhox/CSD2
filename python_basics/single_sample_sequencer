@@ -1,30 +1,28 @@
 import time
 import simpleaudio as sa
-
+wave_obj = sa.WaveObject.from_wave_file('python_basics/ciskavriezenga CSD_24-25 main blok2a/assignment_3/audioFiles/Pop.wav')
+# for timestamps in timestamps16th
+#in measures
 num_playback = []
 playbacktime = []
-
-wave_obj = sa.WaveObject.from_wave_file('python_basics/ciskavriezenga CSD_24-25 main blok2a/assignment_3/audioFiles/Pop.wav')
-
-# for timestamps in timestamps16th
-
-
-#in measures
 noteDur = []
-quarterNoteLength = 4
 quarterNotes = []
-
-
 timestamps16th = []
-bpm = int(input("what bpm would you like?: "))
+quarterNoteLength = 4
 
+bpm = int(input("what bpm would you like?: "))
+#calculate a quarternote
 quarterNoteDuration = 60 / bpm
+#calculate the stepduration
 stepDuration = quarterNoteDuration / quarterNoteLength
+
 print(stepDuration," _stepduration")
 # bpm = 60 / int(input("what bpm would you like?: "))
+
+
 sequenceLen = int(input("how long is the sequence? "))
 stamps = []
-print(bpm)
+
 
 
 
@@ -33,36 +31,51 @@ for i in range(sequenceLen):
     
 
 def durationsToTimestamps16th(noteDur):
-    #hoezo als ik 
-    # for notes in noteDur: doe krijg ik maar 3 console logs
     currentstamp = 0
     
     for notes in (noteDur):
         stamps.append(currentstamp)
         currentstamp += float(notes*quarterNoteLength)
-        
-        
-        # print(quarterNotes)
-        # print(stamps,"stamps")
     return 
 
 
 
 def timestampsToBpm(timestamps16th, stepDuration):
     startTime = time.time()
+    timestamps16th.sort(reverse = True)
+    timestamp = timestamps16th.pop()
+    #while timestampstobpm is activated, watch the current time. use it to calculate the time until the next time stamp
+    #if the next timestamp is equal to the current time, check if theres any items in the timestamp16th list, if so
+    #play sample. else return.
     while True:
-        currentTime = time.time()
-        # for currentTimeStamp in timestamps16th:
-            # print(currentTimeStamp * 60, "hello")
-        for timestamp in timestamps16th:
+            # hij pakt constant dingen uit de lijst, je wilt wachten totdat hij voorbij de nxttimestamp is voor hij een nieuw variabel pakt uit timestamps16
+        for x in range(len(timestamps16th)+1):
+            currentTime = time.time()
             nxtTimeStamp = stepDuration * timestamp
-            print("nextStepInTime: ",stepDuration * timestamp)
-        if(currentTime - startTime == nxtTimeStamp):
-                # print("doing stuff")
-            playobj = wave_obj.play()
-            time.sleep(0.01)
-        elif(currentTime >= startTime * stepDuration*12):
-            return
+            if(currentTime - startTime >= nxtTimeStamp):
+                
+                print("timestamp: ",timestamp)
+                wave_obj.play()
+                time.sleep(0.1)
+                
+
+
+                if (timestamps16th):
+                    timestamp = timestamps16th.pop()
+                elif (len(timestamps16th) == 0):
+                    return
+                else:
+                        time.sleep(0.01)  
+            else:
+                time.sleep(0.01)
+                
+            # if(len(timestamps16th) == 0):
+            #     # time.sleep(1)
+            #     return
+                
+            
+        # elif(currentTime >= stepDuration*12):
+        #     print("done")
 
                 
     

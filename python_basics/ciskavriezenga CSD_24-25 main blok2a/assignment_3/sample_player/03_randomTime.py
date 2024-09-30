@@ -30,17 +30,22 @@ samples = [sa.WaveObject.from_wave_file("python_basics/ciskavriezenga CSD_24-25 
 # create a list to hold the timeIntervals 0.25, 0.5, 1.0
 timeIntervals = [0.25, 0.5, 1]
 noteDur = []
-notes = int
+notes = float
 
 
 bpm = 60/int(input("bpm: "))
 print(bpm)
 
-for index, notes in enumerate(timeIntervals):
+for index in range(len(timeIntervals)): 
+  # enumerate(timeIntervals)
+  print(timeIntervals)
+  # timeIntervals.pop()
   timeIntervals.append(timeIntervals[index] * bpm)
+  # print(timeIntervals)
 
 # play samples and wait in between (random duration)
-def sampleplayer():
+def samplePlayer(samples, timeIntervals):
+  print("imdoingsomethingrn")
   for sample in samples:
     print(sample)
     sample.play()
@@ -56,4 +61,4 @@ def sampleplayer():
     time.sleep(timeIntervals[randomIndex])
 
 
-sampleplayer()
+samplePlayer(samples,timeIntervals)

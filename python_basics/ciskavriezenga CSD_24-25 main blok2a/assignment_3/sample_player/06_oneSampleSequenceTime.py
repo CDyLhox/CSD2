@@ -16,6 +16,9 @@ We will trigger events based on a timestamp.
     Why is this a more accurate method then the methods used in the examples
     "04_randomNoteDuration.py" and "05_oneSampleSequenceSteps.py"?
     Notate your answer below this line (Dutch is allowed)!
+    
+    the reason is that using time sleep can be unreliable thanks to other processes being run on your computer at the same 
+    time as python. time.time compares timestamps using your internal clock which is way more reliable
 
 - Alter the code:
   Currently one sample is played. Add another sample to the script.
@@ -37,7 +40,8 @@ import random
 
 # load 1 audioFile and store it into a list
 # note: using a list taking the next step into account: using multiple samples
-samples = [sa.WaveObject.from_wave_file("../audioFiles/Pop.wav")]
+samples = [sa.WaveObject.from_wave_file("python_basics/ciskavriezenga CSD_24-25 main blok2a/assignment_3/audioFiles/Pop.wav"),
+           sa.WaveObject.from_wave_file("/Users/dylan/Cage/CSD2/python_basics/ciskavriezenga CSD_24-25 main blok2a/assignment_3/audioFiles/Dog2.wav")]
 
 bpm = 120
 quarterNoteDuration = 60 / bpm
@@ -60,24 +64,31 @@ for timestamp in timestamps16th:
 # NOTE: pop(0) returns and removes the element at index 0
 timestamp = timestamps.pop(0)
 
+
 # retrieve the startime: current time
 startTime = time.time()
+
+loops = int(input("how many times do you want it too loop?: "))
+currentloop = 0
 
 
 # play the sequence
 while True:
   # retrieve current time
+  print(timestamps)
   currentTime = time.time()
 
   # check whether the current time is beyond the timestamp's time,
   # meaning it is time to play the sample
   if(currentTime - startTime >= timestamp):
-    samples[0].play()
+    print("hoi")
+    samples[random.randint(0,1)].play()
 
     # if there are timestamps left in the timestamps list
-    if timestamps:
+    if currentloop < loops:
       # retrieve the next timestamp
-      timestamp = timestamps.pop(0)
+      timestamp = timestamps[currentloop]
+      currentloop += 1
     else:
       # list is empty, stop the loop
       break

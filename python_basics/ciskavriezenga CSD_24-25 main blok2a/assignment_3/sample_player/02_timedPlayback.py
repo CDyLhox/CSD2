@@ -18,16 +18,23 @@ pause in between.
 
 import simpleaudio as sa
 import time
+import random
 
 # load audio files into a list
-samples = [ sa.WaveObject.from_wave_file("../audioFiles/Pop.wav"),
-            sa.WaveObject.from_wave_file("../audioFiles/Laser1.wav"),
-            sa.WaveObject.from_wave_file("../audioFiles/Dog2.wav")]
+samples = [ sa.WaveObject.from_wave_file("python_basics/ciskavriezenga CSD_24-25 main blok2a/assignment_3/audioFiles/Pop.wav"),
+            sa.WaveObject.from_wave_file("python_basics/ciskavriezenga CSD_24-25 main blok2a/assignment_3/audioFiles/Laser1.wav"),
+            sa.WaveObject.from_wave_file("python_basics/ciskavriezenga CSD_24-25 main blok2a/assignment_3/audioFiles/Dog2.wav")]
 
 
 # play samples, wait 1 second in between
-for sample in samples:
-  print(sample) # display the sample object
-  sample.play() # play sample
-  time.sleep(1) # wait 1 second
+def sampleplayer():
+  for x in range(int(input("how many times do you want the samples to play? "))):   
+    for sample in samples:
+      print(sample) # display the sample object
+      sample.play() # play sample
+      time.sleep(random.random()) # wait 1 second
+      print("mmmm")
+  print("mmmmmmmmmmmmmmmmmyes im done")
+    
 
+sampleplayer()

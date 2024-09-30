@@ -8,8 +8,8 @@ import spacy
 nlp = spacy.load("nl_core_news_sm")
 
 # Define the paths for the audio file and the output folders
-audio_file_path = "/Users/dylan/Cage/Interviews/MoNOburger.wav"
-output_base_folder = "/Users/dylan/Library/Mobile Documents/com~apple~CloudDocs/Documents/wacko weirdo/turfolder/AUDIOCAT/pos_categorized"
+audio_file_path = "/Users/dylan/Cage/Interviews/monoPeerten.wav"
+output_base_folder = "/Users/dylan/Cage/AUDIOCAT/pos_categorised_peerTen"
 
 # Load your Vosk model (make sure it's downloaded)
 model = Model("/Users/dylan/Cage/CageDotLog/LANGMODEL/vosk-model-small-nl-0.22")

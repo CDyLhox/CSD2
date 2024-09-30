@@ -35,20 +35,52 @@ sampleMid = sa.WaveObject.from_wave_file("python_basics/ciskavriezenga CSD_24-25
 sampleLow = sa.WaveObject.from_wave_file("python_basics/ciskavriezenga CSD_24-25 main blok2a/assignment_3/audioFiles/Dog2.wav")
 
 playAmount = 2
-for i in range(playAmount):
-  match i + 1:
-    case 1:
-      print("coincident")
+
+
+print("playSound.py. Samples loading")
+for i in range(3):
+  print("loading samples...")
+  time.sleep(0.5)
+print("samples [sampleHigh, sampleMid, sampleLow] LOADED")
+print("loading sampler:")
+
+
+match input("hi there, nice of you to come. which sample would you like this time?: "):
+  case "sampleHigh":
       # play high sample
       sampleHighPlay = sampleHigh.play()
-      # play mid sample
+      sampleHighPlay.wait_done()
+      
+  case "sampleMid":
+      # play high sample
       sampleMidPlay = sampleMid.play()
-      # play low sample
+      sampleMidPlay.wait_done()
+      
+  case "sampleLow":
+      # play high sample
       sampleLowPlay = sampleLow.play()
       sampleLowPlay.wait_done()
-      time.sleep(1)
-    case 2:
-      print("seperate")
+  case _:
+    print("doodookaka")
+
+    
+  
+
+
+for i in range(playAmount): #coincidental playback and back to back
+  # match i + 1:
+    # case 1:
+      # print("coincident")
+      # # play high sample
+      # sampleHighPlay = sampleHigh.play()
+      # # play mid sample
+      # sampleMidPlay = sampleMid.play()
+      # # play low sample
+      # sampleLowPlay = sampleLow.play()
+      # sampleLowPlay.wait_done()
+      # time.sleep(1)
+    # case 2:
+    #   print("seperate")
       # play high sample
       sampleHighPlay = sampleHigh.play()
       # wait till sample is done playing
