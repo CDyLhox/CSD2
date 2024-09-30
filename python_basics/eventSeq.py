@@ -2,13 +2,15 @@ import simpleaudio as sa
 import time
 import random
 
-kick = sa.WaveObject.from_wave_file("/Users/dylan/Desktop/file wavs:mp3/noise import/samples/drum samples/cropped/kick.wav")
-snare = sa.WaveObject.from_wave_file("/Users/dylan/Desktop/file wavs:mp3/noise import/samples/drum samples/cropped/snare.wav")
-ride = sa.WaveObject.from_wave_file("/Users/dylan/Desktop/file wavs:mp3/noise import/samples/drum samples/cropped/ride.wav")
+kick = sa.WaveObject.from_wave_file("/Users/dylan/Cage/localsample/kick.wav")
+snare = sa.WaveObject.from_wave_file("/Users/dylan/Cage/localsample/snare.wav")
+ride = sa.WaveObject.from_wave_file("/Users/dylan/Cage/localsample/ride.wav")
 
 instruments = [kick, snare, ride]
 
 numOfEvents = int(input("how many total events? "))
+quarterNoteDur = 60/int(input("what bpm? "))
+stepDuration  = quarterNoteDur 
 totNumEvents = []
 numKick = 4
 numSnare = 6
@@ -27,12 +29,16 @@ instrument = sa.WaveObject
 velocity = int
 duration = int 
 
+
+
+# qnSequence = [1.5, 1, 1, 0.5]
+
 def eventGen():
     for i in range(numKick):
         kickEvents.append(int)
         
         kickEvents[i] = {
-            'timestamp': 10 + i,
+            'timestamp':  1 + i,
             'instrumentName': "kick",
             'instrument': instruments[0],
             'velocity': 82 * 10, 
@@ -42,7 +48,7 @@ def eventGen():
         snareEvents.append(int)
         
         snareEvents[i] = {
-            'timestamp': 10 + i,
+            'timestamp':  1+ (i*2),
             'instrumentName': "snare",
             'instrument': instruments[1],
             'velocity': 82 * 10, 
@@ -52,7 +58,7 @@ def eventGen():
         rideEvents.append(int)
         
         rideEvents[i] = {
-            'timestamp': 10 + i,
+            'timestamp':  i * random.randint(0,2),
             'instrumentName': "ride",
             'instrument': instruments[2],
             'velocity': 82 * 10, 
@@ -61,15 +67,28 @@ def eventGen():
 eventGen()
 totNumEvents = kickEvents + snareEvents + rideEvents
 
-def handleEvents():
-    print(totNumEvents)
-    random.shuffle(totNumEvents)
-    for events in range(len(totNumEvents)):
-        print(totNumEvents[events]['timestamp'])    
-        print(totNumEvents[events]['instrumentName'])    
-        print(totNumEvents[events]['instrument'])    
-        print(totNumEvents[events]['velocity'])    
-        # print(totNumEvents[events]['duration'])    
-        time.sleep(random.random())
-        totNumEvents[events]['instrument'].play()
-handleEvents()
+def getTimeStamp(totNumEvents):
+    return totNumEvents['timestamp']
+
+def handleEvents(stepDuration):
+    startTime = time.time()
+
+    totNumEvents.sort(key=getTimeStamp)
+    for y in range(len(totNumEvents)):
+        print("totnumevents, timestamp:", totNumEvents[y]['timestamp'])
+        print("totnumevents, instrument:", totNumEvents[y]['instrumentName'])
+
+    for events in range(len(totNumEvents)): 
+            currentTime = time.time()
+            
+            # print(nxtTimeStamp)
+            for x in totNumEvents:
+                nxtTimeStamp = stepDuration * totNumEvents[events]['timestamp']
+                if(currentTime - startTime >= nxtTimeStamp):
+                    print(currentTime - startTime)
+                    totNumEvents[events]['instrument'].play()
+                    time.sleep(0.1)
+                else:
+                    time.sleep(0.01)
+handleEvents(stepDuration)
+
