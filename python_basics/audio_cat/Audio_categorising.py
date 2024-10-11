@@ -8,14 +8,14 @@ import spacy
 nlp = spacy.load("nl_core_news_sm")
 
 # Define the paths for the audio file and the output folders
-audio_file_path = "/Users/dylan/Cage/Interviews/monoPeerten.wav"
-output_base_folder = "/Users/dylan/Cage/AUDIOCAT/pos_categorised_peerTen"
+audio_file_path = "/Users/dylan/Cage/Interviews/NORMAL/1monozo.wav"
+output_base_folder = "/Users/dylan/Cage/1AUDIOCATN/pos_categorised_zoe"
 
 # Load your Vosk model (make sure it's downloaded)
 model = Model("/Users/dylan/Cage/CageDotLog/LANGMODEL/vosk-model-small-nl-0.22")
 
 # Transcribe the audio with word-level timestamps
-def transcribe_audio_with_timestamps(audio_file):
+def transcribe_audio_with_timestamps(audio_file):   
     audio = AudioSegment.from_wav(audio_file)  # Load audio file
     recognizer = KaldiRecognizer(model, audio.frame_rate)
     recognizer.SetWords(True)  # Enable word-level timestamps

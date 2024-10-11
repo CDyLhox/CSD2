@@ -24,71 +24,78 @@ numRide = 8
 kickEvents = []
 snareEvents = []
 rideEvents = []
+
+kickDurations = [1, 0.5 ,0.75 ,0.5 ,0.25 ,1]
+snareDurations = [1, 0.5 ,0.5 ,1 ,0.25 ,0.5]
+rideDurations = [1,1,1,1,0.5,1,1,1]
+durations = [kickDurations, snareDurations, rideDurations]
+numInstruments = 3
+
+
 timestamp = 0
 instrumentName = ""
 instrument = sa.WaveObject
 velocity = int
 duration = int 
+stamps = []
 
 
+def durationsToTimestamps16th(durations):
+    for i in range(numInstruments):
+        cumulative_timestamp = 0
+        stamps.clear()  # Clear the stamps list for each instrument
+        for currentstamp in range(len(durations[i])):
+            cumulative_timestamp += float(durations[i][currentstamp] * quarterNoteDur)
+            stamps.append(cumulative_timestamp)
+        durations[i] = stamps.copy()
+    return durations
 
-# qnSequence = [1.5, 1, 1, 0.5]
+durationsToTimestamps16th(durations)
 
-def eventGen():
+def eventGen(durations):
     for i in range(numKick):
-        kickEvents.append(int)
-        
-        kickEvents[i] = {
-            'timestamp':  1 + i,
+        kickEvents.append({
+            'timestamp': durations[0][i],
             'instrumentName': "kick",
             'instrument': instruments[0],
-            'velocity': 82 * 10, 
-            # 'duration': 500 * 10  
-        }
+            'velocity': 82 * 10
+        })
     for i in range(numSnare):
-        snareEvents.append(int)
-        
-        snareEvents[i] = {
-            'timestamp':  1+ (i*2),
+        snareEvents.append({
+            'timestamp': durations[1][i],
             'instrumentName': "snare",
             'instrument': instruments[1],
-            'velocity': 82 * 10, 
-            # 'duration': 500 * 10  
-        }
+            'velocity': 82 * 10
+        })
     for i in range(numRide):
-        rideEvents.append(int)
-        
-        rideEvents[i] = {
-            'timestamp':  1+ (i * random.randint(0,2)),
+        rideEvents.append({
+            'timestamp': durations[2][i],
             'instrumentName': "ride",
             'instrument': instruments[2],
-            'velocity': 82 * 10, 
-            # 'duration': 500 * 10  
-        }
-eventGen()
+            'velocity': 82 * 10
+        })
+eventGen(durations)
 totNumEvents = kickEvents + snareEvents + rideEvents
+print(totNumEvents)
 
 def getTimeStamp(totNumEvents):
     return totNumEvents['timestamp']
 
+            
 def handleEvents(stepDuration, loops):
-    startTime = time.time()
-
     totNumEvents.sort(key=getTimeStamp)
 
     for loop in range(loops):
-        for events in range(len(totNumEvents)): 
-            currentTime = time.time()
-            nxtTimeStamp = stepDuration * (totNumEvents[events]['timestamp'] * loop)
-            
-            print("1 calc: ",currentTime - startTime)
-            print(nxtTimeStamp)
-
-            timeToWait = nxtTimeStamp - (currentTime - startTime)
-        
+        startTime = time.time()
+        print(loop )
+        print("-loop")
+        current_timestamp = 0
+        for event in totNumEvents:
+            current_timestamp += stepDuration
+            timeToWait = current_timestamp - (time.time() - startTime)
             if timeToWait > 0:
                 time.sleep(timeToWait)
-            totNumEvents[events]['instrument'].play()
+            event['instrument'].play()
 
 handleEvents(stepDuration, loops)
 
