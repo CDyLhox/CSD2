@@ -1,17 +1,22 @@
 import simpleaudio as sa
 import time
+import threading
 import random
 
 kick = sa.WaveObject.from_wave_file("/Users/dylan/Cage/localsample/kick.wav")
 snare = sa.WaveObject.from_wave_file("/Users/dylan/Cage/localsample/snare.wav")
 ride = sa.WaveObject.from_wave_file("/Users/dylan/Cage/localsample/ride.wav")
+#test sounds
+kick = sa.WaveObject.from_wave_file("/Users/dylan/Desktop/file wavs:mp3/noise import/samples/piano beneden (9dec)/note 13.wav")
+snare = sa.WaveObject.from_wave_file('/Users/dylan/Desktop/file wavs:mp3/noise import/samples/piano beneden (9dec)/note 68.wav')
+ride = sa.WaveObject.from_wave_file('/Users/dylan/Desktop/file wavs:mp3/noise import/samples/piano beneden (9dec)/note 37.wav')
 
 instruments = [kick, snare, ride]
 
 numOfEvents = int(input("how many total events? "))
 quarterNoteDur = 60/int(input("what bpm? "))
 loops = int(input("how many loops?: "))
-stepDuration  = quarterNoteDur 
+stepDuration  = quarterNoteDur / 4
 totNumEvents = []
 numKick = 4
 numSnare = 6
@@ -25,8 +30,8 @@ kickEvents = []
 snareEvents = []
 rideEvents = []
 
-kickDurations = [1, 0.5 ,0.75 ,0.5 ,0.25 ,1]
-snareDurations = [1, 0.5 ,0.5 ,1 ,0.25 ,0.5]
+kickDurations = [1,1,1,1,0.5,1,1,1]
+snareDurations = [1,1,1,1,0.5,1,1,1]
 rideDurations = [1,1,1,1,0.5,1,1,1]
 durations = [kickDurations, snareDurations, rideDurations]
 numInstruments = 3
@@ -53,6 +58,7 @@ def durationsToTimestamps16th(durations):
 durationsToTimestamps16th(durations)
 
 def eventGen(durations):
+    print(durations)
     for i in range(numKick):
         kickEvents.append({
             'timestamp': durations[0][i],
@@ -76,26 +82,59 @@ def eventGen(durations):
         })
 eventGen(durations)
 totNumEvents = kickEvents + snareEvents + rideEvents
-print(totNumEvents)
+
 
 def getTimeStamp(totNumEvents):
     return totNumEvents['timestamp']
 
+def playSample(event):
+    event['instrument'].play()
+    print(event['instrumentName'])
+
             
 def handleEvents(stepDuration, loops):
     totNumEvents.sort(key=getTimeStamp)
+    print(totNumEvents)
+    time.sleep(9)
+    print("starting")
+    time.sleep(1)
+    
+    startTime = time.time()
+    currentTime = time.time()
+    current_timestamp = 0
+    increment = 0
+    timeToWait = 0
+    while increment/numOfEvents*2 < loops:
+        # for loop in range(loops):
+            # print(loop )
+            # print("-loop")
+            #kijken naar de volgende timestamp en wachten met miliseconden totdat die timestamp of voorbij is of huidig is
+            #kijk naar de single_sample_sequencer...
+        # for event in totNumEvents:
+            event = totNumEvents[increment]
+            
+            currentTime = time.time()
+            # print(timeToWait)
+            
 
-    for loop in range(loops):
-        startTime = time.time()
-        print(loop )
-        print("-loop")
-        current_timestamp = 0
-        for event in totNumEvents:
-            current_timestamp += stepDuration
-            timeToWait = current_timestamp - (time.time() - startTime)
-            if timeToWait > 0:
-                time.sleep(timeToWait)
-            event['instrument'].play()
+            if((currentTime - startTime) >= event['timestamp']):
+                # print("timetowait: ",timeToWait)
+                # print("current_timestamp: ",current_timestamp)
+                # print(timeToWait, " time to wait")
+                print("whatthedog: ")
+                playSample(event)
+                # print(event['instrumentName'])
+                # print(event['timestamp'], "timestamp of event")
+                increment+=1
+                # if(event['timestamp'] >= current_timestamp):
+                #     print("new timestamp")
+                #     current_timestamp += stepDuration
+                #     timeToWait = current_timestamp + (currentTime - startTime)
+                # else:
+                #     time.sleep(0.01)
+
+            else:
+                time.sleep(0.001)
 
 handleEvents(stepDuration, loops)
 
