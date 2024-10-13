@@ -3,9 +3,9 @@ import time
 import threading
 import random
 
-kick = sa.WaveObject.from_wave_file("python_basics/EINDOPDRACHT/samp/kick.wav")
-snare = sa.WaveObject.from_wave_file("python_basics/EINDOPDRACHT/samp/snare.wav")
-ride = sa.WaveObject.from_wave_file("python_basics/EINDOPDRACHT/samp/ride.wav")
+kick = sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/kick.wav")
+snare = sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/snare.wav")
+ride = sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/ride.wav")
 #test sounds
 # kick = sa.WaveObject.from_wave_file("/Users/dylan/Desktop/file wavs:mp3/noise import/samples/piano beneden (9dec)/note 13.wav")
 # snare = sa.WaveObject.from_wave_file('/Users/dylan/Desktop/file wavs:mp3/noise import/samples/piano beneden (9dec)/note 68.wav')
@@ -49,9 +49,9 @@ while (not correctInput):
         # empty string --> use default
         correctInput = True
     elif(user_loops == "whatthedog"): 
-        kick = sa.WaveObject.from_wave_file("python_basics/EINDOPDRACHT/samp/woof.wav")
-        snare = sa.WaveObject.from_wave_file("python_basics/EINDOPDRACHT/samp/miawu.wav")
-        ride = sa.WaveObject.from_wave_file("python_basics/EINDOPDRACHT/samp/0miawu.wav")
+        kick = sa.WaveObject.from_wave_file("python_basics/Ffoldersamp/woof.wav")
+        snare = sa.WaveObject.from_wave_file("python_basics/Ffoldersamp/miawu.wav")
+        ride = sa.WaveObject.from_wave_file("python_basics/Ffoldersamp/0miawu.wav")
         instruments = [kick, snare, ride]
         print("what dog?")
         loops = 10000000
