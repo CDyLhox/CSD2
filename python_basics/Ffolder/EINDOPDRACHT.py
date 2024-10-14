@@ -49,9 +49,9 @@ while (not correctInput):
         # empty string --> use default
         correctInput = True
     elif(user_loops == "whatthedog"): 
-        kick = sa.WaveObject.from_wave_file("python_basics/Ffoldersamp/woof.wav")
-        snare = sa.WaveObject.from_wave_file("python_basics/Ffoldersamp/miawu.wav")
-        ride = sa.WaveObject.from_wave_file("python_basics/Ffoldersamp/0miawu.wav")
+        kick = sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/woof.wav")
+        snare = sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/miawu.wav")
+        ride = sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/0miawu.wav")
         instruments = [kick, snare, ride]
         print("what dog?")
         loops = 10000000
@@ -105,6 +105,28 @@ def durationsToTimestamps16th(durations):
     return durations
 durationsToTimestamps16th(durations)
 
+def eucliRyGen(): #euclidean rhythm generation
+    numPulses = 8
+    numNotes = 4
+    sequence = []
+    restValue = 0
+    dur = int
+    
+    dur = numPulses/numNotes
+    
+    for i in range(numNotes):
+        sequence.append(dur*i+(dur*restValue))
+        #fill sequence list with the nteDuration times "for"
+        #if theres a restvalue  given then all sequence durations plus one step len
+    for i in range(numPulses-numNotes):
+        sequence.append("rest")
+    print(sequence)
+    
+    durations = [kickDurations, snareDurations, rideDurations]
+eucliRyGen()
+
+
+
 def eventGen(durations):
     print(durations)
     for i in range(len(kickDurations)):
@@ -157,13 +179,11 @@ def handleEvents(currentLoop, loops):
             event = totNumEvents[increment]
             currentTime = time.time()
             if((currentTime - startTime) >= event['timestamp']):
-                print("whatthedog: ", currentLoop)
-                print("thisdog: ", increment)
-                print(len(totNumEvents))
+                print("whatthedog(loop): ", currentLoop+1)
                 # print(event['timestamp'])
                 playSample(event)
                 increment += 1
-                if(increment>=len(totNumEvents)-1):
+                if(increment>=len(totNumEvents)):
                     startTime = time.time()
                     increment = 0
                     currentLoop+=1
