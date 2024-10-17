@@ -1,25 +1,31 @@
 import simpleaudio as sa
 import time
-import threading
 import random
 
-kick = sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/kick.wav")
-snare = sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/snare.wav")
+kick = [sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/kick01.wav"), 
+        sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/roundkick01.wav") ]
+
+
+snare = [sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/snare.wav"),
+         sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/brushsnare01.wav"),
+         sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/brushsnare02.wav"),
+         sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/brushsnare03.wav"),
+         sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/brushsnare04.wav"),]
 ride = sa.WaveObject.from_wave_file("python_basics/Ffolder/samp/ride.wav")
 #test sounds
-# kick = sa.WaveObject.from_wave_file("/Users/dylan/Desktop/file wavs:mp3/noise import/samples/piano beneden (9dec)/note 13.wav")
-# snare = sa.WaveObject.from_wave_file('/Users/dylan/Desktop/file wavs:mp3/noise import/samples/piano beneden (9dec)/note 68.wav')
-# ride = sa.WaveObject.from_wave_file('/Users/dylan/Desktop/file wavs:mp3/noise import/samples/piano beneden (9dec)/note 37.wav')
+
 
 instruments = [kick, snare, ride]
-
+# ===== userinput =====
+# def userinput():
 correctInput = False
 # default bpm
-bpm = 120
+bpm = 190
 while (not correctInput):
     user_bpm = input("enter a bpm: ")
 
     # check if we 'received' an empty string
+    # gebaseerd op code uit voorbeelden
     if not user_bpm:
         # empty string --> use default
         print("Succeeded, bpm is: ", bpm)
@@ -37,14 +43,15 @@ while (not correctInput):
             print("Incorrect input - please enter a bpm (or enter nothing - default bpm): ")
 quarterNoteDur = 60/bpm
 
-
-
 loops = 4
 correctInput = False
+                                                                ##negatieve getallen uitfilteren.
+                                                                #zet user input in een getSettings() def. slaat de settings op in een dictionary
 while (not correctInput):
     user_loops = input("how many loops: ")
 
     # check if we 'received' an empty string
+    # gebaseerd op code uit voorbeelden
     if not user_loops:
         # empty string --> use default
         correctInput = True
@@ -68,12 +75,10 @@ while (not correctInput):
 quarterNoteDur = 60/bpm
 currentLoop = 0
 stepDuration  = quarterNoteDur / 4
+    # return currentLoop, stepDuration
 totNumEvents = []
 
-# user input 
-# numKick = int(input('how many kicks? '))
-# numSnare = int(input('how many snares? '))
-# numRide = int(input('how many ride? '))
+
 
 kickEvents = []
 snareEvents = []
@@ -87,12 +92,34 @@ numInstruments = 3
 
 
 timestamp = 0
-instrumentName = ""
+
 instrument = sa.WaveObject
 velocity = int
 duration = int 
 stamps = []
 
+# ===== Generate euclidean pattern and turn durations to 16th notes with bpm =====
+def eucliRyGen(durations): #euclidean rhythm generation
+    numPulses = int(input("how many pulses? "))
+    for o in range(3):
+        instrumentnames = ["kick","snare","ride"]
+        numNotes = int(input(f"how many {instrumentnames[o]} notes? "))
+        sequence = []
+        dur = int
+        restValue = int
+        
+        dur = int(numPulses/numNotes)
+        sequence = [dur]*numNotes
+        for i in range(numNotes):
+            sequence[i] = dur
+            #dur*i+(dur*restValue)
+        restValue = numPulses - (numNotes * dur)
+        for u in range(round(restValue)):
+            sequence[u]+= 1
+        durations[o] = sequence.copy()
+        print(sequence)
+    return(durations)
+eucliRyGen (durations)
 
 def durationsToTimestamps16th(durations):
     for i in range(numInstruments):
@@ -105,92 +132,82 @@ def durationsToTimestamps16th(durations):
     return durations
 durationsToTimestamps16th(durations)
 
-def eucliRyGen(): #euclidean rhythm generation
-    numPulses = 8
-    numNotes = 4
-    sequence = []
-    restValue = 0
-    dur = int
-    
-    dur = numPulses/numNotes
-    
-    for i in range(numNotes):
-        sequence.append(dur*i+(dur*restValue))
-        #fill sequence list with the nteDuration times "for"
-        #if theres a restvalue  given then all sequence durations plus one step len
-    for i in range(numPulses-numNotes):
-        sequence.append("rest")
-    print(sequence)
-    
-    durations = [kickDurations, snareDurations, rideDurations]
-eucliRyGen()
 
-
+#===== Generate events =====
 
 def eventGen(durations):
+    #may be duplicate code! 
+    velo = 100
     print(durations)
-    for i in range(len(kickDurations)):
+    for i in range(len(durations[0])):
+        print(durations[0], "kicks")
         kickEvents.append({
             'timestamp': durations[0][i],
             'instrumentName': "kick",
-            'instrument': instruments[0],
-            'velocity': 82 * 10
+            'instrument': instruments[0][random.randint(0,1)],
+            'velocity': velo
         })
-    for i in range(len(snareDurations)):
+    for i in range(len(durations[1])):
         snareEvents.append({
             'timestamp': durations[1][i],
             'instrumentName': "snare",
-            'instrument': instruments[1],
-            'velocity': 82 * 10
+            'instrument': instruments[1][random.randint(0,4)],
+            'velocity': velo
         })
-    for i in range(len(rideDurations)):
+    for i in range(len(durations[2])):
         rideEvents.append({
             'timestamp': durations[2][i],
             'instrumentName': "ride",
             'instrument': instruments[2],
-            'velocity': 82 * 10
+            'velocity': velo
         })
 eventGen(durations)
 
+
+
+
+# ===== playsample, sort eventtimestamps, and handleevents =====
 totNumEvents = kickEvents + snareEvents + rideEvents
-def getTimeStamp(totNumEvents):
-    return totNumEvents['timestamp']
+
 def playSample(event):
     event['instrument'].play()
-    print(event['instrumentName'])       
+    print(event['instrumentName'])
+    
+def getTimeStamp(totNumEvents):
+    return totNumEvents['timestamp']
+           
 def handleEvents(currentLoop, loops):
     totNumEvents.sort(key=getTimeStamp)
-    print("dog")
     
     startTime = time.time()
     currentTime = time.time()
-    current_timestamp = 0
-    increment = 1
-    timeToWait = 0
+    increment = 0
+    
 
     while True:
-
+            
             #kijken naar de volgende timestamp en wachten met miliseconden totdat die timestamp of voorbij is of huidig is
             #kijk naar de single_sample_sequencer...
-            
-            
-            #okay so the issue right now is that using Len(durations) gives a length of 3 instaid of 24
-            #because the list is filled with 3 lists.
             event = totNumEvents[increment]
             currentTime = time.time()
             if((currentTime - startTime) >= event['timestamp']):
                 print("whatthedog(loop): ", currentLoop+1)
-                # print(event['timestamp'])
+                
                 playSample(event)
                 increment += 1
+                #if the amount of samples played is equal to the totnumevents
                 if(increment>=len(totNumEvents)):
                     startTime = time.time()
                     increment = 0
                     currentLoop+=1
                     if(currentLoop >= loops):
-                        break
+                        if (input("would you like to repeat the loops? y/n ") == "y"):
+                            startTime = time.time()
+                            currentLoop = 0
+                        else:
+                            break
             else:
-                time.sleep(0.001)
+                time.sleep(0.01)
 
 handleEvents(currentLoop, loops)
 

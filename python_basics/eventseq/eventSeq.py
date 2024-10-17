@@ -26,7 +26,7 @@ while (not correctInput):
         correctInput = True
     elif(user_bpm =="whatthedog"):
         print("whatdog?")
-        bpm = 30
+        bpm = 999
         correctInput = True
     else:
         try:
