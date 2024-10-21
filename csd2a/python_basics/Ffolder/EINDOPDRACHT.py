@@ -96,19 +96,8 @@ while prompt == "y":
                 print("Incorrect input - please amountofloops (or enter nothing - default): ")
     currentLoop = 0
 
-
-
-
-
-
-
-
- 
-
     # ===== Generate euclidean pattern and turn durations to 16th notes with bpm =====
-    
-    
-   
+
     totNumEvents = []
     durations = [[],[],[]]
     def eucliRyGen(durations): #euclidean rhythm generation
@@ -162,12 +151,9 @@ while prompt == "y":
             print(f"{instrumentnames[i]}sequence: ", sequence)
         return (durations, rotation)
     durations, rotation = eucliRyGen(durations)
-    
-
 
     initDur = [[],[],[]]
     stamps = [[],[],[]]
-
 
     def durationsToTimestamps16th(durations, rotation, quarterNoteDur):
         for i in range(len(durations)):
@@ -183,8 +169,6 @@ while prompt == "y":
 
     durationsToTimestamps16th(durations, rotation, quarterNoteDur)
     print("initial duration: ", initDur)
-
-
 
     #===== Generate events =====
     kickEvents = []
@@ -220,11 +204,7 @@ while prompt == "y":
     eventGen(stamps, initDur)
     totNumEvents = kickEvents + snareEvents + rideEvents
 
-
-
-
     # ===== playsample, sort eventtimestamps, midiExport, and handleevents =====
-
 
     def playSample(event):
         event['instrument'].play()
@@ -236,7 +216,6 @@ while prompt == "y":
     def midiExport(bpm, quarterNoteDur, userFileName):
         track = 0
         channel = 9
-        
         
         mf = MIDIFile(1)
         time_beginning = 0
