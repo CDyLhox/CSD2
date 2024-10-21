@@ -16,7 +16,7 @@ from midiutil import MIDIFile
         #swing toevoegen
 
 
-prompt = input("would you like to run the program? y/n ")  
+prompt = 'y'
 while prompt == "y":  
     kick = [sa.WaveObject.from_wave_file("csd2a/python_basics/Ffolder/samp/kick01.wav"), 
             sa.WaveObject.from_wave_file("csd2a/python_basics/Ffolder/samp/roundkick01.wav") ]
