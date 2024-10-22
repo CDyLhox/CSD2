@@ -32,11 +32,12 @@ while prompt == "y":
 
 
     # ===== userinput =====
+    
     #--loopinput--
     correctInput = False
     bpm = 190
     while (not correctInput):
-        user_bpm = input("enter a bpm: ")
+        user_bpm = input(f"bpm = {bpm}, enter a bpm: ")
 
 
         # gebaseerd op code uit voorbeelden
@@ -47,7 +48,9 @@ while prompt == "y":
         elif(user_bpm =="whatthedog"):
             print("whatdog?")
             bpm = 30
-            correctInput = True            
+            correctInput = True       
+        elif bpm > 400 or bpm <= 0:
+            print("incorrect input - please enter a bpm between 1 and 400")     
         else:
             try:
                 bpm = float(user_bpm)
@@ -55,8 +58,6 @@ while prompt == "y":
                 print("Succes, bpm is: ", bpm)
                 if(bpm < 100):
                     print("its your funeral buddy ")
-            except bpm > 400 or bpm <= 0:
-                print("incorrect input - please enter a bpm between 1 and 400")
             
             except ValueError:
                 print("Incorrect input - please enter a bpm (or enter nothing - default bpm): ")
@@ -66,7 +67,7 @@ while prompt == "y":
     loops = 4
     correctInput = False
     while (not correctInput):
-        user_loops = input("how many loops: ")
+        user_loops = input(f"how many loops (currently: {loops} loops): ")
 
         # check if we 'received' an empty string
         # gebaseerd op code uit voorbeelden
@@ -85,14 +86,14 @@ while prompt == "y":
             print(loops)
             time.sleep(1)
             correctInput = True
+        elif loops < 0:
+            print("incorrect input - please enter valid loopamounts (or enter nothing - 4 loops): ")
         else:
             try:
                 loops = float(user_loops)
                 print(f"succes, amount of loops is now: {loops}")
                 correctInput = True
-            except loops < 0:
-                print("incorrect input - please enter valid loopamounts (or enter nothing - 4 loops): ")
-            except:
+            except ValueError:
                 print("Incorrect input - please amountofloops (or enter nothing - default): ")
     currentLoop = 0
 
@@ -102,10 +103,10 @@ while prompt == "y":
     durations = [[],[],[]]
     def eucliRyGen(durations): #euclidean rhythm generation
         try:
-            numPulses = int(input("how many pulses? "))
+            numPulses = int(input("how many pulses? (or random): "))
         except ValueError:
-            print("wrong.. numPuslses is now 9")
-            numPulses = 9
+            numPulses = random.randint(3,17)
+            print(f"wrong.. numPuslses is now {numPulses}")
             
         #does the user want rotatation input
         rotationInput = str(input("would you like to enter rotations? y/n "))
@@ -237,13 +238,14 @@ while prompt == "y":
             with open(f'csd2a/python_basics/Ffolder/midiOut/{userFileName}.midi','wb') as outf:
                 mf.writeFile(outf)
         else:
-            with open('csd2a/python_basics/Ffolder/midiOut/Whatadogsequencer.midi','wb') as outf:
+            with open('csd2a/python_basics/Ffolder/midiOut/Whatacatsequencer.midi','wb') as outf:
                 mf.writeFile(outf)
         print("file saved as", userFileName)
             
     
     def handleEvents(currentLoop, loops, totNumEvents):
         totNumEvents.sort(key=getTimeStamp)
+        print(totNumEvents)
 
         
         startTime = time.time()
@@ -277,7 +279,7 @@ while prompt == "y":
                                     ufn = input("what filename would you like to save the midi file?: ")
                                     userFileName = ufn
                                 except ValueError:
-                                    print("wrong filename... whatadogsequencer.midi")
+                                    print("wrong filename... whatacatsequencer.midi")
                                 midiExport(bpm, quarterNoteDur, userFileName)
                                 print("okbye")
                                 break
