@@ -1,8 +1,7 @@
-ciskavriezenga CSD_24-25 main blok2a/
-ciskavriezenga CSD_24-25 main blok2a-session4/
-csd2a/DSP/fir.py
-csd2a/DSP/iir.py
-csd2a/DSP/iirW.py
-csd2a/DSP/firW.py
-csd2a/DSP/delay_line.py
-csd2a/python_basics/gitignore/event_lists_to_midi.py
+*.midi
+*.wav
+
+
+gitignore/
+
+presentaties/
