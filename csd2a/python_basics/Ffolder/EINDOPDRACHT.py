@@ -32,9 +32,20 @@ while prompt == "y":
 
 
     # ===== userinput =====
+    class bcolors:
+        HEADER = '\033[95m'
+        OKBLUE = '\033[94m'
+        OKCYAN = '\033[96m'
+        OKGREEN = '\033[92m'
+        WARNING = '\033[93m'
+        FAIL = '\033[91m'
+        ENDC = '\033[0m'
+        BOLD = '\033[1m'
+        UNDERLINE = '\033[4m'
     
     #--loopinput--
     correctInput = False
+    
     bpm = 190
     while (not correctInput):
         user_bpm = input(f"bpm = {bpm}, enter a bpm: ")
@@ -43,24 +54,24 @@ while prompt == "y":
         # gebaseerd op code uit voorbeelden
         if not user_bpm:
             # empty string --> use default
-            print("Succes, bpm is: ", bpm)
+            print(f"{bcolors.OKGREEN}Succes, bpm is:  {bpm}{bcolors.ENDC}")
             correctInput = True
         elif(user_bpm =="whatthedog"):
-            print("whatdog?")
+            print(f"{bcolors.WARNING}whatdog?{bcolors.ENDC}")
             bpm = 30
             correctInput = True       
-        elif bpm > 400 or bpm <= 0:
-            print("incorrect input - please enter a bpm between 1 and 400")     
+        elif int(user_bpm) > 400 or int(user_bpm) <= 0:
+            print(f"{bcolors.FAIL}incorrect input - please enter a bpm between 1 and 400 {bcolors.ENDC}")   
         else:
             try:
                 bpm = float(user_bpm)
                 correctInput = True
-                print("Succes, bpm is: ", bpm)
+                print(f"{bcolors.OKGREEN}Succes, bpm is: {bpm}{bcolors.ENDC}")
                 if(bpm < 100):
-                    print("its your funeral buddy ")
+                    print(f"{bcolors.OKBLUE}its your funeral buddy.. {bcolors.ENDC}")
             
             except ValueError:
-                print("Incorrect input - please enter a bpm (or enter nothing - default bpm): ")
+                print(f"{bcolors.FAIL}Incorrect input - please enter a bpm (or enter nothing - default bpm): {bcolors.ENDC}")
     quarterNoteDur = 60/bpm
     stepDuration  = quarterNoteDur / 4
     #--loopinput--
@@ -74,7 +85,7 @@ while prompt == "y":
         if not user_loops:
             # empty string --> use default
             correctInput = True
-            print(f"succes, amount of loops is now: {loops}")
+            print(f"{bcolors.OKGREEN}succes, amount of loops is now: {loops}{bcolors.ENDC}")
         elif(user_loops == "whatthedog"): 
             kick.append(sa.WaveObject.from_wave_file("csd2a/python_basics/Ffolder/samp/woof.wav"))
             snare.append(sa.WaveObject.from_wave_file("csd2a/python_basics/Ffolder/samp/miawu.wav"))
@@ -106,7 +117,7 @@ while prompt == "y":
             numPulses = int(input("how many pulses? (or random): "))
         except ValueError:
             numPulses = random.randint(3,17)
-            print(f"wrong.. numPuslses is now {numPulses}")
+            print(f"{bcolors.FAIL}wrong..{bcolors.ENDC} {bcolors.OKGREEN}numPuslses is now {numPulses}{bcolors.ENDC}")
             
         #does the user want rotatation input
         rotationInput = str(input("would you like to enter rotations? y/n "))
@@ -273,16 +284,14 @@ while prompt == "y":
                             startTime = time.time()
                             currentLoop = 0
                         elif (input("would you like to save midi file? y/n ") == "y"):
-                            y = True
-                            if y == True:
-                                try:
-                                    ufn = input("what filename would you like to save the midi file?: ")
-                                    userFileName = ufn
-                                except ValueError:
-                                    print("wrong filename... whatacatsequencer.midi")
-                                midiExport(bpm, quarterNoteDur, userFileName)
-                                print("okbye")
-                                break
+                            try:
+                                ufn = input("what filename would you like to save the midi file?: ")
+                                userFileName = ufn
+                            except ValueError:
+                                print("wrong filename... whatacatsequencer.midi")
+                            midiExport(bpm, quarterNoteDur, userFileName)
+                            print("okbye")
+                            break
                         else:
                             print("okbye")
                             break
