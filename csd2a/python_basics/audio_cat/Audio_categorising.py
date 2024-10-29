@@ -1,3 +1,4 @@
+#!!!!!!!!!!!!!DISCLAIMER: code by chatgpt!!!!!!!!!!!!!!!!
 import os
 from pydub import AudioSegment
 from vosk import Model, KaldiRecognizer
