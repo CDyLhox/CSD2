@@ -10,16 +10,16 @@ public:
         if (instrumentName == "gitare")
         {
             cout << "ah yeah nice." << endl;
-            string Sound = "pling";
+            Sound = "pling";
         }
         else if (instrumentName == "bass")
         {
             cout << "alright play that thing." << endl;
-            string Sound = "bong";
+            Sound = "bong";
         }
         else
         {
-            string Sound = "not a valid input";
+            Sound = "not a valid input";
         }
     }
     void play()
@@ -35,10 +35,7 @@ public:
     }
 };
 
-// void Instrument::play(string Sound){
-//             cout << "im an instrument?" << endl;
-//             cout << Sound << endl;
-//         }
+
 
 int main()
 {
