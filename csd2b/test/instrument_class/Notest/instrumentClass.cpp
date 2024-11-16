@@ -1,9 +1,11 @@
 #include <iostream>
-using namespace std;
 
+
+using namespace std;
 class Instrument
 {
 public:
+
     string Sound;
     Instrument(string instrumentName)
     {
@@ -34,8 +36,6 @@ public:
         }
     }
 };
-
-
 
 int main()
 {
