@@ -17,6 +17,7 @@ private:
   float samplerate = 44100;
   Sine sineOsc{205, samplerate};
   Square squareOsc{220, samplerate};
+  Square bsquareOsc{221, samplerate};
   Saw sawOsc{240, samplerate};
 };
 
