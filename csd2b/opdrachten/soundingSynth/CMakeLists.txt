@@ -1,6 +1,6 @@
 project(soundingSynth VERSION 0.0.1)
 juce_add_console_app(soundingSynth PRODUCT_NAME "example")
-target_sources(soundingSynth PRIVATE main.cpp audioToFile.cpp oscillator.cpp sine.cpp square.cpp saw.cpp callback.cpp)
+target_sources(soundingSynth PRIVATE main.cpp audioToFile.cpp oscillator.cpp sine.cpp square.cpp saw.cpp callback.cpp melody.cpp synth.cpp)
 target_compile_definitions(soundingSynth PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
 
 target_link_libraries(soundingSynth

@@ -1,8 +1,8 @@
 # 1: Get JUCE'd
 Download JUCE in de top level van je CSD Repo
-```bash
+````bash
 git submodule add https://github.com/juce-framework/JUCE.git
-```
+````
 Daarna even committen
 
 # 2:  CMake Project inrichten
@@ -17,7 +17,7 @@ project(CSD LANGUAGES CXX)
 add_subdirectory(JUCE)
 add_subdirectory(csd2b)
 #add_subdirectory(csd2c)
-```
+````
 ## B: Doorlinken naar je opdrachten
 Nu even naar je csd2b mapje, zet daar ook een `CMakeLists.txt.  
 Typ daar:

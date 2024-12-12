@@ -1,33 +1,27 @@
-#include "audioToFile.h"
+/*
+  Example program that plays a simple hard coded 01_melody using a square wave oscillator
+*/
+
 #include "callback.h"
 #include <iostream>
-#include <thread>
-
-
-#define WRITE_TO_FILE 0
-
 
 int main (int argc, char** argv) {
   ScopedMessageThreadEnabler scopedMessageThreadEnabler;
-  Callback audioSource (44100);
-
-#if WRITE_TO_FILE
-  AudioToFile audioToFile;
-  audioToFile.write (audioSource);
-#else
+  Callback audioSource (44100.0f);
 
   JUCEModule juceModule (audioSource);
   juceModule.init (1, 1);
 
-  std::cout << "Press q + Enter to quit..." << std::endl;
+  std::cout << "\n\nType 'q + enter' to exit\n";
   bool running = true;
   while (running) {
     switch (std::cin.get()) {
       case 'q':
         running = false;
+        break;
     }
   }
-#endif
-  //end the program
+
   return 0;
-}  // main()
+
+}

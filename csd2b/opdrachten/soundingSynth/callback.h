@@ -2,23 +2,28 @@
 #define CALLBACK_H
 
 #include "audiocomponent.h"
-#include "sine.h"
-#include "square.h"
-#include "saw.h"
-
-class CustomCallback : public AudioCallback
+#include "melody.h"
+class Callback : public AudioCallback
 {
 public:
-  CustomCallback(float sampleRate);
+  Callback(float sampleRate);
   void prepare(int rate) override;
   void process(AudioBuffer buffer) override;
 
+  double mtof(float mPitch);
+  void updatePitch(Melody &melody);
+
 private:
   float samplerate = 44100;
-  Sine sineOsc{205, samplerate};
-  Square squareOsc{220, samplerate};
-  Square bsquareOsc{221, samplerate};
-  Saw sawOsc{240, samplerate};
+
+
+  double amplitude = 0.25;
+  int frameIndex = 0;
+
+  Melody melody;
+  synth synth;
+
+  double noteDelayFactor = 0.1;
 };
 
 #endif // CALLBACK_H

@@ -1,6 +1,7 @@
 #include "audiocomponent.h"
 //  Daan Schrier
 #include "sine.h"
+#include "square.h"
 
 struct CustomCallback : AudioCallback {
     explicit CustomCallback (double Fs) : AudioCallback(Fs) {
@@ -21,12 +22,16 @@ struct CustomCallback : AudioCallback {
         for (int channel = 0u; channel < numOutputChannels; ++channel) {
             for (int sample = 0u; sample < numFrames; ++sample) {
                 // write sample to buffer at channel 0, amp = 0.25
-                outputChannels[channel][sample] = sine.getSample();
-                sine.tick();
+                outputChannels[channel][sample] = square.getSample();
+                // outputChannels[channel][sample] = sine.getSample();
+                square.tick();
+                // sine.tick();
             }
         }
     }
+    
 
 private:
   Sine sine{440};
+  Square square{660};
 };

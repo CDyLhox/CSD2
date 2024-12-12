@@ -6,7 +6,7 @@ microcontroller::microcontroller(){
 }
 
 microcontroller::microcontroller(std::string type){
-    if(type == "yourmom"){
+    if(type == "yourmom" || type == "jemoeder"){
         std::cout << "\033[31m" << "DONT YOU DARE SPEAK HER NAME" << std::endl;
     }
     else{

@@ -28,7 +28,7 @@ public:
   ~AudioToFile();
   // TODO
   // add functionality to write a given range to file
-  void write (CustomCallback& callback);
+  void write (Callback& callback);
 
 private:
   std::unique_ptr<WriteToFile> fileWriter;

@@ -2,8 +2,10 @@
 #define _Oscillator_H_
 #include <iostream>
 
-class Oscillator {
+class Oscillator{
 public:
+  Oscillator();
+
   Oscillator (float frequency = 0, float samplerate = 44100);
   ~Oscillator();
 
