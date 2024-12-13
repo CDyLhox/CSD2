@@ -14,10 +14,15 @@ Melody::~Melody()
  */
 float Melody::getNote()
 {
+  std::cout << "im here at the melody.cpp" << std::endl;
   // wrap index back to the beginning
   if(index >= NUM_NOTES) {
     index = 0;
+    
   }
+  std::cout << index << std::endl;
+  const auto value = melody[index++];
+
   // index++ --> use value, then increment
-  return melody[index++];
+  return value;
 }
