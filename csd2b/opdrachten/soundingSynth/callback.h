@@ -3,6 +3,7 @@
 
 #include "audiocomponent.h"
 #include "melody.h"
+#include "synth.h"
 class Callback : public AudioCallback
 {
 public:
@@ -16,12 +17,11 @@ public:
 private:
   float samplerate = 44100;
 
-
   double amplitude = 0.25;
   int frameIndex = 0;
 
   Melody melody;
-  synth synth;
+  Synth synth{44100};
 
   double noteDelayFactor = 0.1;
 };

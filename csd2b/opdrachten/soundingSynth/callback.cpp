@@ -7,13 +7,15 @@ Callback::Callback(float sampleRate)
   std::cout << "Hallo CSD'er :)" << std::endl;
 }
 
-void Callback::prepare(int rate)
+void Callback::prepare(int rate) // dit is de functie om alles klaar te leggen              DIT IS DE STARTUP
 {
   samplerate = (float)rate;
+  
 
   std::cout << "\nsamplerate: " << samplerate << "\n";
 
-  updatePitch(melody);
+  updatePitch(melody); // hier een segmentation fault
+  std::cout << "i made it past the updatepitch" << std::endl;
 }
 
 void Callback::process(AudioBuffer buffer)
@@ -26,12 +28,15 @@ void Callback::process(AudioBuffer buffer)
 
   for (int channel = 0u; channel < numOutputChannels; ++channel)
   {
-    for (int sample = 0u; sample < numFrames; ++sample)
+    for (int sample = 0u; sample < numFrames; ++sample) // zet de for  channel boven de sample one en de tick buiten de channel one 
     {
       // outputChannels[channel][sample] = squareOsc.getSample() + sineOsc.getSample() + sawOsc.getSample();
       // outputChannels[channel][sample] = bsquareOsc.getSample() + squareOsc.getSample();
       outputChannels[channel][sample] = synth.getAllSamples();
       outputChannels[channel][sample] *= 0.4f;
+
+      // NIET HIER TICK VERGETEN
+      synth.tickAll();
 
       if (frameIndex >= noteDelayFactor * samplerate)
       {

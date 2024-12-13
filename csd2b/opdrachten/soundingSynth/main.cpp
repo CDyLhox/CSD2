@@ -17,7 +17,7 @@ int main (int argc, char** argv) {
 #else
 
   JUCEModule juceModule (audioSource);
-  juceModule.init (1, 1);
+  juceModule.init (2, 2);
 
   std::cout << "Press q + Enter to quit..." << std::endl;
   bool running = true;

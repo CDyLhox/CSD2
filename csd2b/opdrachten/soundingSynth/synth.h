@@ -5,23 +5,20 @@
 #include "square.h"
 #include "saw.h"
 
-class synth
+class Synth
 {
 private:
-
-
 protected:
-
     Sine sineOsc{};
     Square squareOsc{};
     Saw sawOsc{};
 
 public:
-    synth(float samplerate = 44100);
-    ~synth();
+    Synth(float samplerate);
+    ~Synth();
 
-    void synth::tickAll();
-    float synth::getAllSamples();
+    void tickAll();
+    float getAllSamples();
     // void synth::getSample();
 };
 

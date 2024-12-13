@@ -1,28 +1,29 @@
 #include "synth.h"
 
-synth::synth(float samplerate = 44100)
+Synth::Synth(float samplerate)
 {
     sineOsc.setSamplerate(samplerate);
     squareOsc.setSamplerate(samplerate);
     sawOsc.setSamplerate(samplerate);
 }
 
-synth::~synth()
+Synth::~Synth()
 {
 }
 
-void synth::tickAll()
+void Synth::tickAll()
 {
     squareOsc.tick();
     sawOsc.tick();
     sineOsc.tick();
 }
 
-float synth::getAllSamples()
+float Synth::getAllSamples()
 {
-    squareOsc.tick();
-    sawOsc.tick();
-    sineOsc.tick();
+    return (
+        squareOsc.getSample(),
+        sawOsc.getSample(),
+        sineOsc.getSample());
 }
 // void synth::getSample(){
 
