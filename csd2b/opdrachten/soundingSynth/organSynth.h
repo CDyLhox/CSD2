@@ -17,6 +17,7 @@ public:
     ~OrganSynth();
 
     void setFrequencies();
+    float getSamples();
 };
 
 

@@ -15,7 +15,6 @@ Synth::~Synth()
 
 void Synth::tickAll()
 {
-    std::cout << "i am ticking all" << std::endl;
     sineOsc.tick();
     squareOsc.tick();
     sawOsc.tick();
@@ -23,9 +22,7 @@ void Synth::tickAll()
 
 float Synth::getAllSamples()
 {
-    float allSamples = squareOsc.getSample() +
-                       sawOsc.getSample() +
-                        sineOsc.getSample();
+    float allSamples = Organsynth.getSamples();
     std::cout << "allsamples " << allSamples << std::endl;
     return allSamples;
 }

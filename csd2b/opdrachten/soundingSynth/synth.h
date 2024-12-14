@@ -1,5 +1,5 @@
-#ifndef SYNTH_H
-#define SYNTH_H
+#ifndef _SYNTH_H_
+#define _SYNTH_H_
 
 #include "organSynth.h"
 
@@ -11,7 +11,7 @@ class Synth
 {
 private:
 protected:
-    OrganSynth Organynth;
+    OrganSynth Organsynth;
 
 
     Sine sineOsc;
