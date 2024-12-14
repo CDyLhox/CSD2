@@ -13,16 +13,17 @@ private:
 protected:
     OrganSynth Organsynth;
 
-
     Sine sineOsc;
     Square squareOsc;
     // Square squareOsc{345, 44100};
     Saw sawOsc;
 
 public:
-    // virtual 
+    // virtual
     Synth(float samplerate);
     ~Synth();
+
+
 
     void tickAll();
     float getAllSamples();

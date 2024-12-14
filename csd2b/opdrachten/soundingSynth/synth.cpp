@@ -15,15 +15,13 @@ Synth::~Synth()
 
 void Synth::tickAll()
 {
-    sineOsc.tick();
-    squareOsc.tick();
-    sawOsc.tick();
+    Organsynth.tickAll(); // ciska wat vind jij? 
 }
 
 float Synth::getAllSamples()
 {
     float allSamples = Organsynth.getSamples();
-    std::cout << "allsamples " << allSamples << std::endl;
+    // std::cout << "allsamples " << allSamples << std::endl;
     return allSamples;
 }
 // void synth::getSample(){

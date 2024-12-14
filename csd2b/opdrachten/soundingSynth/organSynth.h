@@ -18,6 +18,7 @@ public:
 
     void setFrequencies(float frequency = 220.0);
     float getSamples();
+    void tickAll();
 };
 
 
