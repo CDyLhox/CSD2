@@ -23,7 +23,7 @@ private:
   Melody melody;
   Synth synth{44100};
 
-  double noteDelayFactor = 0.1;
+  double noteDelayFactor = 1.0;
 };
 
 #endif // CALLBACK_H

@@ -24,6 +24,10 @@ float Synth::getAllSamples()
     // std::cout << "allsamples " << allSamples << std::endl;
     return allSamples;
 }
+
+float Synth::setFrequencies(float freq){
+    Organsynth.setFrequencies(freq);
+}
 // void synth::getSample(){
 
 // }

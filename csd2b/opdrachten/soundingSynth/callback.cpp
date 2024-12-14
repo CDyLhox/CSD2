@@ -61,5 +61,6 @@ void Callback::updatePitch(Melody &melody)
   double freq = mtof(note);
   std::cout << "next note: " << note << ", has frequency " << freq
             << std::endl;
+  synth.setFrequencies(freq);
   // .setFrequency(freq); // synth.setfrequency
 }

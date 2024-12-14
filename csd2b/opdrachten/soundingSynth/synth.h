@@ -27,6 +27,7 @@ public:
 
     void tickAll();
     float getAllSamples();
+    float setFrequencies(float freq);
     // void synth::getSample();
 };
 
