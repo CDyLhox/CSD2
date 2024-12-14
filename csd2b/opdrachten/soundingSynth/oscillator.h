@@ -4,15 +4,20 @@
 
 class Oscillator{
 public:
+//make abstract 
   Oscillator();
 
   Oscillator (float frequency = 0, float samplerate = 44100);
   ~Oscillator();
 
+  //move to the synth
+
   // allow to set samplerate after initialization
   void setSamplerate (float samplerate);
   //return the current sample
   float getSample();
+
+  
   // go to next sample
   void tick();
   // calculate next sample (pure virtual)

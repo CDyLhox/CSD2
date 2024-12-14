@@ -1,7 +1,7 @@
 #include "oscillator.h"
 #include "math.h"
 
-Oscillator::Oscillator() : frequency(0), amplitude(1.0), phase(0), sample(0), samplerate(44100)
+Oscillator::Oscillator() : frequency(200), amplitude(1.0), phase(0), sample(0), samplerate(44100)
 {
   std::cout << "default constructor for the oscillator class" << std::endl;
 }

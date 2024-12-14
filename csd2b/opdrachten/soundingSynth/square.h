@@ -5,7 +5,7 @@
 class Square : public Oscillator
 {
 public:
-  Square(float frequency = 0, float samplerate = 44100);
+  Square(float frequency = 220, float samplerate = 44100);
   ~Square();
 
   // override calculate from base class

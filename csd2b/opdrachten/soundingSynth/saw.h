@@ -6,7 +6,7 @@ class Saw : public Oscillator
 {
 
 public:
-    Saw(float frequency = 0, float samplerate = 44100);
+    Saw(float frequency = 270, float samplerate = 44100);
     ~Saw();
 
     void calculate();
