@@ -1,9 +1,28 @@
-*.midi
-*.wav
-*.out
-
+#files
+    *.midi
+    *.wav
+    *.WAV
+    *.out
+    *.o
+    *.s
+    *.cdl
+    *.out
+    
 
 gitignore/
 
 presentaties/
 csd2b/ciskadingen/
+aantekeningen/
+csd2a/python_basics/audio_cat/
+
+#cmake
+*cmake-build-dir*
+# cmakelists.txt
+
+#JUCE
+# JUCE/
+
+build/
+
+ciskaclone/
