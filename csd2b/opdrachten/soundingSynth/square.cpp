@@ -10,7 +10,6 @@ Square::~Square() { std::cout << "• Square::~Square\n"; }
 
 void Square::calculate()
 {
-  std::cout << "calculating" << std::endl;
   if (phase < 0.5f)
   {
     sample = 1.0f;

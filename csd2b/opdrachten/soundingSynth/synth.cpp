@@ -15,19 +15,19 @@ Synth::~Synth()
 
 void Synth::tickAll()
 {
-    Organsynth.tickAll(); // ciska wat vind jij? 
+    Organsynth.tickAll(); // ciska wat vind jij?
+    AdditiveSynth.tickAll();
 }
 
 float Synth::getAllSamples()
 {
-    float allSamples = Organsynth.getSamples();
-    // std::cout << "allsamples " << allSamples << std::endl;
-    return allSamples;
+    float samples = AdditiveSynth.getSamples();
+    return samples;
 }
 
-float Synth::setFrequencies(float freq){
+
+void Synth::setFrequencies(float freq)
+{
     Organsynth.setFrequencies(freq);
+    AdditiveSynth.setFrequencies(freq);
 }
-// void synth::getSample(){
-
-// }

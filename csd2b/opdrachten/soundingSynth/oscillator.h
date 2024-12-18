@@ -27,6 +27,10 @@ public:
   void setFrequency (float frequency);
   float getFrequency();
 
+  void setAmplitude(float amplitude);
+ // rotate the phase in order to align the sinewaves in the additivesynth
+  void rotatePhase(float rotation);
+
 protected:
   float sample;
   float phase;

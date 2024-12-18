@@ -1,6 +1,6 @@
 #include "organSynth.h"
 
-OrganSynth::OrganSynth(/* args */)
+OrganSynth::OrganSynth()
 {
     std::cout << "organsynth::organsynth - i think therefore i am an organsynth" << std::endl;
     setFrequencies();
@@ -13,16 +13,17 @@ OrganSynth::~OrganSynth()
 
 void OrganSynth::setFrequencies(float frequency)
 {
-    std::cout << "IUGHM" << std::endl;
     OrganOne.setFrequency(frequency);
     OrganTwo.setFrequency(frequency * 1.5);
 }
 
-float OrganSynth::getSamples()
+float OrganSynth::getAllSamples()
 {
-
-    return (OrganOne.getSample() + OrganTwo.getSample()) / 2;
+    float allSamples = (OrganOne.getSample() + OrganTwo.getSample()) / 2;
+    return allSamples;
 }
+
+
 
 void OrganSynth::tickAll()
 {

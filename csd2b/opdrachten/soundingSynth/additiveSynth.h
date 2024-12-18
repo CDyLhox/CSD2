@@ -1,21 +1,26 @@
 #ifndef _ADDITIVESYNTH_H_
 #define _ADDITIVESYNTH_H_
 
-class additivesynth
+#include <iostream>
+#include "sine.h"
+
+#define MAXNUMSINES 100
+
+class Additivesynth
 {
 private:
-    /* data */
+    int numSines;
+    Sine sines[MAXNUMSINES];
+
+
 public:
-    additivesynth(/* args */);
-    ~additivesynth();
+    Additivesynth();
+    ~Additivesynth();
+
+    void setFrequencies(float frequency = 220.0);
+    void setAmplitudes(float devision = MAXNUMSINES); // actual number of sines 
+    float getSamples();
+    void tickAll();
 };
-
-additivesynth::additivesynth(/* args */)
-{
-}
-
-additivesynth::~additivesynth()
-{
-}
 
 #endif

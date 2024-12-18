@@ -2,6 +2,7 @@
 #define _SYNTH_H_
 
 #include "organSynth.h"
+#include "additiveSynth.h"
 
 #include "sine.h"
 #include "square.h"
@@ -11,23 +12,20 @@ class Synth
 {
 private:
 protected:
-    OrganSynth Organsynth;
-
     Sine sineOsc;
     Square squareOsc;
-    // Square squareOsc{345, 44100};
     Saw sawOsc;
+    OrganSynth Organsynth;
+    Additivesynth AdditiveSynth;
 
 public:
     // virtual
     Synth(float samplerate);
     ~Synth();
 
-
-
-    void tickAll();
-    float getAllSamples();
-    float setFrequencies(float freq);
+    virtual void tickAll();
+    virtual float getAllSamples();
+    void setFrequencies(float freq);
     // void synth::getSample();
 };
 

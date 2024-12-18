@@ -1,6 +1,10 @@
 #include "callback.h"
 #include "synth.h"
 
+#include "additiveSynth.h"
+#include "organSynth.h"
+
+
 Callback::Callback(float sampleRate)
     : AudioCallback(sampleRate), samplerate(sampleRate)
 {
@@ -10,6 +14,8 @@ Callback::Callback(float sampleRate)
 void Callback::prepare(int rate) // dit is de functie om alles klaar te leggen              DIT IS DE STARTUP
 {
   samplerate = (float)rate;
+  // update synth amplitudes
+  synth.rotatePhases
 
   std::cout << "\nsamplerate: " << samplerate << "\n";
 
@@ -31,9 +37,10 @@ void Callback::process(AudioBuffer buffer)
     {
       // outputChannels[channel][sample] = squareOsc.getSample() + sineOsc.getSample() + sawOsc.getSample();
       // outputChannels[channel][sample] = bsquareOsc.getSample() + squareOsc.getSample();
-
+      
+      std::cout << synth.getAllSamples() << std::endl;
       outputChannels[channel][sample] = synth.getAllSamples();
-      outputChannels[channel][sample] *= 0.4f;
+      // outputChannels[channel][sample] = synth.getAllSamples();
 
 
       if (frameIndex >= noteDelayFactor * samplerate)
@@ -62,5 +69,4 @@ void Callback::updatePitch(Melody &melody)
   std::cout << "next note: " << note << ", has frequency " << freq
             << std::endl;
   synth.setFrequencies(freq);
-  // .setFrequency(freq); // synth.setfrequency
 }

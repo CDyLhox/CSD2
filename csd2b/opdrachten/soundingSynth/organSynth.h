@@ -3,8 +3,6 @@
 #include <iostream>
 #include "square.h"
 
-
-
 class OrganSynth
 {
 private:
@@ -16,12 +14,9 @@ public:
     OrganSynth(/* args */);
     ~OrganSynth();
 
+    float getAllSamples();
     void setFrequencies(float frequency = 220.0);
-    float getSamples();
     void tickAll();
 };
-
-
-
 
 #endif

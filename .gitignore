@@ -7,6 +7,14 @@
     *.s
     *.cdl
     *.out
+    *.json
+
+    */example
+
+    .vscode/
+    .venv/
+    .idea/
+    cmake-build-debug/
     
 
 gitignore/

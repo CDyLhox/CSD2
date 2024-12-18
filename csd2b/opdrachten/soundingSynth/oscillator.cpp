@@ -43,4 +43,13 @@ void Oscillator::setFrequency(float frequency)
   this->frequency = frequency;
 }
 
+void Oscillator::setAmplitude(float amplitude)
+{
+  this->amplitude = amplitude;
+}
+
+void Oscillator::rotatePhase(float rotation){
+  this->phase += rotation;
+}
+
 float Oscillator::getFrequency() { return frequency; }
