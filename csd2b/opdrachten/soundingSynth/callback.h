@@ -11,8 +11,7 @@ public:
   void prepare(int rate) override;
   void process(AudioBuffer buffer) override;
 
-  double mtof(float mPitch);
-  void updatePitch(Melody &melody);
+
 
 private:
   float samplerate = 44100;
@@ -23,7 +22,7 @@ private:
   Melody melody;
   Synth synth{44100};
 
-  double noteDelayFactor = 1.0;
+  double noteDelayFactor = 0.5;
 };
 
 #endif // CALLBACK_H

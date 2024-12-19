@@ -18,7 +18,7 @@ public:
     ~Additivesynth();
 
     void setFrequencies(float frequency = 220.0);
-    void setAmplitudes(float devision = MAXNUMSINES); // actual number of sines 
+    void setAmplitudes(); // actual number of sines 
     float getSamples();
     void tickAll();
 };

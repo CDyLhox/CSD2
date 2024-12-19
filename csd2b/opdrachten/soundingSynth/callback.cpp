@@ -15,11 +15,10 @@ void Callback::prepare(int rate) // dit is de functie om alles klaar te leggen  
 {
   samplerate = (float)rate;
   // update synth amplitudes
-  synth.rotatePhases
 
   std::cout << "\nsamplerate: " << samplerate << "\n";
 
-  updatePitch(melody);
+  synth.updatePitch(melody);
 }
 
 void Callback::process(AudioBuffer buffer)
@@ -38,7 +37,6 @@ void Callback::process(AudioBuffer buffer)
       // outputChannels[channel][sample] = squareOsc.getSample() + sineOsc.getSample() + sawOsc.getSample();
       // outputChannels[channel][sample] = bsquareOsc.getSample() + squareOsc.getSample();
       
-      std::cout << synth.getAllSamples() << std::endl;
       outputChannels[channel][sample] = synth.getAllSamples();
       // outputChannels[channel][sample] = synth.getAllSamples();
 
@@ -46,7 +44,7 @@ void Callback::process(AudioBuffer buffer)
       if (frameIndex >= noteDelayFactor * samplerate)
       {
         frameIndex = 0;
-        updatePitch(melody);
+        synth.updatePitch(melody);
       }
       else
       {
@@ -56,17 +54,4 @@ void Callback::process(AudioBuffer buffer)
   }
 }
 
-// TODO : move to different file
-double Callback::mtof(float mPitch)
-{
-  return 440.0 * pow(2.0, (mPitch - 69.0f) / 12.0f);
-}
 
-void Callback::updatePitch(Melody &melody)
-{
-  float note = melody.getNote();
-  double freq = mtof(note);
-  std::cout << "next note: " << note << ", has frequency " << freq
-            << std::endl;
-  synth.setFrequencies(freq);
-}

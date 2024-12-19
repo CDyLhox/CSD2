@@ -25,9 +25,25 @@ float Synth::getAllSamples()
     return samples;
 }
 
-
 void Synth::setFrequencies(float freq)
 {
     Organsynth.setFrequencies(freq);
     AdditiveSynth.setFrequencies(freq);
+    AdditiveSynth.setAmplitudes();
+}
+
+// TODO : move to different file
+double Synth::mtof(float mPitch)
+{
+    return 440.0 * pow(2.0, (mPitch - 69.0f) / 12.0f);
+}
+
+void Synth::updatePitch(Melody &melody)
+{
+    
+    float note = melody.getNote();
+    double freq = mtof(note);
+    std::cout << "next note: " << note << ", has frequency " << freq
+              << std::endl;
+    setFrequencies(freq);
 }

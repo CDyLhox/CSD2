@@ -8,6 +8,8 @@
 #include "square.h"
 #include "saw.h"
 
+#include "melody.h"
+
 class Synth
 {
 private:
@@ -27,6 +29,8 @@ public:
     virtual float getAllSamples();
     void setFrequencies(float freq);
     // void synth::getSample();
+    double mtof(float mPitch);
+    void updatePitch(Melody &melody);
 };
 
 #endif

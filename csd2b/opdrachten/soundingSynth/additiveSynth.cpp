@@ -13,18 +13,18 @@ Additivesynth::~Additivesynth()
 
 void Additivesynth::setFrequencies(float frequency)
 {
+
     for (int i = 0; i < MAXNUMSINES; i++)
     {
-        sines[i].setFrequency(frequency * i / 2); // bedenk hier iets voor
-         // bedenk hier iets voor
+        sines[i].setFrequency(frequency / 2 * i); // bedenk hier iets voor
     }
 }
 
-void Additivesynth::setAmplitudes(float devision)
+void Additivesynth::setAmplitudes()
 {
     for (int i = 0; i < MAXNUMSINES; i++)
     {
-        sines[i].setAmplitude(i / devision);
+        sines[i].setAmplitude(2.0 / (i + 1));
     }
 }
 
