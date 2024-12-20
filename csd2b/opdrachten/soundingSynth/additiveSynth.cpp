@@ -16,7 +16,7 @@ void Additivesynth::setFrequencies(float frequency)
 
     for (int i = 0; i < MAXNUMSINES; i++)
     {
-        sines[i].setFrequency(frequency / 2 * i); // bedenk hier iets voor
+        sines[i].setFrequency(frequency / 2 * i); // saw wave
     }
 }
 

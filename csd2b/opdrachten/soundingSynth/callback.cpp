@@ -1,9 +1,10 @@
 #include "callback.h"
+
+#include "applicationController.h"
 #include "synth.h"
 
 #include "additiveSynth.h"
 #include "organSynth.h"
-
 
 Callback::Callback(float sampleRate)
     : AudioCallback(sampleRate), samplerate(sampleRate)
@@ -13,6 +14,8 @@ Callback::Callback(float sampleRate)
 
 void Callback::prepare(int rate) // dit is de functie om alles klaar te leggen              DIT IS DE STARTUP
 {
+  ApplicationController AplController;
+  AplController.bootSynthesizer();
   samplerate = (float)rate;
   // update synth amplitudes
 
@@ -36,10 +39,9 @@ void Callback::process(AudioBuffer buffer)
     {
       // outputChannels[channel][sample] = squareOsc.getSample() + sineOsc.getSample() + sawOsc.getSample();
       // outputChannels[channel][sample] = bsquareOsc.getSample() + squareOsc.getSample();
-      
+
       outputChannels[channel][sample] = synth.getAllSamples();
       // outputChannels[channel][sample] = synth.getAllSamples();
-
 
       if (frameIndex >= noteDelayFactor * samplerate)
       {
@@ -53,5 +55,3 @@ void Callback::process(AudioBuffer buffer)
     }
   }
 }
-
-
