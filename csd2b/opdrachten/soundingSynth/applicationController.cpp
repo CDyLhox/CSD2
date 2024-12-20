@@ -21,4 +21,6 @@ void ApplicationController::bootSynthesizer()
 
     float value = SynthUI.retrieveValueInRange(20, 20499);
     std::cout << "You chose the following value: " << "\033[97m" << value << "\033[93m" << std::endl;
+
+    
 }

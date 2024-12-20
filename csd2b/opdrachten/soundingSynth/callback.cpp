@@ -3,9 +3,6 @@
 #include "applicationController.h"
 #include "synth.h"
 
-#include "additiveSynth.h"
-#include "organSynth.h"
-
 Callback::Callback(float sampleRate)
     : AudioCallback(sampleRate), samplerate(sampleRate)
 {
@@ -19,8 +16,10 @@ void Callback::prepare(int rate) // dit is de functie om alles klaar te leggen  
   samplerate = (float)rate;
 
   std::cout << "\nsamplerate: " << "\033[97m" << samplerate << "\n";
+  synth = new OrganSynth;// hier zeggen  welke je wilt hebben toch jeweet 
+  
 
-  synth.updatePitch(melody);
+  synth->updatePitch(melody);
 }
 
 void Callback::process(AudioBuffer buffer)
@@ -33,15 +32,17 @@ void Callback::process(AudioBuffer buffer)
 
   for (int sample = 0u; sample < numFrames; ++sample)
   {
-    synth.tickAll();
+
+    synth->tickAll();
     for (int channel = 0u; channel < numOutputChannels; ++channel)
     {
-      outputChannels[channel][sample] = synth.getAllSamples();
+      outputChannels[channel][sample] = synth->getAllSamples();
+      // outputChannels[channel][sample] = organSynth.getAllSamples();
 
       if (frameIndex >= noteDelayFactor * samplerate)
       {
         frameIndex = 0;
-        synth.updatePitch(melody);
+        synth->updatePitch(melody);
       }
       else
       {

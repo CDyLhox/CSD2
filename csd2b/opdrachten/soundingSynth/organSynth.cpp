@@ -3,7 +3,6 @@
 OrganSynth::OrganSynth()
 {
     std::cout << "organsynth::organsynth - i think therefore i am an organsynth" << std::endl;
-    setFrequencies();
 }
 
 OrganSynth::~OrganSynth()

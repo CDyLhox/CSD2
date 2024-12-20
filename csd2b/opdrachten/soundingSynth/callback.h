@@ -4,13 +4,15 @@
 #include "audiocomponent.h"
 #include "melody.h"
 #include "synth.h"
+
+#include "additiveSynth.h"
+#include "organSynth.h"
 class Callback : public AudioCallback
 {
 public:
   Callback(float sampleRate);
   void prepare(int rate) override;
   void process(AudioBuffer buffer) override;
-
 
 
 private:
@@ -20,9 +22,9 @@ private:
   int frameIndex = 0;
 
   Melody melody;
-  Synth synth{44100};
+  Synth* synth;
 
-  double noteDelayFactor = 0.5;
+  double noteDelayFactor = 0.8;
 };
 
 #endif // CALLBACK_H

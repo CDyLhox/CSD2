@@ -1,22 +1,25 @@
 #ifndef _ORGANSYNTH_H_
 #define _ORGANSYNTH_H_
-#include <iostream>
-#include "square.h"
 
-class OrganSynth
+#include <iostream>
+
+#include "square.h"
+#include "synth.h"
+
+class OrganSynth : public Synth
 {
 private:
-    /* data */
+
     Square OrganOne;
     Square OrganTwo;
 
 public:
-    OrganSynth(/* args */);
+    OrganSynth();
     ~OrganSynth();
 
-    float getAllSamples();
-    void setFrequencies(float frequency = 220.0);
-    void tickAll();
+    float getAllSamples() override;
+    void setFrequencies(float frequency = 220.0) override;
+    void tickAll() override;
 };
 
 #endif

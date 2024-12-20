@@ -28,10 +28,10 @@ void Additivesynth::setAmplitudes()
     }
 }
 
-float Additivesynth::getSamples()
+float Additivesynth::getAllSamples()
 {
     float sampleCalc = 0;
-    for (int i = 0; i < MAXNUMSINES; i++)
+    for (int i = 0; i < MAXNUMSINES; i++) // actual num sines
     {
         sampleCalc = sampleCalc + (sines[i].getSample()) / MAXNUMSINES; // actual num sines
     }
