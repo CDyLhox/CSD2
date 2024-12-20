@@ -17,6 +17,9 @@ public:
     Additivesynth();
     ~Additivesynth();
 
+    // setamountofsines 
+    // in de synth base class setparamiter void 
+
     void setFrequencies(float frequency = 220.0);
     void setAmplitudes(); // actual number of sines
     float getAllSamples();

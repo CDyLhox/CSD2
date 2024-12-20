@@ -1,6 +1,6 @@
 #include "callback.h"
 
-#include "applicationController.h"
+#include "UIUtility.h"
 #include "synth.h"
 
 Callback::Callback(float sampleRate)
@@ -10,14 +10,21 @@ Callback::Callback(float sampleRate)
 
 void Callback::prepare(int rate) // dit is de functie om alles klaar te leggen              DIT IS DE STARTUP
 {
-  ApplicationController AplController;
-  AplController.bootSynthesizer();
 
+  UIUtility SynthUI;
+  int synthtype = SynthUI.selectSynthesizer();
+  std::cout << synthtype << std::endl;
+  if (synthtype == 1)
+  {
+    int amountofsinewaves = SynthUI.setAmountOfSinewaves();
+    synth = new Additivesynth; // hier zeggen  welke je wilt hebben toch jeweet
+  }
+  else{
+    synth = new OrganSynth; // hier zeggen  welke je wilt hebben toch jeweet
+  }
   samplerate = (float)rate;
 
   std::cout << "\nsamplerate: " << "\033[97m" << samplerate << "\n";
-  synth = new OrganSynth;// hier zeggen  welke je wilt hebben toch jeweet 
-  
 
   synth->updatePitch(melody);
 }

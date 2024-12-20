@@ -17,6 +17,10 @@ public:
     float retrieveValueInRange(float min, float max);
     UIUtility();
     ~UIUtility();
+
+    int selectSynthesizer();
+    int setAmountOfSinewaves();
+    
 };
 
 #endif

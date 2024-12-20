@@ -86,3 +86,24 @@ float UIUtility::retrieveValueInRange(float min, float max)
 
     return value;
 } // retrieveValueInRange()
+
+int UIUtility::selectSynthesizer()
+{
+    std::cout << "\033[93m" << "hello hi hello hi" << std::endl;
+    std::string waveFormOptions[2] = {"organSynth", "Additivesaw"};
+    int numWaveFormOptions = 2;
+
+    int waveTypeSelection = retrieveUserSelection(waveFormOptions, numWaveFormOptions);
+
+    // use the selected option to show the corresponding text
+    std::cout << "\033[93m" << "You selected: " << "\033[97m" << waveFormOptions[waveTypeSelection] << std::endl;
+
+    return waveTypeSelection;
+}
+
+int UIUtility::setAmountOfSinewaves()
+{
+    float value = retrieveValueInRange(0, 100);
+    std::cout << "You chose the following value: " << "\033[97m" << value << "\033[93m" << std::endl;
+    return value;
+}
