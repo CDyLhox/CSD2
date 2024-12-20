@@ -40,10 +40,10 @@ double Synth::mtof(float mPitch)
 
 void Synth::updatePitch(Melody &melody)
 {
-    
+
     float note = melody.getNote();
     double freq = mtof(note);
-    std::cout << "next note: " << note << ", has frequency " << freq
+    std::cout << "\033[93m" << "next note: " << "\033[97m" << note << "\033[93m" << ", has frequency " << "\033[97m" << freq
               << std::endl;
     setFrequencies(freq);
 }

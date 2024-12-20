@@ -2,24 +2,22 @@
 
 UIUtility::UIUtility()
 {
-
 }
 
 UIUtility::~UIUtility()
 {
-    std::cout << "I AM NOW TURNING OFF" << std::endl;
 }
 
 std::string UIUtility::retrieveUserInput(std::string selectionOptions[], int numOptions)
 {
     // show user the allowed options
-    std::cout << "Please enter your selection. You can choose from: ";
+    std::cout << "\033[93m" << "Please enter your selection. You can choose from: ";
     for (int i = 0; i < numOptions - 1; i++)
     {
-        std::cout << selectionOptions[i] << ", ";
+        std::cout << "\033[97m" << selectionOptions[i] << ", ";
     }
     // print last option outside forloop to end with an .
-    std::cout << selectionOptions[numOptions - 1] << "." << std::endl;
+    std::cout << selectionOptions[numOptions - 1] << "\033[93m" << "." << "\033[97m" << std::endl;
     // retrieve and return choice
     std::string selection = "";
     std::cin >> selection;
@@ -44,7 +42,7 @@ int UIUtility::retrieveUserSelection(std::string selectionOptions[], int numOpti
         }
         // if we end up here, this means the selection is not correct,
         // so log a message to user to try again
-        std::cout << "Incorrect selection, please try again";
+        std::cout << "\033[31m" << "Incorrect selection, please try again";
     } // while
     return -1; // should never be reached
 } // retrieveUserSelection()
@@ -57,7 +55,9 @@ float UIUtility::retrieveValueInRange(float min, float max)
 
     while (notInRange)
     {
-        std::cout << "Please enter a value between " << min << " and " << max
+        std::cout << "\033[93m" << "Please enter a value between " << "\033[97m" << min << "\033[93m" << " and "
+                  << "\033[97m"
+                  << max << "\033[97m"
                   << std::endl;
         // first capture input in input string
         std::cin >> input;

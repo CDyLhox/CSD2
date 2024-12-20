@@ -9,17 +9,16 @@
 Callback::Callback(float sampleRate)
     : AudioCallback(sampleRate), samplerate(sampleRate)
 {
-  std::cout << "Hallo CSD'er :)" << std::endl;
 }
 
 void Callback::prepare(int rate) // dit is de functie om alles klaar te leggen              DIT IS DE STARTUP
 {
   ApplicationController AplController;
   AplController.bootSynthesizer();
-  samplerate = (float)rate;
-  // update synth amplitudes
 
-  std::cout << "\nsamplerate: " << samplerate << "\n";
+  samplerate = (float)rate;
+
+  std::cout << "\nsamplerate: " << "\033[97m" << samplerate << "\n";
 
   synth.updatePitch(melody);
 }
@@ -32,16 +31,12 @@ void Callback::process(AudioBuffer buffer)
         numOutputChannels,
         numFrames] = buffer;
 
-  for (int sample = 0u; sample < numFrames; ++sample) // zet de for  channel boven de sample one en de tick buiten de channel one
+  for (int sample = 0u; sample < numFrames; ++sample)
   {
     synth.tickAll();
     for (int channel = 0u; channel < numOutputChannels; ++channel)
     {
-      // outputChannels[channel][sample] = squareOsc.getSample() + sineOsc.getSample() + sawOsc.getSample();
-      // outputChannels[channel][sample] = bsquareOsc.getSample() + squareOsc.getSample();
-
       outputChannels[channel][sample] = synth.getAllSamples();
-      // outputChannels[channel][sample] = synth.getAllSamples();
 
       if (frameIndex >= noteDelayFactor * samplerate)
       {
