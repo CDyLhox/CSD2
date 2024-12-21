@@ -20,6 +20,7 @@ public:
     float getAllSamples() override;
     void setFrequencies(float frequency = 220.0) override;
     void tickAll() override;
+    void setAmplitudes(); 
 };
 
 #endif

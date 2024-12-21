@@ -31,7 +31,7 @@ public:
 
     // the sauce of the synth.
     // choose between a few different addition alogithms
-    int setExtraParameters(int additiveOption);
+    int setExtraParameters(int additiveOption) override;
 };
 
 #endif

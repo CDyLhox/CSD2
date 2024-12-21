@@ -3,6 +3,7 @@
 OrganSynth::OrganSynth()
 {
     std::cout << "the organ in my body goes " << "\033[31m" << "'Badoenk badoenk'" << "\033[97m" << std::endl;
+    setAmplitudes();
 }
 
 OrganSynth::~OrganSynth()
@@ -25,4 +26,9 @@ void OrganSynth::tickAll()
 {
     OrganOne.tick();
     OrganTwo.tick();
+}
+
+void OrganSynth::setAmplitudes(){
+    OrganOne.setAmplitude(0.5);
+    OrganTwo.setAmplitude(0.5);
 }

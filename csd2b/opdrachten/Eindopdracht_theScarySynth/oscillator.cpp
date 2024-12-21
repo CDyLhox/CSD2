@@ -39,15 +39,10 @@ void Oscillator::tick()
 // getters and setters
 void Oscillator::setFrequency(float frequency)
 {
-  if (frequency > 20.0f && frequency < 22000.0f)
-  {
+
+
     this->frequency = frequency;
-  }
-  else
-  {
-    std::cout << "i dont think so" << std::endl;
-    this->frequency = 440.0f;
-  }
+
 }
 
 void Oscillator::setAmplitude(float amplitude)
@@ -58,7 +53,6 @@ void Oscillator::setAmplitude(float amplitude)
   }
   else
   {
-    std::cout << "i dont think so" << std::endl;
     this-> amplitude = 1.0f;
   }
 }

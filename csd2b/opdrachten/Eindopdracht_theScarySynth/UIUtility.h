@@ -6,7 +6,7 @@
 class UIUtility
 {
 private:
-    std::string waveFormOptions[2] = {"organSynth", "Additivesaw"};
+    std::string waveFormOptions[2] = {"organSynth", "Additivesynth"};
     int numWaveFormOptions = 2;
 protected:
 public:
