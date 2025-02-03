@@ -11,6 +11,15 @@ Gitare::~Gitare()
 
 void Gitare::play(int range)
 {
-    std::cout << range << std::endl;
+    if (range < 400)
+    {
+        std::cout << "cutoff" << std::endl;
+    }
+    else
+    {
+
+        std::cout << range << std::endl;
+    }
+
     std::cout << Sound << std::endl;
 }

@@ -21,7 +21,7 @@ public:
     float mtof(float mPitch);
     void updatePitch(Melody &melody);
 
-    virtual int setExtraParameters(int parameter);
+    virtual int setExtraParameters(int parameterz);
 
 
 

@@ -11,7 +11,7 @@ public:
     ~Gitare();
 
 
-    void play(int range);
+    void play(int range = 50);
 };
 
 

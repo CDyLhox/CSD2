@@ -1,1 +1,1 @@
-add_subdirectory(soundingSynth)
+add_subdirectory(Eindopdracht_theScarySynth)

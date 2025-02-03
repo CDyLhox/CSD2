@@ -2,16 +2,20 @@
 #include "instrument.h"
 #include "gitare.h"
 
-using namespace std;
+
 
 int main()
 {
-    cout << "what instrument do you want? (gitare or bass): " << endl;
+    std::cout << "what instrument do you want? (gitare or bass): " << endl;
     std::string instrumentName;
-    cin >> instrumentName;
+    std::cin >> instrumentName;
+    
+    int range;
 
     Gitare agitaar;
-    agitaar.play();
+    std::cout << "note (in hrz) being played " << std::endl;
+    std::cin >> range;
+    agitaar.play(range);
 
 
 
