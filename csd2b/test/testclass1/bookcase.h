@@ -1,7 +1,0 @@
-class bookCase{
-    public:
-    bookCase();
-
-    
-
-};

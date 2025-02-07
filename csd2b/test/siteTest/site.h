@@ -1,6 +1,0 @@
-class site(){
-
-	site();
-
-
-}

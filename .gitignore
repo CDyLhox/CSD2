@@ -1,21 +1,24 @@
 #files
-    *.midi
-    *.wav
-    *.WAV
-    *.out
-    *.o
-    *.s
-    *.cdl
-    *.out
-    *.json
+*.midi
+*.wav
+*.WAV
+*.out
+*.o
+*.s
+*.cdl
+*.out
+*.json
+*~
+*.swp
+*.swo
 
-    */example
+*/example
 
-    .vscode/
-    .venv/
-    .idea/
-    cmake-build-debug/
-    
+.vscode/
+.venv/
+.idea/
+cmake-build-debug/
+
 
 gitignore/
 
