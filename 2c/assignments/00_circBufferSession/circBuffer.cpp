@@ -5,21 +5,19 @@ CircBuffer::CircBuffer()
 {
 } // set default constructor
 CircBuffer::CircBuffer(int size, int numSamplesDelay)
-    : bufferSize(512)
-    , numSamplesDelay(10)
 {
-	// TODO - init buffer
 	// Dynamic array
+	std::cout << "numSamplesDelay: " << numSamplesDelay << std::endl;
+	bufferSize = size;
+	writeHeadPosition = numSamplesDelay;
 	allocateBuffer(size);
+
 
 }
 
 CircBuffer::~CircBuffer()
 {
-	// TODO - release the dynamic allocated array
-	
-	
-	std::cout << "Elements of the array are: ";
+	std::cout << "CircBuffer::~circBuffer \n" <<"Elements of the array were: ";
 	for (int i = 0; i < 512; i++) {
 		std::cout << buffer[i] << " ";
 	}
@@ -30,7 +28,7 @@ CircBuffer::~CircBuffer()
 void CircBuffer::allocateBuffer(int size)
 { // check out malloc after this.
 
-	buffer = new float[bufferSize];
+	buffer = new float[size];
 	for (int i = 0; i < size; i++) {
 		buffer[i] = 0;
 	}

@@ -7,7 +7,6 @@ class CircBuffer {
 	CircBuffer();
 	CircBuffer(int bufferSize, int numSamplesDelay);
 	~CircBuffer();
-	// TODO - add write and reads
 	float* buffer;
 	float readHead();
 	void writeHead(int currentSample);
@@ -20,19 +19,12 @@ class CircBuffer {
 		incrementWriteHead();
 		incrementReadHead();
 
-
 		std::cout << "readHeadPosition" << readHeadPosition << std::endl;
 		std::cout << "writeHeadPosition" << writeHeadPosition << std::endl;
-
-//std::cout << "Elements of the array are: ";
-//		for (int i = 0; i < 512; i++) {
-//			std::cout << buffer[i] << " ";
-//		}
 	}
 
     private:
-	// TODO - add fields
-	uint bufferSize = 512;
+	uint bufferSize = 200;
 	uint currentSample = 0;
 	int numSamplesDelay;
 
@@ -44,7 +36,6 @@ class CircBuffer {
 	{
 		writeHeadPosition++;
 		wrapHeads(writeHeadPosition);
-		
 	}
 	inline void incrementReadHead()
 	{
