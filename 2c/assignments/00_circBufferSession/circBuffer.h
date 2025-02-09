@@ -20,6 +20,10 @@ class CircBuffer {
 		incrementWriteHead();
 		incrementReadHead();
 
+
+		std::cout << "readHeadPosition" << readHeadPosition << std::endl;
+		std::cout << "writeHeadPosition" << writeHeadPosition << std::endl;
+
 //std::cout << "Elements of the array are: ";
 //		for (int i = 0; i < 512; i++) {
 //			std::cout << buffer[i] << " ";
@@ -38,9 +42,9 @@ class CircBuffer {
 
 	inline void incrementWriteHead()
 	{
-		readHeadPosition++;
-		wrapHeads(readHeadPosition);
-		std::cout << "readHeadPosition" << readHeadPosition << std::endl;
+		writeHeadPosition++;
+		wrapHeads(writeHeadPosition);
+		
 	}
 	inline void incrementReadHead()
 	{

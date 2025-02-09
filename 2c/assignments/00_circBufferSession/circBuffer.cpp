@@ -10,7 +10,6 @@ CircBuffer::CircBuffer(int size, int numSamplesDelay)
 {
 	// TODO - init buffer
 	// Dynamic array
-
 	allocateBuffer(size);
 
 }
@@ -46,7 +45,8 @@ void CircBuffer::releaseBuffer()
 
 float CircBuffer::readHead()
 {
-	return buffer[currentSample+numSamplesDelay];
+	std::cout << "READHEAD READS: "<<buffer[readHeadPosition] << std::endl;
+	return buffer[readHeadPosition];
 }
 
 void CircBuffer::writeHead(int currentSample)
