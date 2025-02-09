@@ -27,9 +27,11 @@ int main(int argc, char** argv)
 		squareSample = square.genNextSample();
 		
 		circBuffer.writeHead(squareSample);
+		circBuffer.tick();
+
 		//delaySample = circBuffer.readHead(); // TODO - FIX THE READHEAD FUNCT
 		
-		fileWriter.write(std::to_string((squareSample+delaySample) / 2) + "\n");
+		fileWriter.write(std::to_string((squareSample+circBuffer.readHead()) / 2) + "\n");
 		// TODO - 'plugin' the cicbuffer
 	}
 

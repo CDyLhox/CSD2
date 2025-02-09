@@ -5,28 +5,31 @@ CircBuffer::CircBuffer()
 {
 } // set default constructor
 CircBuffer::CircBuffer(int size, int numSamplesDelay)
+    : bufferSize(512)
+    , numSamplesDelay(10)
 {
 	// TODO - init buffer
 	// Dynamic array
-	
+
 	allocateBuffer(size);
 
-
-	std::cout << "Elements of the array are: ";
-	for (int i = 0; i < size; i++) {
-		std::cout << buffer[i] << " ";
-	}
-	std::cout << buffer << std::endl;
 }
 
 CircBuffer::~CircBuffer()
 {
 	// TODO - release the dynamic allocated array
+	
+	
+	std::cout << "Elements of the array are: ";
+	for (int i = 0; i < 512; i++) {
+		std::cout << buffer[i] << " ";
+	}
+	std::cout << buffer << std::endl;
 	releaseBuffer();
 }
 
 void CircBuffer::allocateBuffer(int size)
-{//check out malloc after this.
+{ // check out malloc after this.
 
 	buffer = new float[bufferSize];
 	for (int i = 0; i < size; i++) {
@@ -34,19 +37,20 @@ void CircBuffer::allocateBuffer(int size)
 	}
 }
 
-void CircBuffer::releaseBuffer(){
+void CircBuffer::releaseBuffer()
+{
 	delete[] buffer;
 	std::cout << "circBuffer::releaseBuffer; i am releasing the buffer: "
-	       << buffer << std::endl;
+		  << buffer << std::endl;
 }
 
 float CircBuffer::readHead()
 {
-	return buffer[currentSample];
+	return buffer[currentSample+numSamplesDelay];
 }
 
 void CircBuffer::writeHead(int currentSample)
 {
-	buffer[currentSample] = currentSample; // input
+	buffer[writeHeadPosition] = currentSample; // input
+	std::cout << currentSample << std::endl;
 }
-
