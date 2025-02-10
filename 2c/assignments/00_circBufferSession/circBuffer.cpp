@@ -11,13 +11,12 @@ CircBuffer::CircBuffer(int size, int numSamplesDelay)
 	bufferSize = size;
 	writeHeadPosition = numSamplesDelay;
 	allocateBuffer(size);
-
-
 }
 
 CircBuffer::~CircBuffer()
 {
-	std::cout << "CircBuffer::~circBuffer \n" <<"Elements of the array were: ";
+	std::cout << "CircBuffer::~circBuffer \n"
+		  << "Elements of the array were: ";
 	for (int i = 0; i < 512; i++) {
 		std::cout << buffer[i] << " ";
 	}
@@ -43,7 +42,7 @@ void CircBuffer::releaseBuffer()
 
 float CircBuffer::readHead()
 {
-	std::cout << "READHEAD READS: "<<buffer[readHeadPosition] << std::endl;
+	std::cout << "READHEAD READS: " << buffer[readHeadPosition] << std::endl;
 	return buffer[readHeadPosition];
 }
 
@@ -51,4 +50,13 @@ void CircBuffer::writeHead(int currentSample)
 {
 	buffer[writeHeadPosition] = currentSample; // input
 	std::cout << currentSample << std::endl;
+}
+void setDelayTime(int numSamplesDelay)
+{ 	// take current writeheadPosition and last numSamplesDelay setting.
+	// old numSamplesDelay - new NumsamplesDelay += writeHeadPosition
+	writeHeadPosition;
+}
+void setDelayTime(float miliSecondsDelay) {
+	//SAMPLERATE / (miliSecondsDelay/1000) 
+
 }

@@ -12,6 +12,9 @@ class CircBuffer {
 	void writeHead(int currentSample);
 	void allocateBuffer(int size);
 	void releaseBuffer();
+	
+	void setDelayTime(int numSamplesDelay); 
+	void setDelayTime(float miliSecondsDelay);
 
 	inline void tick()
 	{
@@ -27,6 +30,7 @@ class CircBuffer {
 	uint bufferSize = 200;
 	uint currentSample = 0;
 	int numSamplesDelay;
+	float miliSecondsDelay;
 
 	uint rWDistance = 0;
 	uint readHeadPosition = 0;
