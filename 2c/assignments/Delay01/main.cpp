@@ -2,6 +2,7 @@
 #include <audioToFile.h>
 #include <iostream>
 #include <square.h>
+#include "delay.h"
 #include <thread>
 
 #define SAMPLERATE 44100
@@ -15,6 +16,7 @@ int main(int argc, char** argv)
 	// init square oscillator based on cycle lengths
 	float freq = (float)SAMPLERATE / cycleFrameLength;
 	Square square(freq, SAMPLERATE);
+	Delay Delay(1000, 700, 0.6, 0.5);
 
 	const std::string sourcePath = SOURCE_DIR;
 	WriteToFile fileWriter(sourcePath + "/output.csv", true);

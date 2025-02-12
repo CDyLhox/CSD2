@@ -7,7 +7,7 @@
 class Delay : public Effect
 {
 	public:
-	Delay(int size, int numSamplesDelay);
+	Delay(int size, int numSamplesDelay, float feedback, float drywet);
 	~Delay();
 
 	float readHead();

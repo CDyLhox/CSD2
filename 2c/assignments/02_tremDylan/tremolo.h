@@ -8,11 +8,13 @@ class Tremolo {
 	Tremolo(float rate, float depth);
 	~Tremolo();
 
-	float processFrame(float incomingSignal){}
+	float processFrame(float incomingSignal);
+	void setModFreq(float freq);
 
-	void prepare(float sampleRate){}
+
+	void prepare(float sampleRate);
     private:
 	float rate;
-	float depth;
+	float depth = 0.2;
 
 };
