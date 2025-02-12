@@ -26,7 +26,6 @@ CircBuffer::~CircBuffer()
 
 void CircBuffer::allocateBuffer(int size)
 { // check out malloc after this.
-
 	buffer = new float[size];
 	for (int i = 0; i < size; i++) {
 		buffer[i] = 0;
@@ -36,7 +35,6 @@ void CircBuffer::allocateBuffer(int size)
 void CircBuffer::releaseBuffer()
 {
 	delete[] buffer;
-	buffer = nullptr;
 	std::cout << "circBuffer::releaseBuffer; i am releasing the buffer: "
 		  << buffer << std::endl;
 }
