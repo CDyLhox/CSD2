@@ -36,7 +36,6 @@ class CircBuffer {
 	uint readHeadPosition = 0;
 	uint writeHeadPosition = 10;
 
-	
 	inline void incrementWriteHead()
 	{
 		writeHeadPosition++;

@@ -1,7 +1,8 @@
+#pragma once
+#include <iostream>
 
 
 class Effect{
-
 
 	bool isBypassed = 1;
 

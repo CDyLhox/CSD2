@@ -1,58 +1,35 @@
-#pragma once
-#include "effect.h"
-#include <iostream>
-
-class Delay : public Effect
-{
-	Delay(int size, int numSamplesDelay);
-	~Delay();
-
-	float* buffer;
-	float readHead();
-	void writeHead(int currentSample);
-	void allocateBuffer(int size);
-	void releaseBuffer();
+#include "delay.h"
 
 
-	void prepare(int SAMPLERATE);
-	void applyEffect(const float &input, float &output) override;
-	float processFrame(const float &inut, float &output);
-	float getSample();
-	void setDryWet(float drywet);
-
-	uint bufferSize = 200;
-	uint currentSample = 0;
-	float feedback = 0.7;
-
-	uint rWDistance = 0;
-	uint readHeadPosition = 0;
-	uint writeHeadPosition = 10;
-
-	inline void tick(){
-		std::cout <<"tick" << std::endl;
-		incrementWriteHead();
-		incrementReadHead();
-
-	}
 
 
-	inline void incrementWriteHead()
-	{
-		writeHeadPosition++;
-		wrapHeads(writeHeadPosition);
-	}
-	inline void incrementReadHead()
-	{
-		readHeadPosition++;
-		wrapHeads(writeHeadPosition);
-	}
-	inline void wrapHeads(uint head)
-	{
-		if (head >= bufferSize) {
-			head -= bufferSize;
-		}
-	}
+Delay::Delay(int size, int numSamplesDelay){
+
+
+	// Dynamic array
+	std::cout << "numSamplesDelay: " << numSamplesDelay << std::endl;
+	bufferSize = size;
+	writeHeadPosition = numSamplesDelay;
+	allocateBuffer(size);
+}
+
+
+
+
+
+void Delay::applyEffect(const float &input, float &output){
 	
+	}
 
-	
-};
+
+void Delay::setDelayTime(int numSamplesDelay)
+{ 	// take current writeheadPosition and last numSamplesDelay setting.
+	// old numSamplesDelay - new NumsamplesDelay += writeHeadPosition
+	// im wondering if this is a non nice way of organising it but i feel having the cirbuffer seperate makes sense for now
+	delayBuffer.setDelayTime(int numSamplesDelay);
+	writeHeadPosition++;
+}
+void Delay::setDelayTime(float miliSecondsDelay) {
+	//SAMPLERATE / (miliSecondsDelay/1000) 
+	delayBuffer.setDelayTime(float miliSecondsDelay);
+}
