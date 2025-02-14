@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <sine.h>
+#include "sine.h"
 
 class Tremolo {
     public:
@@ -16,5 +16,6 @@ class Tremolo {
     private:
 	float rate;
 	float depth = 0.2;
+	Sine sine;
 
 };

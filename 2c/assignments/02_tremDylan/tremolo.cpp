@@ -20,6 +20,7 @@ float Tremolo::processFrame(float incomingSignal)
 
 	modSignal *= depth;
 	modSignal += 1.0 - depth;
+	return incomingSignal * modSignal;
 }
 void Tremolo::setModFreq(float freq)
 {
