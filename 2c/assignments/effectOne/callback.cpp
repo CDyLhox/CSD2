@@ -19,11 +19,11 @@ void CustomCallback::process(AudioBuffer buffer)
 	float sample;
 	for (int channel = 0u; channel < numInputChannels; channel++) {
 		for (int i = 0u; i < numFrames; i++) {
-			// tremolo.processFrame(inputChannels[channel][i],  sample);
+			tremolo.processFrame(inputChannels[channel][i], sample);
 
-			// waveshaper.processFrame(sample, sample);
-			waveshaper.processFrame(inputChannels[channel][i], outputChannels[channel][i]);
-			// delay.processFrame(sample,  outputChannels[channel][i]);
+			waveshaper.processFrame(sample, sample);
+			// waveshaper.processFrame(inputChannels[channel][i], outputChannels[channel][i]);
+			delay.processFrame(sample, outputChannels[channel][i]);
 		}
 	}
 }

@@ -12,5 +12,5 @@ class Waveshaper : public Effect {
 	void applyEffect(const float &input, float &output) override;
 
 	void setShapeSlope(int slope); // TODO rethink name
-	int m_slope = 1155500;
+	long m_slope = 999999; //TODO make into float or long
 };
