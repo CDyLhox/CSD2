@@ -1,2 +1,1 @@
-#add_subdirectory(00_circBufferSession)
-add_subdirectory(02_tremDylan)
+add_subdirectory(effectOne)

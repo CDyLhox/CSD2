@@ -3,6 +3,8 @@
 
 #include <audiocomponent.h>
 #include "tremolo.h"
+#include "delay.h"
+#include "waveshaper.h"
 
 
 class CustomCallback : public AudioCallback {
@@ -13,8 +15,9 @@ public:
 
 private:
   float samplerate = 44100;
-  Tremolo tremolo = Tremolo(4000 , 5);
-  
+  Tremolo tremolo = Tremolo(6, 1);
+  Delay delay;
+  Waveshaper waveshaper;
 };
 
 #endif //CALLBACK_H

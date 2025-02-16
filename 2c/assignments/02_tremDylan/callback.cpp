@@ -1,4 +1,5 @@
 #include "callback.h"
+#include <iostream>
 
 CustomCallback::CustomCallback (float sampleRate)
   : AudioCallback (sampleRate), samplerate (sampleRate) {}
@@ -18,8 +19,10 @@ void CustomCallback::process (AudioBuffer buffer) {
 
   for (int channel = 0; channel < numInputChannels; channel++) {
     for (auto i = 0; i < numFrames; i++) {
+	    
       buffer.outputChannels[channel][i] =
-        tremolo.processFrame (buffer.inputChannels[channel][i]);
+
+        tremolo.processFrame(buffer.inputChannels[channel][i]);
     }
   }
 }

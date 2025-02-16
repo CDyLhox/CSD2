@@ -18,8 +18,11 @@ float Tremolo::processFrame(float incomingSignal)
 {
 	float modSignal = sine.genNextSample() * -0.5 + 0.5;
 
+
 	modSignal *= depth;
 	modSignal += 1.0 - depth;
+
+	std::cout << incomingSignal * modSignal << std::endl;
 	return incomingSignal * modSignal;
 }
 void Tremolo::setModFreq(float freq)
