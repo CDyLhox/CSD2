@@ -9,8 +9,10 @@ Waveshaper::~Waveshaper(){
 }
 
 void Waveshaper::applyEffect(const float &input, float &output){
-	//TODO ADD THE ARCTAN FUNCTION
+	output =  1/std::atan(m_slope)*std::atan(input*m_slope); //is reference
+}
 
-	output =  1/std::atan(m_slope)*std::atan(input*m_slope); 
-
-}	
+void Waveshaper::setSlope(long slope){
+	//TODO ADD VALIDATION
+	m_slope = slope;
+}

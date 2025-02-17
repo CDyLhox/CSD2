@@ -14,7 +14,7 @@ public:
 private:
   float samplerate = 44100;
   Tremolo tremolo = Tremolo(4000 , 5);
-  
+ Sine Asine{500} ;
 };
 
 #endif //CALLBACK_H

@@ -4,4 +4,5 @@
 
 add_subdirectory(test)
 add_subdirectory(assignments)
+add_subdirectory(codingClinics)
 add_subdirectory(TOOLBELT)

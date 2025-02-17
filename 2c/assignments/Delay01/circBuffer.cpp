@@ -4,6 +4,7 @@ CircBuffer::CircBuffer()
     : CircBuffer(200, 500)
 {
 } // set default constructor
+
 CircBuffer::CircBuffer(int size, int numSamplesDelay)
 {
 	// Dynamic array
@@ -24,6 +25,7 @@ CircBuffer::~CircBuffer()
 	releaseBuffer();
 }
 
+
 void CircBuffer::allocateBuffer(int size)
 { // check out malloc after this.
 
@@ -32,6 +34,7 @@ void CircBuffer::allocateBuffer(int size)
 		buffer[i] = 0;
 	}
 }
+
 
 void CircBuffer::releaseBuffer()
 {
@@ -52,6 +55,7 @@ void CircBuffer::writeHead(int currentSample)
 	buffer[writeHeadPosition] = currentSample; // input
 	std::cout << currentSample << std::endl;
 }
+
 void setDelayTime(int numSamplesDelay)
 { 	// take current writeheadPosition and last numSamplesDelay setting.
 	// old numSamplesDelay - new NumsamplesDelay += writeHeadPosition
