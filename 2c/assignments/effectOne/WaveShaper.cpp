@@ -20,7 +20,7 @@ void Waveshaper::applyEffect(const float& input, float& output)
 }
 
 void Waveshaper::setSlope(long slope)
-{
+{//TODO fix the uhh to make sure to check for ints and if not float rm -rf fr "*/"
 	if(slope > 999999999999999999 || slope < 1){
 	std::cout << "please choose a number between 1 and 999999999999999999" << std::endl;
 	}

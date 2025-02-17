@@ -5,7 +5,7 @@
 #include "tremolo.h"
 #include "waveshaper.h"
 #include <audiocomponent.h>
-#include <sine.h>
+#include "uiutility.h"
 
 class CustomCallback : public AudioCallback {
     public:
@@ -18,7 +18,6 @@ class CustomCallback : public AudioCallback {
 	Tremolo tremolo = Tremolo(6, 1);
 	Delay delay;
 	Waveshaper waveshaper;
-	Sine testSine { 500, samplerate };
 };
 
 #endif // CALLBACK_H

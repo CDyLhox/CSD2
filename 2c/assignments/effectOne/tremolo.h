@@ -31,7 +31,7 @@ protected:
   // default modulation frequency range values
   // NOTE: no setters yet
   float m_modFreqMin = 0.01f;
-  float m_modFreqMax = 50.0f;
+  float m_modFreqMax = 500000.0f;
   // modulation depth value
   // NOTE: no validation yet
   float m_modDepth;
