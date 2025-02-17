@@ -11,8 +11,9 @@ Effect::~Effect() { }
 // process frame
 void Effect::processFrame(const float& input, float& output)
 {
-	if (m_isBypassed) {
+	if (m_isBypassed == true) {
 		output = input;
+
 	} else {
 		applyEffect(input, output);
 		output = input * wetDry + output * dryWet;

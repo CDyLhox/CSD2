@@ -24,14 +24,15 @@ class Effect {
 	// pure virtual method
 	virtual void applyEffect(const float& input, float& output) = 0;
 
+	bool m_isBypassed = false;
     private:
 	// balance between dry and wet signal
 	float dryWet;
 	float wetDry; // = 1 - dryWet
 	// cache last sample
 	float m_sample;
-	bool m_isBypassed = 0;
 	float m_wetSignal;
+	
 	/*
 	 * NOTE: other possible extra base class functionality:
 	 * • bypass
