@@ -6,6 +6,7 @@ target_compile_definitions(02_effect PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 
 target_link_libraries(02_effect PRIVATE
         oscillators
         audio
+	transformation
 
         juce::juce_audio_basics
         juce::juce_audio_devices

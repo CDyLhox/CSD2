@@ -15,7 +15,7 @@ class Tremolo {
 	void prepare(float sampleRate);
     private:
 	float rate;
-	float depth = 1.2;
-	Sine sine;
+	float depth = 0.5;
+	Sine sine{5};
 
 };

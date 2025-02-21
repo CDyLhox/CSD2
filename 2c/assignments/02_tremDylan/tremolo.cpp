@@ -1,8 +1,12 @@
 #include "tremolo.h"
 
 Tremolo::Tremolo(float rate, float depth)
-{
+{//TODO: add validation
+ if(rate > 15000 || rate < 0){
+	 std::cout << "please choose a value between 0 and 15000" << std::endl;
+ }
 	std::cout << "Tremolo::Tremolo. a classic example of a tremolo doing things" << std::endl;
+	
 }
 
 Tremolo::~Tremolo()

@@ -21,7 +21,7 @@ void CustomCallback::prepare(int rate)
 	waveshaper.setDryWet(0.5);
 	delay.setDryWet(0.5);
 
-	tremolo.setModFreq(49);
+	tremolo.setModFreq(9);
 	waveshaper.setSlope(9999);
 	delay.setNumDelaySamples(3);
 	
@@ -35,7 +35,7 @@ void CustomCallback::process(AudioBuffer buffer)
 		for (int i = 0u; i < numFrames; i++) {
 			tremolo.processFrame(inputChannels[channel][i], sample);
 
-			waveshaper.processFrame(sample, sample);
+			waveshaper.processFrame(sample, sample);//TODO: also make second sample variable
 			delay.processFrame(sample, outputChannels[channel][i]);
 		}
 	}
