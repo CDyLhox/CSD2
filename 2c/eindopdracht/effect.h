@@ -1,5 +1,6 @@
 #pragma once
 
+typedef unsigned int uint;
 class Effect {
     public:
 	// drywet: drywet balance

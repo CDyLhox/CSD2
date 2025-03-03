@@ -1,7 +1,6 @@
 #pragma once
 #include "effect.h"
 
-typedef unsigned int uint;
 
 class Delay : public Effect
 {

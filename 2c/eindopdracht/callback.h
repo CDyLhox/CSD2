@@ -6,6 +6,7 @@
 #include "waveshaper.h"
 #include <audiocomponent.h>
 #include "uiutility.h"
+#include "timestretcher.h"
 
 class CustomCallback : public AudioCallback {
     public:
@@ -18,6 +19,7 @@ class CustomCallback : public AudioCallback {
 	Tremolo tremolo = Tremolo(6, 1);
 	Delay delay;
 	Waveshaper waveshaper;
+	Timestretcher timestretcher;
 };
 
 #endif // CALLBACK_H
