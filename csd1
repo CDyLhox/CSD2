@@ -226,6 +226,17 @@ nnoremap <silent> <Plug>(lsp-code-action-float) :call lsp#ui#vim#code_action({
 nnoremap <silent> <Plug>(lsp-code-action) :call lsp#ui#vim#code_action({})
 nnoremap <silent> <Plug>(lsp-call-hierarchy-outgoing) :call lsp#ui#vim#call_hierarchy_outgoing()
 nnoremap <silent> <Plug>(lsp-call-hierarchy-incoming) :call lsp#ui#vim#call_hierarchy_incoming({})
+nnoremap <silent> <Plug>(CMakeCompileSource) :call cmake4vim#CompileSource()
+nnoremap <silent> <Plug>(CCMake) :call cmake4vim#CCMake()
+nnoremap <silent> <Plug>(CTestCurrent) :call cmake4vim#CTestCurrent(0)
+nnoremap <silent> <Plug>(CTest) :call cmake4vim#CTest(0)
+nnoremap <silent> <Plug>(CMakeRun) :call cmake4vim#RunTarget(0)
+nnoremap <silent> <Plug>(CMakeInfo) :call utils#window#OpenCMakeInfo()
+nnoremap <silent> <Plug>(CMakeClean) :call cmake4vim#CleanCMake()
+nnoremap <silent> <Plug>(CMakeBuild) :call cmake4vim#CMakeBuild()
+nnoremap <silent> <Plug>(CMakeReset) :call cmake4vim#ResetCMakeCache()
+nnoremap <silent> <Plug>(CMakeResetAndReload) :call cmake4vim#ResetAndReloadCMake()
+nnoremap <silent> <Plug>(CMake) :call cmake4vim#GenerateCMake()
 vmap <BS> "-d
 vmap <D-x> "*d
 vmap <D-c> "*y
@@ -293,7 +304,6 @@ set runtimepath+=/usr/local/share/vim/vim91
 set runtimepath+=/usr/local/share/vim/vim91/pack/dist/opt/matchit
 set runtimepath+=/usr/local/share/vim/vimfiles/after
 set runtimepath+=~/.vim/after
-set runtimepath+=~/.vim/bundle/Vundle.vim
 set runtimepath+=~/.vim/bundle/Vundle.vim/after
 set runtimepath+=~/.vim/bundle/vim-fugitive/after
 set runtimepath+=~/.vim/bundle/command-t/after
@@ -308,7 +318,8 @@ set ttimeoutlen=100
 set undofile
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 set wildmode=list:longest
-set window=58
+set winminheight=0
+set winminwidth=0
 let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
 let v:this_session=expand("<sfile>:p")
 silent only
@@ -323,38 +334,49 @@ else
   set shortmess=aoO
 endif
 badd +8 2c/assignments/effectOne/WaveShaper.cpp
-badd +18 2c/assignments/effectOne/waveshaper.h
+badd +5 2c/assignments/effectOne/waveshaper.h
 badd +34 2c/assignments/effectOne/main.cpp
 badd +24 2c/assignments/effectOne/callback.cpp
-badd +3 2c/assignments/CMakeLists.txt
+badd +1 2c/assignments/CMakeLists.txt
 badd +42 2c/assignments/effectOne/effect.cpp
 badd +24 2c/assignments/effectOne/effect.h
 badd +21 2c/assignments/effectOne/delay.h
 badd +20 2c/assignments/effectOne/callback.h
 badd +36 2c/assignments/effectOne/delay.cpp
-badd +18 2c/assignments/effectOne/CMakeLists.txt
-badd +4 2c/codingClinics/cc3/flows.md
+badd +9 2c/assignments/effectOne/CMakeLists.txt
+badd +5 2c/codingClinics/cc3/flows.md
 badd +12 2c/assignments/02_tremDylan/main.cpp
 badd +37 2c/codingClinics/cc3/ciska/cc3/01_Stereo/main.cpp
-badd +0 2c/codingClinics/cc3/ciska/cc3/01_Stereo/CMakeLists.txt
-badd +0 2c/TOOLBELT/oscillators/sine.h
+badd +1 2c/codingClinics/cc3/ciska/cc3/01_Stereo/CMakeLists.txt
+badd +1 2c/TOOLBELT/oscillators/sine.h
 badd +2 2c/codingClinics/cc3/CMakeLists.txt
 badd +8 2c/CMakeLists.txt
 badd +1 2c/codingClinics/CMakeLists.txt
-badd +0 2c/codingClinics/cc3/ciska/cc3/CMakeLists.txt
+badd +1 2c/codingClinics/cc3/ciska/cc3/CMakeLists.txt
 badd +1 2c/assignments/02_tremDylan/oscillator.cpp
 badd +21 2c/assignments/02_tremDylan/tremolo.cpp
 badd +18 2c/assignments/02_tremDylan/tremolo.h
 badd +16 2c/assignments/02_tremDylan/callback.cpp
-badd +0 2c/assignments/02_tremDylan/callback.h
+badd +16 2c/assignments/02_tremDylan/callback.h
 badd +58 2c/assignments/effectOne/tremolo.cpp
 badd +9 2c/assignments/effectOne/plot.py
 badd +12 2c/assignments/effectOne/uiutility.h
 badd +10 2c/assignments/effectOne/uiutility.cpp
 badd +33 2c/assignments/effectOne/tremolo.h
+badd +34 2c/assignments/Delay01/circBuffer.cpp
+badd +1 2c/TOOLBELT/CMakeLists.txt
+badd +1 2c/TOOLBELT/transformation/CMakeLists.txt
+badd +2 2c/TOOLBELT/transformation/main.cpp
+badd +22 2c/TOOLBELT/transformation/interpolation/CMakeLists.txt
+badd +1 2c/TOOLBELT/oscillators/CMakeLists.txt
+badd +13 2c/TOOLBELT/transformation/interpolation.h
+badd +40 2c/codingClinics/cc4/main.cpp
+badd +0 2c/codingClinics/cc4/Filters.h
 argglobal
 %argdel
 set stal=2
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
@@ -378,12 +400,10 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 31 + 102) / 204)
-exe 'vert 2resize ' . ((&columns * 172 + 102) / 204)
+exe 'vert 1resize ' . ((&columns * 15 + 50) / 101)
 argglobal
 enew
 file NERD_tree_tab_1
-balt 2c/assignments/effectOne/WaveShaper.cpp
 let s:cpo_save=&cpo
 set cpo&vim
 nnoremap <buffer> <silent> <NL> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
@@ -706,15 +726,368 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 28) / 56)
+let s:l = 1 - ((0 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 1
 normal! 027|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 31 + 102) / 204)
-exe 'vert 2resize ' . ((&columns * 172 + 102) / 204)
+exe 'vert 1resize ' . ((&columns * 15 + 50) / 101)
+tabnext
+edit 2c/TOOLBELT/transformation/interpolation.h
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 15 + 50) / 101)
+argglobal
+enew
+file NERD_tree_tab_2
+balt 2c/TOOLBELT/transformation/interpolation.h
+let s:cpo_save=&cpo
+set cpo&vim
+nnoremap <buffer> <silent> <NL> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
+nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<C-k>")
+nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<CR>")
+nnoremap <buffer> <silent> ? :call nerdtree#ui_glue#invokeKeyMap("?")
+nnoremap <buffer> <silent> A :call nerdtree#ui_glue#invokeKeyMap("A")
+nnoremap <buffer> <silent> B :call nerdtree#ui_glue#invokeKeyMap("B")
+nnoremap <buffer> <silent> C :call nerdtree#ui_glue#invokeKeyMap("C")
+nnoremap <buffer> <silent> CD :call nerdtree#ui_glue#invokeKeyMap("CD")
+nnoremap <buffer> <silent> D :call nerdtree#ui_glue#invokeKeyMap("D")
+nnoremap <buffer> <silent> FL :call nerdtree#ui_glue#invokeKeyMap("FL")
+nnoremap <buffer> <silent> F :call nerdtree#ui_glue#invokeKeyMap("F")
+nnoremap <buffer> <silent> I :call nerdtree#ui_glue#invokeKeyMap("I")
+nnoremap <buffer> <silent> J :call nerdtree#ui_glue#invokeKeyMap("J")
+nnoremap <buffer> <silent> K :call nerdtree#ui_glue#invokeKeyMap("K")
+nnoremap <buffer> <silent> O :call nerdtree#ui_glue#invokeKeyMap("O")
+nnoremap <buffer> <silent> P :call nerdtree#ui_glue#invokeKeyMap("P")
+nnoremap <buffer> <silent> R :call nerdtree#ui_glue#invokeKeyMap("R")
+nnoremap <buffer> <silent> T :call nerdtree#ui_glue#invokeKeyMap("T")
+nnoremap <buffer> <silent> U :call nerdtree#ui_glue#invokeKeyMap("U")
+nnoremap <buffer> <silent> X :call nerdtree#ui_glue#invokeKeyMap("X")
+nnoremap <buffer> <silent> cd :call nerdtree#ui_glue#invokeKeyMap("cd")
+nnoremap <buffer> <silent> e :call nerdtree#ui_glue#invokeKeyMap("e")
+nnoremap <buffer> <silent> f :call nerdtree#ui_glue#invokeKeyMap("f")
+nnoremap <buffer> <silent> go :call nerdtree#ui_glue#invokeKeyMap("go")
+nnoremap <buffer> <silent> gb :call nerdtree#ui_glue#invokeKeyMap("gb")
+nnoremap <buffer> <silent> gi :call nerdtree#ui_glue#invokeKeyMap("gi")
+nnoremap <buffer> <silent> gs :call nerdtree#ui_glue#invokeKeyMap("gs")
+nnoremap <buffer> <silent> i :call nerdtree#ui_glue#invokeKeyMap("i")
+nnoremap <buffer> <silent> m :call nerdtree#ui_glue#invokeKeyMap("m")
+nnoremap <buffer> <silent> o :call nerdtree#ui_glue#invokeKeyMap("o")
+nnoremap <buffer> <silent> p :call nerdtree#ui_glue#invokeKeyMap("p")
+nnoremap <buffer> <silent> q :call nerdtree#ui_glue#invokeKeyMap("q")
+nnoremap <buffer> <silent> r :call nerdtree#ui_glue#invokeKeyMap("r")
+nnoremap <buffer> <silent> s :call nerdtree#ui_glue#invokeKeyMap("s")
+nnoremap <buffer> <silent> t :call nerdtree#ui_glue#invokeKeyMap("t")
+nnoremap <buffer> <silent> u :call nerdtree#ui_glue#invokeKeyMap("u")
+nnoremap <buffer> <silent> x :call nerdtree#ui_glue#invokeKeyMap("x")
+nnoremap <buffer> <silent> <MiddleMouse> :call nerdtree#ui_glue#invokeKeyMap("<MiddleMouse>")
+nnoremap <buffer> <silent> <2-LeftMouse> :call nerdtree#ui_glue#invokeKeyMap("<2-LeftMouse>")
+nnoremap <buffer> <silent> <C-K> :call nerdtree#ui_glue#invokeKeyMap("<C-k>")
+nnoremap <buffer> <silent> <C-J> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
+nnoremap <buffer> <silent> <LeftRelease> <LeftRelease>:call nerdtree#ui_glue#invokeKeyMap("<LeftRelease>")
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=hide
+setlocal nobuflisted
+setlocal buftype=nofile
+setlocal nocindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinscopedecls=public,protected,private
+setlocal cinwords=if,else,while,do,for,switch
+set colorcolumn=80
+setlocal colorcolumn=80
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*\ %s\ */
+setlocal complete=.,w,b,u,t,i
+setlocal completefunc=
+setlocal completeopt=
+setlocal concealcursor=nvic
+setlocal conceallevel=3
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+set cursorcolumn
+setlocal cursorcolumn
+set cursorline
+setlocal cursorline
+setlocal cursorlineopt=both
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal noexpandtab
+if &filetype != 'nerdtree'
+setlocal filetype=nerdtree
+endif
+setlocal fillchars=
+setlocal findfunc=
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal nofoldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatoptions=tcq
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispoptions=
+setlocal lispwords=
+setlocal nolist
+setlocal listchars=
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal nomodifiable
+setlocal nrformats=bin,hex
+set number
+setlocal nonumber
+setlocal numberwidth=4
+setlocal omnifunc=
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal readonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=8
+setlocal noshortname
+setlocal showbreak=
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal nosmoothscroll
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal spelloptions=
+setlocal statusline=%{exists('b:NERDTree')?b:NERDTree.root.path.str():''}
+setlocal suffixesadd=
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'nerdtree'
+setlocal syntax=nerdtree
+endif
+setlocal tabstop=8
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal thesaurusfunc=
+setlocal undofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal virtualedit=
+setlocal wincolor=
+setlocal nowinfixbuf
+setlocal nowinfixheight
+setlocal winfixwidth
+setlocal nowrap
+setlocal wrapmargin=0
+wincmd w
+argglobal
+balt 2c/assignments/effectOne/CMakeLists.txt
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal cindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinscopedecls=public,protected,private
+setlocal cinwords=if,else,while,do,for,switch
+set colorcolumn=80
+setlocal colorcolumn=80
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:///,://
+setlocal commentstring=//\ %s
+setlocal complete=.,w,b,u,t,i
+setlocal completefunc=
+setlocal completeopt=
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+set cursorcolumn
+setlocal cursorcolumn
+set cursorline
+setlocal cursorline
+setlocal cursorlineopt=both
+setlocal define=^\\s*#\\s*define
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal noexpandtab
+if &filetype != 'cpp'
+setlocal filetype=cpp
+endif
+setlocal fillchars=
+setlocal findfunc=
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatoptions=croql
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=^\\s*#\\s*include
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispoptions=
+setlocal lispwords=
+setlocal nolist
+setlocal listchars=
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=ccomplete#Complete
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=8
+setlocal noshortname
+setlocal showbreak=
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal nosmoothscroll
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal spelloptions=
+setlocal statusline=
+setlocal suffixesadd=
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'cpp'
+setlocal syntax=cpp
+endif
+setlocal tabstop=2
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal thesaurusfunc=
+setlocal undofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal virtualedit=
+setlocal wincolor=
+setlocal nowinfixbuf
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 13 - ((12 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 13
+normal! 057|
+wincmd w
+exe 'vert 1resize ' . ((&columns * 15 + 50) / 101)
 tabnext
 edit 2c/assignments/effectOne/callback.h
 let s:save_splitbelow = &splitbelow
@@ -735,6 +1108,10 @@ wincmd w
 wincmd _ | wincmd |
 vsplit
 1wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
 wincmd w
 let &splitbelow = s:save_splitbelow
 let &splitright = s:save_splitright
@@ -745,15 +1122,17 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 31 + 102) / 204)
-exe '2resize ' . ((&lines * 30 + 29) / 59)
-exe 'vert 2resize ' . ((&columns * 86 + 102) / 204)
-exe '3resize ' . ((&lines * 30 + 29) / 59)
-exe 'vert 3resize ' . ((&columns * 85 + 102) / 204)
-exe '4resize ' . ((&lines * 25 + 29) / 59)
-exe 'vert 4resize ' . ((&columns * 86 + 102) / 204)
-exe '5resize ' . ((&lines * 25 + 29) / 59)
-exe 'vert 5resize ' . ((&columns * 85 + 102) / 204)
+exe 'vert 1resize ' . ((&columns * 31 + 50) / 101)
+exe '2resize ' . ((&lines * 22 + 29) / 58)
+exe 'vert 2resize ' . ((&columns * 68 + 50) / 101)
+exe '3resize ' . ((&lines * 22 + 29) / 58)
+exe 'vert 3resize ' . ((&columns * 0 + 50) / 101)
+exe '4resize ' . ((&lines * 21 + 29) / 58)
+exe 'vert 4resize ' . ((&columns * 68 + 50) / 101)
+exe '5resize ' . ((&lines * 10 + 29) / 58)
+exe 'vert 5resize ' . ((&columns * 68 + 50) / 101)
+exe '6resize ' . ((&lines * 32 + 29) / 58)
+exe 'vert 6resize ' . ((&columns * 0 + 50) / 101)
 argglobal
 enew
 file NERD_tree_tab_7
@@ -1080,16 +1459,16 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 20 - ((19 * winheight(0) + 15) / 30)
+let s:l = 2 - ((1 * winheight(0) + 11) / 22)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 20
+keepjumps 2
 normal! 0
 wincmd w
 argglobal
 if bufexists(fnamemodify("2c/assignments/effectOne/waveshaper.h", ":p")) | buffer 2c/assignments/effectOne/waveshaper.h | else | edit 2c/assignments/effectOne/waveshaper.h | endif
-balt 2c/assignments/effectOne/tremolo.h
+balt 2c/TOOLBELT/transformation/main.cpp
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -1205,7 +1584,7 @@ setlocal synmaxcol=3000
 if &syntax != 'cpp'
 setlocal syntax=cpp
 endif
-setlocal tabstop=8
+setlocal tabstop=2
 setlocal tagcase=
 setlocal tagfunc=
 setlocal tags=
@@ -1228,12 +1607,12 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 16 - ((15 * winheight(0) + 15) / 30)
+let s:l = 23 - ((5 * winheight(0) + 11) / 22)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 16
-normal! 031|
+keepjumps 23
+normal! 0
 wincmd w
 argglobal
 if bufexists(fnamemodify("2c/assignments/effectOne/callback.cpp", ":p")) | buffer 2c/assignments/effectOne/callback.cpp | else | edit 2c/assignments/effectOne/callback.cpp | endif
@@ -1376,12 +1755,152 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 42 - ((18 * winheight(0) + 12) / 25)
+let s:l = 23 - ((6 * winheight(0) + 10) / 21)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 42
+keepjumps 23
 normal! 0
+wincmd w
+argglobal
+enew
+balt 2c/assignments/effectOne/callback.cpp
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=hide
+setlocal buflisted
+setlocal buftype=quickfix
+setlocal nocindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinscopedecls=public,protected,private
+setlocal cinwords=if,else,while,do,for,switch
+set colorcolumn=80
+setlocal colorcolumn=80
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*\ %s\ */
+setlocal complete=.,w,b,u,t,i
+setlocal completefunc=
+setlocal completeopt=
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+set cursorcolumn
+setlocal cursorcolumn
+set cursorline
+setlocal cursorline
+setlocal cursorlineopt=both
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal noexpandtab
+if &filetype != 'qf'
+setlocal filetype=qf
+endif
+setlocal fillchars=
+setlocal findfunc=
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatoptions=tcq
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispoptions=
+setlocal lispwords=
+setlocal nolist
+setlocal listchars=
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal nomodifiable
+setlocal nrformats=bin,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=8
+setlocal noshortname
+setlocal showbreak=
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal nosmoothscroll
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal spelloptions=
+setlocal statusline=%t%{exists('w:quickfix_title')?\ '\ '.w:quickfix_title\ :\ ''}\ %=%-15(%l,%c%V%)\ %P
+setlocal suffixesadd=
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'qf'
+setlocal syntax=qf
+endif
+setlocal tabstop=8
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal thesaurusfunc=
+setlocal undofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal virtualedit=
+setlocal wincolor=
+setlocal nowinfixbuf
+setlocal winfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
 wincmd w
 argglobal
 if bufexists(fnamemodify("2c/assignments/effectOne/WaveShaper.cpp", ":p")) | buffer 2c/assignments/effectOne/WaveShaper.cpp | else | edit 2c/assignments/effectOne/WaveShaper.cpp | endif
@@ -1524,22 +2043,25 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 26 - ((14 * winheight(0) + 12) / 25)
+let s:l = 27 - ((0 * winheight(0) + 16) / 32)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 26
-normal! 061|
+keepjumps 27
+normal! 018|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 31 + 102) / 204)
-exe '2resize ' . ((&lines * 30 + 29) / 59)
-exe 'vert 2resize ' . ((&columns * 86 + 102) / 204)
-exe '3resize ' . ((&lines * 30 + 29) / 59)
-exe 'vert 3resize ' . ((&columns * 85 + 102) / 204)
-exe '4resize ' . ((&lines * 25 + 29) / 59)
-exe 'vert 4resize ' . ((&columns * 86 + 102) / 204)
-exe '5resize ' . ((&lines * 25 + 29) / 59)
-exe 'vert 5resize ' . ((&columns * 85 + 102) / 204)
+2wincmd w
+exe 'vert 1resize ' . ((&columns * 31 + 50) / 101)
+exe '2resize ' . ((&lines * 22 + 29) / 58)
+exe 'vert 2resize ' . ((&columns * 68 + 50) / 101)
+exe '3resize ' . ((&lines * 22 + 29) / 58)
+exe 'vert 3resize ' . ((&columns * 0 + 50) / 101)
+exe '4resize ' . ((&lines * 21 + 29) / 58)
+exe 'vert 4resize ' . ((&columns * 68 + 50) / 101)
+exe '5resize ' . ((&lines * 10 + 29) / 58)
+exe 'vert 5resize ' . ((&columns * 68 + 50) / 101)
+exe '6resize ' . ((&lines * 32 + 29) / 58)
+exe 'vert 6resize ' . ((&columns * 0 + 50) / 101)
 tabnext
 edit 2c/TOOLBELT/oscillators/sine.h
 let s:save_splitbelow = &splitbelow
@@ -1558,12 +2080,10 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 31 + 102) / 204)
-exe 'vert 2resize ' . ((&columns * 172 + 102) / 204)
+exe 'vert 1resize ' . ((&columns * 15 + 50) / 101)
 argglobal
 enew
-file NERD_tree_tab_6
-balt 2c/TOOLBELT/oscillators/sine.h
+file NERD_tree_tab_3
 let s:cpo_save=&cpo
 set cpo&vim
 nnoremap <buffer> <silent> <NL> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
@@ -1886,15 +2406,14 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 28) / 56)
+let s:l = 1 - ((0 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 1
 normal! 016|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 31 + 102) / 204)
-exe 'vert 2resize ' . ((&columns * 172 + 102) / 204)
+exe 'vert 1resize ' . ((&columns * 15 + 50) / 101)
 tabnext
 edit 2c/assignments/02_tremDylan/callback.h
 let s:save_splitbelow = &splitbelow
@@ -1925,19 +2444,16 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 31 + 102) / 204)
-exe '2resize ' . ((&lines * 26 + 29) / 59)
-exe 'vert 2resize ' . ((&columns * 85 + 102) / 204)
-exe '3resize ' . ((&lines * 26 + 29) / 59)
-exe 'vert 3resize ' . ((&columns * 86 + 102) / 204)
-exe '4resize ' . ((&lines * 29 + 29) / 59)
-exe 'vert 4resize ' . ((&columns * 85 + 102) / 204)
-exe '5resize ' . ((&lines * 29 + 29) / 59)
-exe 'vert 5resize ' . ((&columns * 86 + 102) / 204)
+exe 'vert 1resize ' . ((&columns * 15 + 50) / 101)
+exe '2resize ' . ((&lines * 27 + 29) / 58)
+exe 'vert 2resize ' . ((&columns * 41 + 50) / 101)
+exe '3resize ' . ((&lines * 27 + 29) / 58)
+exe '4resize ' . ((&lines * 27 + 29) / 58)
+exe 'vert 4resize ' . ((&columns * 41 + 50) / 101)
+exe '5resize ' . ((&lines * 27 + 29) / 58)
 argglobal
 enew
-file NERD_tree_tab_5
-balt 2c/assignments/02_tremDylan/main.cpp
+file NERD_tree_tab_4
 let s:cpo_save=&cpo
 set cpo&vim
 nnoremap <buffer> <silent> <NL> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
@@ -2261,7 +2777,7 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 16 - ((15 * winheight(0) + 13) / 26)
+let s:l = 16 - ((11 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -2409,12 +2925,12 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 5 - ((4 * winheight(0) + 13) / 26)
+let s:l = 1 - ((0 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 5
-normal! 028|
+keepjumps 1
+normal! 020|
 wincmd w
 argglobal
 if bufexists(fnamemodify("2c/assignments/02_tremDylan/tremolo.h", ":p")) | buffer 2c/assignments/02_tremDylan/tremolo.h | else | edit 2c/assignments/02_tremDylan/tremolo.h | endif
@@ -2557,7 +3073,7 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 19 - ((18 * winheight(0) + 14) / 29)
+let s:l = 19 - ((12 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -2705,217 +3221,32 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 2 - ((1 * winheight(0) + 14) / 29)
+let s:l = 4 - ((3 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 2
-normal! 019|
+keepjumps 4
+normal! 0
 wincmd w
-5wincmd w
-exe 'vert 1resize ' . ((&columns * 31 + 102) / 204)
-exe '2resize ' . ((&lines * 26 + 29) / 59)
-exe 'vert 2resize ' . ((&columns * 85 + 102) / 204)
-exe '3resize ' . ((&lines * 26 + 29) / 59)
-exe 'vert 3resize ' . ((&columns * 86 + 102) / 204)
-exe '4resize ' . ((&lines * 29 + 29) / 59)
-exe 'vert 4resize ' . ((&columns * 85 + 102) / 204)
-exe '5resize ' . ((&lines * 29 + 29) / 59)
-exe 'vert 5resize ' . ((&columns * 86 + 102) / 204)
+exe 'vert 1resize ' . ((&columns * 15 + 50) / 101)
+exe '2resize ' . ((&lines * 27 + 29) / 58)
+exe 'vert 2resize ' . ((&columns * 41 + 50) / 101)
+exe '3resize ' . ((&lines * 27 + 29) / 58)
+exe '4resize ' . ((&lines * 27 + 29) / 58)
+exe 'vert 4resize ' . ((&columns * 41 + 50) / 101)
+exe '5resize ' . ((&lines * 27 + 29) / 58)
 tabnext
-argglobal
-enew
-file NERD_tree_tab_4
-let s:cpo_save=&cpo
-set cpo&vim
-nnoremap <buffer> <silent> <NL> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
-nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<C-k>")
-nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<CR>")
-nnoremap <buffer> <silent> ? :call nerdtree#ui_glue#invokeKeyMap("?")
-nnoremap <buffer> <silent> A :call nerdtree#ui_glue#invokeKeyMap("A")
-nnoremap <buffer> <silent> B :call nerdtree#ui_glue#invokeKeyMap("B")
-nnoremap <buffer> <silent> C :call nerdtree#ui_glue#invokeKeyMap("C")
-nnoremap <buffer> <silent> CD :call nerdtree#ui_glue#invokeKeyMap("CD")
-nnoremap <buffer> <silent> D :call nerdtree#ui_glue#invokeKeyMap("D")
-nnoremap <buffer> <silent> FL :call nerdtree#ui_glue#invokeKeyMap("FL")
-nnoremap <buffer> <silent> F :call nerdtree#ui_glue#invokeKeyMap("F")
-nnoremap <buffer> <silent> I :call nerdtree#ui_glue#invokeKeyMap("I")
-nnoremap <buffer> <silent> J :call nerdtree#ui_glue#invokeKeyMap("J")
-nnoremap <buffer> <silent> K :call nerdtree#ui_glue#invokeKeyMap("K")
-nnoremap <buffer> <silent> O :call nerdtree#ui_glue#invokeKeyMap("O")
-nnoremap <buffer> <silent> P :call nerdtree#ui_glue#invokeKeyMap("P")
-nnoremap <buffer> <silent> R :call nerdtree#ui_glue#invokeKeyMap("R")
-nnoremap <buffer> <silent> T :call nerdtree#ui_glue#invokeKeyMap("T")
-nnoremap <buffer> <silent> U :call nerdtree#ui_glue#invokeKeyMap("U")
-nnoremap <buffer> <silent> X :call nerdtree#ui_glue#invokeKeyMap("X")
-nnoremap <buffer> <silent> cd :call nerdtree#ui_glue#invokeKeyMap("cd")
-nnoremap <buffer> <silent> e :call nerdtree#ui_glue#invokeKeyMap("e")
-nnoremap <buffer> <silent> f :call nerdtree#ui_glue#invokeKeyMap("f")
-nnoremap <buffer> <silent> go :call nerdtree#ui_glue#invokeKeyMap("go")
-nnoremap <buffer> <silent> gb :call nerdtree#ui_glue#invokeKeyMap("gb")
-nnoremap <buffer> <silent> gi :call nerdtree#ui_glue#invokeKeyMap("gi")
-nnoremap <buffer> <silent> gs :call nerdtree#ui_glue#invokeKeyMap("gs")
-nnoremap <buffer> <silent> i :call nerdtree#ui_glue#invokeKeyMap("i")
-nnoremap <buffer> <silent> m :call nerdtree#ui_glue#invokeKeyMap("m")
-nnoremap <buffer> <silent> o :call nerdtree#ui_glue#invokeKeyMap("o")
-nnoremap <buffer> <silent> p :call nerdtree#ui_glue#invokeKeyMap("p")
-nnoremap <buffer> <silent> q :call nerdtree#ui_glue#invokeKeyMap("q")
-nnoremap <buffer> <silent> r :call nerdtree#ui_glue#invokeKeyMap("r")
-nnoremap <buffer> <silent> s :call nerdtree#ui_glue#invokeKeyMap("s")
-nnoremap <buffer> <silent> t :call nerdtree#ui_glue#invokeKeyMap("t")
-nnoremap <buffer> <silent> u :call nerdtree#ui_glue#invokeKeyMap("u")
-nnoremap <buffer> <silent> x :call nerdtree#ui_glue#invokeKeyMap("x")
-nnoremap <buffer> <silent> <MiddleMouse> :call nerdtree#ui_glue#invokeKeyMap("<MiddleMouse>")
-nnoremap <buffer> <silent> <2-LeftMouse> :call nerdtree#ui_glue#invokeKeyMap("<2-LeftMouse>")
-nnoremap <buffer> <silent> <C-K> :call nerdtree#ui_glue#invokeKeyMap("<C-k>")
-nnoremap <buffer> <silent> <C-J> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
-nnoremap <buffer> <silent> <LeftRelease> <LeftRelease>:call nerdtree#ui_glue#invokeKeyMap("<LeftRelease>")
-let &cpo=s:cpo_save
-unlet s:cpo_save
-setlocal keymap=
-setlocal noarabic
-setlocal noautoindent
-setlocal backupcopy=
-setlocal balloonexpr=
-setlocal nobinary
-setlocal nobreakindent
-setlocal breakindentopt=
-setlocal bufhidden=hide
-setlocal nobuflisted
-setlocal buftype=nofile
-setlocal nocindent
-setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
-setlocal cinoptions=
-setlocal cinscopedecls=public,protected,private
-setlocal cinwords=if,else,while,do,for,switch
-set colorcolumn=80
-setlocal colorcolumn=80
-setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=/*\ %s\ */
-setlocal complete=.,w,b,u,t,i
-setlocal completefunc=
-setlocal completeopt=
-setlocal concealcursor=nvic
-setlocal conceallevel=3
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-set cursorcolumn
-setlocal cursorcolumn
-set cursorline
-setlocal cursorline
-setlocal cursorlineopt=both
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=
-setlocal noexpandtab
-if &filetype != 'nerdtree'
-setlocal filetype=nerdtree
-endif
-setlocal fillchars=
-setlocal findfunc=
-setlocal fixendofline
-setlocal foldcolumn=0
-setlocal nofoldenable
-setlocal foldexpr=0
-setlocal foldignore=#
-setlocal foldlevel=0
-setlocal foldmarker={{{,}}}
-setlocal foldmethod=manual
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal formatoptions=tcq
-setlocal formatprg=
-setlocal grepprg=
-setlocal iminsert=0
-setlocal imsearch=-1
-setlocal include=
-setlocal includeexpr=
-setlocal indentexpr=
-setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal lispoptions=
-setlocal lispwords=
-setlocal nolist
-setlocal listchars=
-setlocal makeencoding=
-setlocal makeprg=
-setlocal matchpairs=(:),{:},[:]
-setlocal modeline
-setlocal nomodifiable
-setlocal nrformats=bin,hex
-set number
-setlocal nonumber
-setlocal numberwidth=4
-setlocal omnifunc=
-setlocal path=
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal readonly
-setlocal norelativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal scrolloff=-1
-setlocal shiftwidth=8
-setlocal noshortname
-setlocal showbreak=
-setlocal sidescrolloff=-1
-setlocal signcolumn=auto
-setlocal nosmartindent
-setlocal nosmoothscroll
-setlocal softtabstop=0
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal spelloptions=
-setlocal statusline=%{exists('b:NERDTree')?b:NERDTree.root.path.str():''}
-setlocal suffixesadd=
-setlocal noswapfile
-setlocal synmaxcol=3000
-if &syntax != 'nerdtree'
-setlocal syntax=nerdtree
-endif
-setlocal tabstop=8
-setlocal tagcase=
-setlocal tagfunc=
-setlocal tags=
-setlocal termwinkey=
-setlocal termwinscroll=10000
-setlocal termwinsize=
-setlocal textwidth=0
-setlocal thesaurus=
-setlocal thesaurusfunc=
-setlocal undofile
-setlocal undolevels=-123456
-setlocal varsofttabstop=
-setlocal vartabstop=
-setlocal virtualedit=
-setlocal wincolor=
-setlocal nowinfixbuf
-setlocal nowinfixheight
-setlocal winfixwidth
-setlocal nowrap
-setlocal wrapmargin=0
-tabnext
-edit 2c/codingClinics/cc3/flows.md
+edit 2c/assignments/Delay01/circBuffer.cpp
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
 1wincmd h
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
 wincmd w
 let &splitbelow = s:save_splitbelow
 let &splitright = s:save_splitright
@@ -2926,11 +3257,12 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 31 + 102) / 204)
-exe 'vert 2resize ' . ((&columns * 172 + 102) / 204)
+exe 'vert 1resize ' . ((&columns * 15 + 50) / 101)
+exe '2resize ' . ((&lines * 27 + 29) / 58)
+exe '3resize ' . ((&lines * 27 + 29) / 58)
 argglobal
 enew
-file NERD_tree_tab_2
+file NERD_tree_tab_5
 let s:cpo_save=&cpo
 set cpo&vim
 nnoremap <buffer> <silent> <NL> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
@@ -3115,11 +3447,6 @@ setlocal nowrap
 setlocal wrapmargin=0
 wincmd w
 argglobal
-balt 2c/codingClinics/cc3/ciska/cc3/01_Stereo/main.cpp
-xnoremap <buffer> <silent> [[ :exe "normal! gv"|call search('\%(^#\{1,5\}\s\+\S\|^\S.*\n^[=-]\+$\)', "bsW")
-nnoremap <buffer> <silent> [[ :call search('\%(^#\{1,5\}\s\+\S\|^\S.*\n^[=-]\+$\)', "bsW")
-xnoremap <buffer> <silent> ]] :exe "normal! gv"|call search('\%(^#\{1,5\}\s\+\S\|^\S.*\n^[=-]\+$\)', "sW")
-nnoremap <buffer> <silent> ]] :call search('\%(^#\{1,5\}\s\+\S\|^\S.*\n^[=-]\+$\)', "sW")
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -3131,15 +3458,15 @@ setlocal breakindentopt=
 setlocal bufhidden=
 setlocal buflisted
 setlocal buftype=
-setlocal nocindent
+setlocal cindent
 setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinscopedecls=public,protected,private
 setlocal cinwords=if,else,while,do,for,switch
 set colorcolumn=80
 setlocal colorcolumn=80
-setlocal comments=fb:*,fb:-,fb:+,n:>
-setlocal commentstring=<!--\ %s\ -->
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:///,://
+setlocal commentstring=//\ %s
 setlocal complete=.,w,b,u,t,i
 setlocal completefunc=
 setlocal completeopt=
@@ -3153,14 +3480,14 @@ setlocal cursorcolumn
 set cursorline
 setlocal cursorline
 setlocal cursorlineopt=both
-setlocal define=
+setlocal define=^\\s*#\\s*define
 setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
-setlocal expandtab
-if &filetype != 'markdown'
-setlocal filetype=markdown
+setlocal noexpandtab
+if &filetype != 'cpp'
+setlocal filetype=cpp
 endif
 setlocal fillchars=
 setlocal findfunc=
@@ -3176,13 +3503,13 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\|^\\s*[-*+]\\s\\+\\|^\\[^\\ze[^\\]]\\+\\]:\\&^.\\{4\\}
-setlocal formatoptions=tcqln
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatoptions=croql
 setlocal formatprg=
 setlocal grepprg=
 setlocal iminsert=0
 setlocal imsearch=-1
-setlocal include=
+setlocal include=^\\s*#\\s*include
 setlocal includeexpr=
 setlocal indentexpr=
 setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
@@ -3197,14 +3524,14 @@ setlocal nolist
 setlocal listchars=
 setlocal makeencoding=
 setlocal makeprg=
-setlocal matchpairs=(:),{:},[:],<:>
+setlocal matchpairs=(:),{:},[:]
 setlocal modeline
 setlocal modifiable
 setlocal nrformats=bin,hex
 set number
 setlocal number
 setlocal numberwidth=4
-setlocal omnifunc=htmlcomplete#CompleteTags
+setlocal omnifunc=ccomplete#Complete
 setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
@@ -3215,14 +3542,14 @@ setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
 setlocal scrolloff=-1
-setlocal shiftwidth=4
+setlocal shiftwidth=8
 setlocal noshortname
 setlocal showbreak=
 setlocal sidescrolloff=-1
 setlocal signcolumn=auto
 setlocal nosmartindent
 setlocal nosmoothscroll
-setlocal softtabstop=4
+setlocal softtabstop=0
 setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
@@ -3232,10 +3559,10 @@ setlocal statusline=
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != 'markdown'
-setlocal syntax=markdown
+if &syntax != 'cpp'
+setlocal syntax=cpp
 endif
-setlocal tabstop=4
+setlocal tabstop=2
 setlocal tagcase=
 setlocal tagfunc=
 setlocal tags=
@@ -3258,16 +3585,1063 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 5 - ((4 * winheight(0) + 28) / 56)
+let s:l = 34 - ((21 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 5
-normal! 03|
+keepjumps 34
+normal! 0
 wincmd w
-exe 'vert 1resize ' . ((&columns * 31 + 102) / 204)
-exe 'vert 2resize ' . ((&columns * 172 + 102) / 204)
-tabnext 4
+argglobal
+enew
+balt 2c/assignments/Delay01/circBuffer.cpp
+let s:cpo_save=&cpo
+set cpo&vim
+nnoremap <buffer> <silent> <NL> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
+nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<C-k>")
+nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<CR>")
+nnoremap <buffer> <silent> ? :call nerdtree#ui_glue#invokeKeyMap("?")
+nnoremap <buffer> <silent> A :call nerdtree#ui_glue#invokeKeyMap("A")
+nnoremap <buffer> <silent> B :call nerdtree#ui_glue#invokeKeyMap("B")
+nnoremap <buffer> <silent> C :call nerdtree#ui_glue#invokeKeyMap("C")
+nnoremap <buffer> <silent> CD :call nerdtree#ui_glue#invokeKeyMap("CD")
+nnoremap <buffer> <silent> D :call nerdtree#ui_glue#invokeKeyMap("D")
+nnoremap <buffer> <silent> FL :call nerdtree#ui_glue#invokeKeyMap("FL")
+nnoremap <buffer> <silent> F :call nerdtree#ui_glue#invokeKeyMap("F")
+nnoremap <buffer> <silent> I :call nerdtree#ui_glue#invokeKeyMap("I")
+nnoremap <buffer> <silent> J :call nerdtree#ui_glue#invokeKeyMap("J")
+nnoremap <buffer> <silent> K :call nerdtree#ui_glue#invokeKeyMap("K")
+nnoremap <buffer> <silent> O :call nerdtree#ui_glue#invokeKeyMap("O")
+nnoremap <buffer> <silent> P :call nerdtree#ui_glue#invokeKeyMap("P")
+nnoremap <buffer> <silent> R :call nerdtree#ui_glue#invokeKeyMap("R")
+nnoremap <buffer> <silent> T :call nerdtree#ui_glue#invokeKeyMap("T")
+nnoremap <buffer> <silent> U :call nerdtree#ui_glue#invokeKeyMap("U")
+nnoremap <buffer> <silent> X :call nerdtree#ui_glue#invokeKeyMap("X")
+nnoremap <buffer> <silent> cd :call nerdtree#ui_glue#invokeKeyMap("cd")
+nnoremap <buffer> <silent> e :call nerdtree#ui_glue#invokeKeyMap("e")
+nnoremap <buffer> <silent> f :call nerdtree#ui_glue#invokeKeyMap("f")
+nnoremap <buffer> <silent> go :call nerdtree#ui_glue#invokeKeyMap("go")
+nnoremap <buffer> <silent> gb :call nerdtree#ui_glue#invokeKeyMap("gb")
+nnoremap <buffer> <silent> gi :call nerdtree#ui_glue#invokeKeyMap("gi")
+nnoremap <buffer> <silent> gs :call nerdtree#ui_glue#invokeKeyMap("gs")
+nnoremap <buffer> <silent> i :call nerdtree#ui_glue#invokeKeyMap("i")
+nnoremap <buffer> <silent> m :call nerdtree#ui_glue#invokeKeyMap("m")
+nnoremap <buffer> <silent> o :call nerdtree#ui_glue#invokeKeyMap("o")
+nnoremap <buffer> <silent> p :call nerdtree#ui_glue#invokeKeyMap("p")
+nnoremap <buffer> <silent> q :call nerdtree#ui_glue#invokeKeyMap("q")
+nnoremap <buffer> <silent> r :call nerdtree#ui_glue#invokeKeyMap("r")
+nnoremap <buffer> <silent> s :call nerdtree#ui_glue#invokeKeyMap("s")
+nnoremap <buffer> <silent> t :call nerdtree#ui_glue#invokeKeyMap("t")
+nnoremap <buffer> <silent> u :call nerdtree#ui_glue#invokeKeyMap("u")
+nnoremap <buffer> <silent> x :call nerdtree#ui_glue#invokeKeyMap("x")
+nnoremap <buffer> <silent> <MiddleMouse> :call nerdtree#ui_glue#invokeKeyMap("<MiddleMouse>")
+nnoremap <buffer> <silent> <2-LeftMouse> :call nerdtree#ui_glue#invokeKeyMap("<2-LeftMouse>")
+nnoremap <buffer> <silent> <C-K> :call nerdtree#ui_glue#invokeKeyMap("<C-k>")
+nnoremap <buffer> <silent> <C-J> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
+nnoremap <buffer> <silent> <LeftRelease> <LeftRelease>:call nerdtree#ui_glue#invokeKeyMap("<LeftRelease>")
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=hide
+setlocal nobuflisted
+setlocal buftype=nofile
+setlocal nocindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinscopedecls=public,protected,private
+setlocal cinwords=if,else,while,do,for,switch
+set colorcolumn=80
+setlocal colorcolumn=80
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*\ %s\ */
+setlocal complete=.,w,b,u,t,i
+setlocal completefunc=
+setlocal completeopt=
+setlocal concealcursor=nvic
+setlocal conceallevel=3
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+set cursorcolumn
+setlocal cursorcolumn
+set cursorline
+setlocal cursorline
+setlocal cursorlineopt=both
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal noexpandtab
+if &filetype != 'nerdtree'
+setlocal filetype=nerdtree
+endif
+setlocal fillchars=
+setlocal findfunc=
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal nofoldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatoptions=tcq
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispoptions=
+setlocal lispwords=
+setlocal nolist
+setlocal listchars=
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal nomodifiable
+setlocal nrformats=bin,hex
+set number
+setlocal nonumber
+setlocal numberwidth=4
+setlocal omnifunc=
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal readonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=8
+setlocal noshortname
+setlocal showbreak=
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal nosmoothscroll
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal spelloptions=
+setlocal statusline=%{exists('b:NERDTree')?b:NERDTree.root.path.str():''}
+setlocal suffixesadd=
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'nerdtree'
+setlocal syntax=nerdtree
+endif
+setlocal tabstop=8
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal thesaurusfunc=
+setlocal undofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal virtualedit=
+setlocal wincolor=
+setlocal nowinfixbuf
+setlocal nowinfixheight
+setlocal winfixwidth
+setlocal nowrap
+setlocal wrapmargin=0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 15 + 50) / 101)
+exe '2resize ' . ((&lines * 27 + 29) / 58)
+exe '3resize ' . ((&lines * 27 + 29) / 58)
+tabnext
+edit 2c/TOOLBELT/transformation/CMakeLists.txt
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 15 + 50) / 101)
+argglobal
+enew
+file NERD_tree_tab_6
+let s:cpo_save=&cpo
+set cpo&vim
+nnoremap <buffer> <silent> <NL> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
+nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<C-k>")
+nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<CR>")
+nnoremap <buffer> <silent> ? :call nerdtree#ui_glue#invokeKeyMap("?")
+nnoremap <buffer> <silent> A :call nerdtree#ui_glue#invokeKeyMap("A")
+nnoremap <buffer> <silent> B :call nerdtree#ui_glue#invokeKeyMap("B")
+nnoremap <buffer> <silent> C :call nerdtree#ui_glue#invokeKeyMap("C")
+nnoremap <buffer> <silent> CD :call nerdtree#ui_glue#invokeKeyMap("CD")
+nnoremap <buffer> <silent> D :call nerdtree#ui_glue#invokeKeyMap("D")
+nnoremap <buffer> <silent> FL :call nerdtree#ui_glue#invokeKeyMap("FL")
+nnoremap <buffer> <silent> F :call nerdtree#ui_glue#invokeKeyMap("F")
+nnoremap <buffer> <silent> I :call nerdtree#ui_glue#invokeKeyMap("I")
+nnoremap <buffer> <silent> J :call nerdtree#ui_glue#invokeKeyMap("J")
+nnoremap <buffer> <silent> K :call nerdtree#ui_glue#invokeKeyMap("K")
+nnoremap <buffer> <silent> O :call nerdtree#ui_glue#invokeKeyMap("O")
+nnoremap <buffer> <silent> P :call nerdtree#ui_glue#invokeKeyMap("P")
+nnoremap <buffer> <silent> R :call nerdtree#ui_glue#invokeKeyMap("R")
+nnoremap <buffer> <silent> T :call nerdtree#ui_glue#invokeKeyMap("T")
+nnoremap <buffer> <silent> U :call nerdtree#ui_glue#invokeKeyMap("U")
+nnoremap <buffer> <silent> X :call nerdtree#ui_glue#invokeKeyMap("X")
+nnoremap <buffer> <silent> cd :call nerdtree#ui_glue#invokeKeyMap("cd")
+nnoremap <buffer> <silent> e :call nerdtree#ui_glue#invokeKeyMap("e")
+nnoremap <buffer> <silent> f :call nerdtree#ui_glue#invokeKeyMap("f")
+nnoremap <buffer> <silent> go :call nerdtree#ui_glue#invokeKeyMap("go")
+nnoremap <buffer> <silent> gb :call nerdtree#ui_glue#invokeKeyMap("gb")
+nnoremap <buffer> <silent> gi :call nerdtree#ui_glue#invokeKeyMap("gi")
+nnoremap <buffer> <silent> gs :call nerdtree#ui_glue#invokeKeyMap("gs")
+nnoremap <buffer> <silent> i :call nerdtree#ui_glue#invokeKeyMap("i")
+nnoremap <buffer> <silent> m :call nerdtree#ui_glue#invokeKeyMap("m")
+nnoremap <buffer> <silent> o :call nerdtree#ui_glue#invokeKeyMap("o")
+nnoremap <buffer> <silent> p :call nerdtree#ui_glue#invokeKeyMap("p")
+nnoremap <buffer> <silent> q :call nerdtree#ui_glue#invokeKeyMap("q")
+nnoremap <buffer> <silent> r :call nerdtree#ui_glue#invokeKeyMap("r")
+nnoremap <buffer> <silent> s :call nerdtree#ui_glue#invokeKeyMap("s")
+nnoremap <buffer> <silent> t :call nerdtree#ui_glue#invokeKeyMap("t")
+nnoremap <buffer> <silent> u :call nerdtree#ui_glue#invokeKeyMap("u")
+nnoremap <buffer> <silent> x :call nerdtree#ui_glue#invokeKeyMap("x")
+nnoremap <buffer> <silent> <MiddleMouse> :call nerdtree#ui_glue#invokeKeyMap("<MiddleMouse>")
+nnoremap <buffer> <silent> <2-LeftMouse> :call nerdtree#ui_glue#invokeKeyMap("<2-LeftMouse>")
+nnoremap <buffer> <silent> <C-K> :call nerdtree#ui_glue#invokeKeyMap("<C-k>")
+nnoremap <buffer> <silent> <C-J> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
+nnoremap <buffer> <silent> <LeftRelease> <LeftRelease>:call nerdtree#ui_glue#invokeKeyMap("<LeftRelease>")
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=hide
+setlocal nobuflisted
+setlocal buftype=nofile
+setlocal nocindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinscopedecls=public,protected,private
+setlocal cinwords=if,else,while,do,for,switch
+set colorcolumn=80
+setlocal colorcolumn=80
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*\ %s\ */
+setlocal complete=.,w,b,u,t,i
+setlocal completefunc=
+setlocal completeopt=
+setlocal concealcursor=nvic
+setlocal conceallevel=3
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+set cursorcolumn
+setlocal cursorcolumn
+set cursorline
+setlocal cursorline
+setlocal cursorlineopt=both
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal noexpandtab
+if &filetype != 'nerdtree'
+setlocal filetype=nerdtree
+endif
+setlocal fillchars=
+setlocal findfunc=
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal nofoldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatoptions=tcq
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispoptions=
+setlocal lispwords=
+setlocal nolist
+setlocal listchars=
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal nomodifiable
+setlocal nrformats=bin,hex
+set number
+setlocal nonumber
+setlocal numberwidth=4
+setlocal omnifunc=
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal readonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=8
+setlocal noshortname
+setlocal showbreak=
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal nosmoothscroll
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal spelloptions=
+setlocal statusline=%{exists('b:NERDTree')?b:NERDTree.root.path.str():''}
+setlocal suffixesadd=
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'nerdtree'
+setlocal syntax=nerdtree
+endif
+setlocal tabstop=8
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal thesaurusfunc=
+setlocal undofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal virtualedit=
+setlocal wincolor=
+setlocal nowinfixbuf
+setlocal nowinfixheight
+setlocal winfixwidth
+setlocal nowrap
+setlocal wrapmargin=0
+wincmd w
+argglobal
+balt 2c/TOOLBELT/oscillators/CMakeLists.txt
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinscopedecls=public,protected,private
+setlocal cinwords=if,else,while,do,for,switch
+set colorcolumn=80
+setlocal colorcolumn=80
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=#\ %s
+setlocal complete=.,w,b,u,t,i
+setlocal completefunc=
+setlocal completeopt=
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+set cursorcolumn
+setlocal cursorcolumn
+set cursorline
+setlocal cursorline
+setlocal cursorlineopt=both
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal noexpandtab
+if &filetype != 'cmake'
+setlocal filetype=cmake
+endif
+setlocal fillchars=
+setlocal findfunc=
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatoptions=tcq
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=s*include
+setlocal includeexpr=
+setlocal indentexpr=CMakeGetIndent(v:lnum)
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e,=ENDIF(,ENDFOREACH(,ENDMACRO(,ELSE(,ELSEIF(,ENDWHILE(
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispoptions=
+setlocal lispwords=
+setlocal nolist
+setlocal listchars=
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=8
+setlocal noshortname
+setlocal showbreak=
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal nosmoothscroll
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal spelloptions=
+setlocal statusline=
+setlocal suffixesadd=.cmake,-config.cmake
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'cmake'
+setlocal syntax=cmake
+endif
+setlocal tabstop=8
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal thesaurusfunc=
+setlocal undofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal virtualedit=
+setlocal wincolor=
+setlocal nowinfixbuf
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 1 - ((0 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 051|
+wincmd w
+exe 'vert 1resize ' . ((&columns * 15 + 50) / 101)
+tabnext
+edit 2c/codingClinics/cc4/Filters.h
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+wincmd _ | wincmd |
+vsplit
+2wincmd h
+wincmd w
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 31 + 50) / 101)
+exe 'vert 2resize ' . ((&columns * 86 + 50) / 101)
+exe 'vert 3resize ' . ((&columns * 85 + 50) / 101)
+argglobal
+enew
+file NERD_tree_tab_8
+let s:cpo_save=&cpo
+set cpo&vim
+nnoremap <buffer> <silent> <NL> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
+nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<C-k>")
+nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<CR>")
+nnoremap <buffer> <silent> ? :call nerdtree#ui_glue#invokeKeyMap("?")
+nnoremap <buffer> <silent> A :call nerdtree#ui_glue#invokeKeyMap("A")
+nnoremap <buffer> <silent> B :call nerdtree#ui_glue#invokeKeyMap("B")
+nnoremap <buffer> <silent> C :call nerdtree#ui_glue#invokeKeyMap("C")
+nnoremap <buffer> <silent> CD :call nerdtree#ui_glue#invokeKeyMap("CD")
+nnoremap <buffer> <silent> D :call nerdtree#ui_glue#invokeKeyMap("D")
+nnoremap <buffer> <silent> FL :call nerdtree#ui_glue#invokeKeyMap("FL")
+nnoremap <buffer> <silent> F :call nerdtree#ui_glue#invokeKeyMap("F")
+nnoremap <buffer> <silent> I :call nerdtree#ui_glue#invokeKeyMap("I")
+nnoremap <buffer> <silent> J :call nerdtree#ui_glue#invokeKeyMap("J")
+nnoremap <buffer> <silent> K :call nerdtree#ui_glue#invokeKeyMap("K")
+nnoremap <buffer> <silent> O :call nerdtree#ui_glue#invokeKeyMap("O")
+nnoremap <buffer> <silent> P :call nerdtree#ui_glue#invokeKeyMap("P")
+nnoremap <buffer> <silent> R :call nerdtree#ui_glue#invokeKeyMap("R")
+nnoremap <buffer> <silent> T :call nerdtree#ui_glue#invokeKeyMap("T")
+nnoremap <buffer> <silent> U :call nerdtree#ui_glue#invokeKeyMap("U")
+nnoremap <buffer> <silent> X :call nerdtree#ui_glue#invokeKeyMap("X")
+nnoremap <buffer> <silent> cd :call nerdtree#ui_glue#invokeKeyMap("cd")
+nnoremap <buffer> <silent> e :call nerdtree#ui_glue#invokeKeyMap("e")
+nnoremap <buffer> <silent> f :call nerdtree#ui_glue#invokeKeyMap("f")
+nnoremap <buffer> <silent> go :call nerdtree#ui_glue#invokeKeyMap("go")
+nnoremap <buffer> <silent> gb :call nerdtree#ui_glue#invokeKeyMap("gb")
+nnoremap <buffer> <silent> gi :call nerdtree#ui_glue#invokeKeyMap("gi")
+nnoremap <buffer> <silent> gs :call nerdtree#ui_glue#invokeKeyMap("gs")
+nnoremap <buffer> <silent> i :call nerdtree#ui_glue#invokeKeyMap("i")
+nnoremap <buffer> <silent> m :call nerdtree#ui_glue#invokeKeyMap("m")
+nnoremap <buffer> <silent> o :call nerdtree#ui_glue#invokeKeyMap("o")
+nnoremap <buffer> <silent> p :call nerdtree#ui_glue#invokeKeyMap("p")
+nnoremap <buffer> <silent> q :call nerdtree#ui_glue#invokeKeyMap("q")
+nnoremap <buffer> <silent> r :call nerdtree#ui_glue#invokeKeyMap("r")
+nnoremap <buffer> <silent> s :call nerdtree#ui_glue#invokeKeyMap("s")
+nnoremap <buffer> <silent> t :call nerdtree#ui_glue#invokeKeyMap("t")
+nnoremap <buffer> <silent> u :call nerdtree#ui_glue#invokeKeyMap("u")
+nnoremap <buffer> <silent> x :call nerdtree#ui_glue#invokeKeyMap("x")
+nnoremap <buffer> <silent> <MiddleMouse> :call nerdtree#ui_glue#invokeKeyMap("<MiddleMouse>")
+nnoremap <buffer> <silent> <2-LeftMouse> :call nerdtree#ui_glue#invokeKeyMap("<2-LeftMouse>")
+nnoremap <buffer> <silent> <C-K> :call nerdtree#ui_glue#invokeKeyMap("<C-k>")
+nnoremap <buffer> <silent> <C-J> :call nerdtree#ui_glue#invokeKeyMap("<C-j>")
+nnoremap <buffer> <silent> <LeftRelease> <LeftRelease>:call nerdtree#ui_glue#invokeKeyMap("<LeftRelease>")
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=hide
+setlocal nobuflisted
+setlocal buftype=nofile
+setlocal nocindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinscopedecls=public,protected,private
+setlocal cinwords=if,else,while,do,for,switch
+set colorcolumn=80
+setlocal colorcolumn=80
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*\ %s\ */
+setlocal complete=.,w,b,u,t,i
+setlocal completefunc=
+setlocal completeopt=
+setlocal concealcursor=nvic
+setlocal conceallevel=3
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+set cursorcolumn
+setlocal cursorcolumn
+set cursorline
+setlocal cursorline
+setlocal cursorlineopt=both
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal noexpandtab
+if &filetype != 'nerdtree'
+setlocal filetype=nerdtree
+endif
+setlocal fillchars=
+setlocal findfunc=
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal nofoldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatoptions=tcq
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispoptions=
+setlocal lispwords=
+setlocal nolist
+setlocal listchars=
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal nomodifiable
+setlocal nrformats=bin,hex
+set number
+setlocal nonumber
+setlocal numberwidth=4
+setlocal omnifunc=
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal readonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=8
+setlocal noshortname
+setlocal showbreak=
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal nosmoothscroll
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal spelloptions=
+setlocal statusline=%{exists('b:NERDTree')?b:NERDTree.root.path.str():''}
+setlocal suffixesadd=
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'nerdtree'
+setlocal syntax=nerdtree
+endif
+setlocal tabstop=8
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal thesaurusfunc=
+setlocal undofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal virtualedit=
+setlocal wincolor=
+setlocal nowinfixbuf
+setlocal nowinfixheight
+setlocal winfixwidth
+setlocal nowrap
+setlocal wrapmargin=0
+wincmd w
+argglobal
+balt 2c/codingClinics/cc4/main.cpp
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal cindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinscopedecls=public,protected,private
+setlocal cinwords=if,else,while,do,for,switch
+set colorcolumn=80
+setlocal colorcolumn=80
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:///,://
+setlocal commentstring=//\ %s
+setlocal complete=.,w,b,u,t,i
+setlocal completefunc=
+setlocal completeopt=
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+set cursorcolumn
+setlocal cursorcolumn
+set cursorline
+setlocal cursorline
+setlocal cursorlineopt=both
+setlocal define=^\\s*#\\s*define
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal noexpandtab
+if &filetype != 'cpp'
+setlocal filetype=cpp
+endif
+setlocal fillchars=
+setlocal findfunc=
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatoptions=croql
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=^\\s*#\\s*include
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispoptions=
+setlocal lispwords=
+setlocal nolist
+setlocal listchars=
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=ccomplete#Complete
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=8
+setlocal noshortname
+setlocal showbreak=
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal nosmoothscroll
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal spelloptions=
+setlocal statusline=
+setlocal suffixesadd=
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'cpp'
+setlocal syntax=cpp
+endif
+setlocal tabstop=2
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal thesaurusfunc=
+setlocal undofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal virtualedit=
+setlocal wincolor=
+setlocal nowinfixbuf
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 73 - ((36 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 73
+normal! 031|
+wincmd w
+argglobal
+if bufexists(fnamemodify("2c/codingClinics/cc4/main.cpp", ":p")) | buffer 2c/codingClinics/cc4/main.cpp | else | edit 2c/codingClinics/cc4/main.cpp | endif
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal cindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinscopedecls=public,protected,private
+setlocal cinwords=if,else,while,do,for,switch
+set colorcolumn=80
+setlocal colorcolumn=80
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:///,://
+setlocal commentstring=//\ %s
+setlocal complete=.,w,b,u,t,i
+setlocal completefunc=
+setlocal completeopt=
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+set cursorcolumn
+setlocal cursorcolumn
+set cursorline
+setlocal cursorline
+setlocal cursorlineopt=both
+setlocal define=^\\s*#\\s*define
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal noexpandtab
+if &filetype != 'cpp'
+setlocal filetype=cpp
+endif
+setlocal fillchars=
+setlocal findfunc=
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatoptions=croql
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=^\\s*#\\s*include
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispoptions=
+setlocal lispwords=
+setlocal nolist
+setlocal listchars=
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=ccomplete#Complete
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=8
+setlocal noshortname
+setlocal showbreak=
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal nosmoothscroll
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal spelloptions=
+setlocal statusline=
+setlocal suffixesadd=
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'cpp'
+setlocal syntax=cpp
+endif
+setlocal tabstop=2
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal thesaurusfunc=
+setlocal undofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal virtualedit=
+setlocal wincolor=
+setlocal nowinfixbuf
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 15 - ((14 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 15
+normal! 038|
+wincmd w
+exe 'vert 1resize ' . ((&columns * 31 + 50) / 101)
+exe 'vert 2resize ' . ((&columns * 86 + 50) / 101)
+exe 'vert 3resize ' . ((&columns * 85 + 50) / 101)
+tabnext 3
 set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
