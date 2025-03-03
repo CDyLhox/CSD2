@@ -13,13 +13,15 @@ void CustomCallback::prepare(int rate)
 	std::cout << "\nsamplerate: " << samplerate << "\n";
 	tremolo.prepare(rate);
 	// location for bypasses
-	tremolo.setBypass(false);
+	timestretcher.setBypass(false);
+	tremolo.setBypass(true);
 	waveshaper.setBypass(true);
 	delay.setBypass(true);
 
 	tremolo.setDryWet(0.5);
 	waveshaper.setDryWet(0.5);
 	delay.setDryWet(0.5);
+	timestretcher.setDryWet(1);
 
 	tremolo.setModFreq(9);
 	waveshaper.setSlope(9999);

@@ -46,6 +46,7 @@ void Delay::setNumDelaySamples(uint numDelaySamples)
   wrapH(m_readH);
 }
 
+
 // sets the feedback value, should be in range [0, 1]
 void Delay::setFeedback(float feedback)
 {
