@@ -13,11 +13,11 @@ class Timestretcher : public Effect {
 				//TODO: MAYBE SET FEEDBAKC
 				//void setFeedback
 
-		protected:
-
 				Delay acircbuffer;
 
 				int m_NumZeroCrossings = 0;
+		protected:
+
 		private:
 				
 
