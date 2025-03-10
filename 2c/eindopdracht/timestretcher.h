@@ -19,66 +19,65 @@ class Timestretcher : public Effect {
 				// use the numZeroCrossings to fill buffer
 				void prepare();
 				float trackBufferSize(const float& input);
+				void fillBuffer(const float &input);
 
 		protected:
 		private:
-				Delay circbuffer; // implement parts directly into the timestretcher from circular buffer
+				//Delay circbuffer; // implement parts directly into the timestretcher from circular buffer
 
 				int m_NumZeroCrossings = 0;
-				int m_maxNumZeroCrossings = 2;
+				int m_maxNumZeroCrossings = 16;
 				int m_zeroCrossingTimer = 0;
 				float prevSample = 0;
-				float currentSample = 0;
+				float sample = 0;
 
-				//CIRCBUFFER STUFF
-					void CircBuffer();
-	void CircBuffer(int bufferSize, int numSamplesDelay);
-	void deleteCircBuffer();
-	float* buffer;
-	float readHead();
-	void writeHead(int currentSample);
-	void allocateBuffer(int size);
-	void releaseBuffer();
+				// CIRCBUFFER STUFF
+				void circBuffer(int bufferSize, int numSamplesDelay);
+				float* buffer;
+				float readHead();
+				void writeHead(int currentSample);
+				void allocateBuffer(int size);
+				void releaseBuffer();
 
-	void setDelayTime(int numSamplesDelay);
-	void setDelayTime(float miliSecondsDelay);
+				void setDelayTime(int numSamplesDelay);
+				void setDelayTime(float miliSecondsDelay);
 
-	inline void tick()
-	{
-		std::cout << "tick" << std::endl;
-		incrementWriteHead();
-		incrementReadHead();
+				inline void tick()
+				{
+								std::cout << "tick" << std::endl;
+								incrementWriteHead();
+								incrementReadHead();
 
-		std::cout << "readHeadPosition" << readHeadPosition << std::endl;
-		std::cout << "writeHeadPosition" << writeHeadPosition << std::endl;
-	}
+								std::cout << "readHeadPosition" << readHeadPosition << std::endl;
+								std::cout << "writeHeadPosition" << writeHeadPosition << std::endl;
+				}
 
-    private:
-	uint bufferSize = 200;
-	uint currentSample = 0;
-	int numSamplesDelay;
-	float miliSecondsDelay;
+				uint bufferSize = 200;
+				uint currentSample = 0;
+				int numSamplesDelay;
+				float miliSecondsDelay;
 
-	uint rWDistance = 0;
-	uint readHeadPosition = 0;
-	uint writeHeadPosition = 10;
+				uint rWDistance = 0;
+				uint readHeadPosition = 0;
+				uint writeHeadPosition = 10;
 
-	inline void incrementWriteHead()
-	{
-		writeHeadPosition++;
-		wrapHeads(writeHeadPosition);
-	}
-	inline void incrementReadHead()
-	{
-		readHeadPosition++;
-		wrapHeads(writeHeadPosition);
-	}
-	inline void wrapHeads(uint head)
-	{
-		if (head >= bufferSize) {
-			head -= bufferSize;
-		}
-	}
+				inline void incrementWriteHead()
+				{
+								writeHeadPosition++;
+								wrapHeads(writeHeadPosition);
+				}
+				inline void incrementReadHead()
+				{
+								readHeadPosition++;
+								wrapHeads(writeHeadPosition);
+				}
+				inline void wrapHeads(uint head)
+				{
 
+								if (head >= bufferSize) {
+												head -= bufferSize;
+								std::cout << "am wrapping head" << std::endl;
+								}
+				}
 };
 //

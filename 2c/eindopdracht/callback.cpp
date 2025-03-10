@@ -28,6 +28,7 @@ void CustomCallback::prepare(int rate)
 	tremolo.setModFreq(9);
 	waveshaper.setSlope(9999);
 	delay.setNumDelaySamples(3);
+	
 	//granulator
 }
 
@@ -40,6 +41,7 @@ void CustomCallback::process(AudioBuffer buffer)
 		for (int i = 0u; i < numFrames; i++) {
 			tremolo.processFrame(inputChannels[channel][i], sample);
 
+							timestretcher.processFrame(sample, sample);//TODO: also make second sample variable
 			waveshaper.processFrame(sample, sample);//TODO: also make second sample variable
 			delay.processFrame(sample, outputChannels[channel][i]);
 		}

@@ -3,6 +3,7 @@
 Timestretcher::Timestretcher()
 {
 				std::cout << "Timestretcher::timestretcher" << std::endl;
+				circBuffer(2000, 500); // 2000 samples buffersize, 500 numsamplesdelay
 }
 Timestretcher::~Timestretcher()
 {
@@ -18,9 +19,13 @@ Timestretcher::~Timestretcher()
 
 void Timestretcher::applyEffect(const float& input, float& output)
 {
-				circbuffer.processFrame(input, output);
+				//.processFrame(input, output);// TODO  MAKE PROCESSFRAME FOR CIRCBUFFER
 				trackBufferSize(input);
-				prevSample = input;
+				writeHead(input);
+				incrementWriteHead();
+				std::cout << bufferSize << std::endl;
+				std::cout << "writeheadpostion" << writeHeadPosition << std::endl;
+
 }
 
 void Timestretcher::setAmountZeroCrossings(int timeStretchLength)
@@ -31,35 +36,37 @@ void Timestretcher::setAmountZeroCrossings(int timeStretchLength)
 
 void Timestretcher::prepare()
 {
-				circbuffer.setDryWet(1);
-				circbuffer.setBypass(false);
 }
+
 
 float Timestretcher::trackBufferSize(const float& input)
 {
+				//
+				prevSample = sample;
+				sample = input;
 				m_zeroCrossingTimer++;
+
 				// if goes from positive to negative yknow 2 if statements :
 				// XOR
 				// bool prevsample positive
 				// bool cursamplepos
 				// coment
 				// if ((prev >= 0) != (cur >=0))
-				if ((prevSample >= 0) != (currentSample >= 0)) {
+				if ((prevSample >= 0) != (sample >= 0)) {
 								m_NumZeroCrossings++;
 								std::cout << "crossed 0 : " << m_NumZeroCrossings << "amount of times" << std::endl;
 				}
 				if (m_NumZeroCrossings == m_maxNumZeroCrossings) {
 								std::cout << m_zeroCrossingTimer << " amount of zerocrossings" << std::endl;
+								m_NumZeroCrossings = 0;
+								m_zeroCrossingTimer = 0;
 				}
+				return m_zeroCrossingTimer;
 }
 
 // ______________________ CIRCBUFFER _______________________
 
-CircBuffer::CircBuffer()
-		: CircBuffer(200, 500)
-{
-} // set default constructor
-CircBuffer::CircBuffer(int size, int numSamplesDelay)
+void Timestretcher::circBuffer(int size, int numSamplesDelay)
 {
 				// Dynamic array
 				std::cout << "numSamplesDelay: " << numSamplesDelay << std::endl;
@@ -68,11 +75,7 @@ CircBuffer::CircBuffer(int size, int numSamplesDelay)
 				allocateBuffer(size);
 }
 
-CircBuffer::~CircBuffer()
-{
-}
-
-void CircBuffer::allocateBuffer(int size)
+void Timestretcher::allocateBuffer(int size)
 { // check out malloc after this.
 
 				buffer = new float[size];
@@ -81,7 +84,7 @@ void CircBuffer::allocateBuffer(int size)
 				}
 }
 
-void CircBuffer::releaseBuffer()
+void Timestretcher::releaseBuffer()
 {
 				delete[] buffer;
 				buffer = nullptr;
@@ -89,23 +92,30 @@ void CircBuffer::releaseBuffer()
 									<< buffer << std::endl;
 }
 
-float CircBuffer::readHead()
+float Timestretcher::readHead()
 {
 				std::cout << "READHEAD READS: " << buffer[readHeadPosition] << std::endl;
 				return buffer[readHeadPosition];
 }
 
-void CircBuffer::writeHead(int currentSample)
+void Timestretcher::writeHead(int currentSample)
 {
 				buffer[writeHeadPosition] = currentSample; // input
 				std::cout << currentSample << std::endl;
 }
-void setDelayTime(int numSamplesDelay)
+
+void Timestretcher::setDelayTime(int numSamplesDelay)
 { // take current writeheadPosition and last numSamplesDelay setting.
 				// old numSamplesDelay - new NumsamplesDelay += writeHeadPosition
-				writeHeadPosition;
+				//
+				// I DONT AGREE
+				//
+				// move the buffer right of where the buffer was.
+				readHeadPosition = writeHeadPosition;
+				writeHeadPosition = numSamplesDelay;
 }
-void setDelayTime(float miliSecondsDelay)
+
+void Timestretcher::setDelayTime(float miliSecondsDelay)
 {
 				// SAMPLERATE / (miliSecondsDelay/1000)
 }
