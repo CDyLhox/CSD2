@@ -124,7 +124,7 @@ private:
     float a { 0.0 };
 };
 
-
+/*
 //                   4 Sample
 //   X[n] --(b)->(+)--->[ 4 sample ] ---> Y[n]
 //              |                   |

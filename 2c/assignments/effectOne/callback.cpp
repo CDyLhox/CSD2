@@ -13,8 +13,8 @@ void CustomCallback::prepare(int rate)
 	std::cout << "\nsamplerate: " << samplerate << "\n";
 	tremolo.prepare(rate);
 	// location for bypasses
-	tremolo.setBypass(false);
-	waveshaper.setBypass(true);
+	tremolo.setBypass(true);
+	waveshaper.setBypass(false);
 	delay.setBypass(true);
 
 	tremolo.setDryWet(0.5);
@@ -23,7 +23,7 @@ void CustomCallback::prepare(int rate)
 
 	tremolo.setModFreq(9);
 	waveshaper.setSlope(9999);
-	delay.setNumDelaySamples(3);
+	//delay.setNumDelaySamples(600);
 	
 }
 
@@ -33,10 +33,10 @@ void CustomCallback::process(AudioBuffer buffer)
 	float sample;
 	for (int channel = 0u; channel < numInputChannels; channel++) {
 		for (int i = 0u; i < numFrames; i++) {
-			tremolo.processFrame(inputChannels[channel][i], sample);
+//tremolo.processFrame(inputChannels[channel][i], sample);
 
-			waveshaper.processFrame(sample, sample);//TODO: also make second sample variable
-			delay.processFrame(sample, outputChannels[channel][i]);
+			waveshaper.processFrame(inputChannels[channel][i], outputChannels[channel][i]);//TODO: also make second sample variable
+			//delay.processFrame(sample, outputChannels[channel][i]);
 		}
 	}
 }

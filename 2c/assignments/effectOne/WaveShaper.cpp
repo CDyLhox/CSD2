@@ -19,7 +19,8 @@ void Waveshaper::applyEffect(const float& input, float& output)
 	} else {
 		//function from prikle page somewhat
 		float index = (input + 1.0) * 2048;
-
+if(index > 0.999){index = 0.999;}
+if(index < 0.999){index = -0.999;}
 		int i = int(index);
 		float indexDecimal = index - (float)i;
 		output = Interpolation::linMap(indexDecimal, m_waveTableBuffer[i], m_waveTableBuffer[i + 1]);

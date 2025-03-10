@@ -37,4 +37,5 @@ protected:
 
   // modSignal is used during the calculation of the processed frame
   float m_modSignal = 0;
+	float prevSample = 0;
 };
