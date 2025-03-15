@@ -3,7 +3,7 @@
 Timestretcher::Timestretcher()
 {
 				std::cout << "Timestretcher::timestretcher" << std::endl;
-				circBuffer(2000, 500); // 2000 samples buffersize, 500 numsamplesdelay
+				circBuffer(5000, 500); // 2000 samples buffersize, 500 numsamplesdelay
 }
 Timestretcher::~Timestretcher()
 {
@@ -14,17 +14,18 @@ Timestretcher::~Timestretcher()
 								std::cout << buffer[i] << " ";
 				}
 				std::cout << buffer << std::endl;
+				std::cout << "readhead pos was: " << readHeadPosition  << "\nwritehead pos was: " << writeHeadPosition << std::endl;
 				releaseBuffer();
 }
 
 void Timestretcher::applyEffect(const float& input, float& output)
 {
-				//.processFrame(input, output);// TODO  MAKE PROCESSFRAME FOR CIRCBUFFER
 				trackBufferSize(input);
 				writeHead(input);
 				incrementWriteHead();
-				std::cout << bufferSize << std::endl;
-				std::cout << "writeheadpostion" << writeHeadPosition << std::endl;
+
+				output = readHead();
+				incrementReadHead();
 
 }
 
@@ -54,12 +55,21 @@ float Timestretcher::trackBufferSize(const float& input)
 				// if ((prev >= 0) != (cur >=0))
 				if ((prevSample >= 0) != (sample >= 0)) {
 								m_NumZeroCrossings++;
-								std::cout << "crossed 0 : " << m_NumZeroCrossings << "amount of times" << std::endl;
 				}
 				if (m_NumZeroCrossings == m_maxNumZeroCrossings) {
+								std::cout << "crossed 0 : " << m_NumZeroCrossings << "amount of times" << std::endl;
 								std::cout << m_zeroCrossingTimer << " amount of zerocrossings" << std::endl;
+
+								setDelayTime(m_zeroCrossingTimer);
+
+								// Update ReadheadPosition based on how long the zerocrossingstimer says the amount of zerocrossings took
+								//TODO: readheadPOstiion = writeheadposition - m_zerocrossingstimer
+								writeHeadPosition = m_zeroCrossingTimer;
+								m_loopSize = m_zeroCrossingTimer;	
+								std::cout<<"change in m_loopsize" <<std::endl;
+
 								m_NumZeroCrossings = 0;
-								m_zeroCrossingTimer = 0;
+								//m_zeroCrossingTimer = 0;
 				}
 				return m_zeroCrossingTimer;
 }
@@ -94,14 +104,12 @@ void Timestretcher::releaseBuffer()
 
 float Timestretcher::readHead()
 {
-				std::cout << "READHEAD READS: " << buffer[readHeadPosition] << std::endl;
 				return buffer[readHeadPosition];
 }
 
-void Timestretcher::writeHead(int currentSample)
+void Timestretcher::writeHead(float currentSample)
 {
 				buffer[writeHeadPosition] = currentSample; // input
-				std::cout << currentSample << std::endl;
 }
 
 void Timestretcher::setDelayTime(int numSamplesDelay)
@@ -111,7 +119,9 @@ void Timestretcher::setDelayTime(int numSamplesDelay)
 				// I DONT AGREE
 				//
 				// move the buffer right of where the buffer was.
-				readHeadPosition = writeHeadPosition;
+				//
+				//readHeadPosition = writeHeadPosition - numSamplesDelay; TODO: AFTER FIXING THE LOOP
+				readHeadPosition = 0;
 				writeHeadPosition = numSamplesDelay;
 }
 

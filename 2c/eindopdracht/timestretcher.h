@@ -19,14 +19,14 @@ class Timestretcher : public Effect {
 				// use the numZeroCrossings to fill buffer
 				void prepare();
 				float trackBufferSize(const float& input);
-				void fillBuffer(const float &input);
+				void fillBuffer(const float& input);
 
 		protected:
 		private:
-				//Delay circbuffer; // implement parts directly into the timestretcher from circular buffer
+				// Delay circbuffer; // implement parts directly into the timestretcher from circular buffer
 
 				int m_NumZeroCrossings = 0;
-				int m_maxNumZeroCrossings = 16;
+				int m_maxNumZeroCrossings = 1024;
 				int m_zeroCrossingTimer = 0;
 				float prevSample = 0;
 				float sample = 0;
@@ -35,7 +35,7 @@ class Timestretcher : public Effect {
 				void circBuffer(int bufferSize, int numSamplesDelay);
 				float* buffer;
 				float readHead();
-				void writeHead(int currentSample);
+				void writeHead(float currentSample);
 				void allocateBuffer(int size);
 				void releaseBuffer();
 
@@ -53,13 +53,13 @@ class Timestretcher : public Effect {
 				}
 
 				uint bufferSize = 200;
-				uint currentSample = 0;
+				float currentSample;
 				int numSamplesDelay;
 				float miliSecondsDelay;
 
-				uint rWDistance = 0;
 				uint readHeadPosition = 0;
 				uint writeHeadPosition = 10;
+				uint m_loopSize = bufferSize;
 
 				inline void incrementWriteHead()
 				{
@@ -69,14 +69,18 @@ class Timestretcher : public Effect {
 				inline void incrementReadHead()
 				{
 								readHeadPosition++;
-								wrapHeads(writeHeadPosition);
+								wrapHeads(readHeadPosition);
 				}
-				inline void wrapHeads(uint head)
+				inline void wrapHeads(uint& head)
 				{
 
-								if (head >= bufferSize) {
+								if (head >= m_loopSize) {
+												head -= m_loopSize;
+												std::cout << "LOWKEY wrapping head ( loopsize ) \n"
+																	<< "loopsize" << m_loopSize << "\n";
+								} else if (head >= bufferSize) {
 												head -= bufferSize;
-								std::cout << "am wrapping head" << std::endl;
+												std::cout << "HIGHKEY wrapping head( buffersize )" << "loopsize" << m_loopSize << std::endl;
 								}
 				}
 };
