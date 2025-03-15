@@ -24,9 +24,11 @@ class Timestretcher : public Effect {
 		protected:
 		private:
 				// Delay circbuffer; // implement parts directly into the timestretcher from circular buffer
+				//
+				int clock; 
 
 				int m_NumZeroCrossings = 0;
-				int m_maxNumZeroCrossings = 1024;
+				int m_maxNumZeroCrossings = 8;
 				int m_zeroCrossingTimer = 0;
 				float prevSample = 0;
 				float sample = 0;

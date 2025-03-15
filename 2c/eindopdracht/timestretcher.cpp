@@ -14,31 +14,40 @@ Timestretcher::~Timestretcher()
 								std::cout << buffer[i] << " ";
 				}
 				std::cout << buffer << std::endl;
-				std::cout << "readhead pos was: " << readHeadPosition  << "\nwritehead pos was: " << writeHeadPosition << std::endl;
+				std::cout << "readhead pos was: " << readHeadPosition << "\nwritehead pos was: " << writeHeadPosition << std::endl;
 				releaseBuffer();
 }
 
 void Timestretcher::applyEffect(const float& input, float& output)
 {
-				trackBufferSize(input);
-				writeHead(input);
-				incrementWriteHead();
 
 				output = readHead();
 				incrementReadHead();
 
+				prepare(input);
+}
+void Timestretcher::prepare(const float &input)
+{
+				trackBufferSize(input);
+				writeHead(input);
+				incrementWriteHead();
+
+
+				clock++;
+				if (clock > 10000) {
+								std::cout << "TimeStretcher::Prepare to be amazed\n";
+								m_NumZeroCrossings = 0;
+								m_zeroCrossingTimer = 0;
+								clock = 0;
+				}
 }
 
 void Timestretcher::setAmountZeroCrossings(int timeStretchLength)
 { // TODO: safety checks: check if the number is devisable by 2 else correct the number upwards (dc offset)
+				std::cout << "Timestretcher::setAmountZeroCrossings be like\n";
 				m_maxNumZeroCrossings = timeStretchLength;
 				// circbuffer.setNumDelaySamples(5);
 }
-
-void Timestretcher::prepare()
-{
-}
-
 
 float Timestretcher::trackBufferSize(const float& input)
 {
@@ -58,18 +67,18 @@ float Timestretcher::trackBufferSize(const float& input)
 				}
 				if (m_NumZeroCrossings == m_maxNumZeroCrossings) {
 								std::cout << "crossed 0 : " << m_NumZeroCrossings << "amount of times" << std::endl;
-								std::cout << m_zeroCrossingTimer << " amount of zerocrossings" << std::endl;
+								std::cout << m_zeroCrossingTimer << " time between zerocrossings" << std::endl;
 
 								setDelayTime(m_zeroCrossingTimer);
 
 								// Update ReadheadPosition based on how long the zerocrossingstimer says the amount of zerocrossings took
-								//TODO: readheadPOstiion = writeheadposition - m_zerocrossingstimer
+								// TODO: readheadPOstiion = writeheadposition - m_zerocrossingstimer
 								writeHeadPosition = m_zeroCrossingTimer;
-								m_loopSize = m_zeroCrossingTimer;	
-								std::cout<<"change in m_loopsize" <<std::endl;
+								m_loopSize = m_zeroCrossingTimer;
+								std::cout << "change in m_loopsize" << std::endl;
 
-								m_NumZeroCrossings = 0;
-								//m_zeroCrossingTimer = 0;
+								// m_NumZeroCrossings = 0;
+								// m_zeroCrossingTimer = 0;
 				}
 				return m_zeroCrossingTimer;
 }
@@ -120,7 +129,7 @@ void Timestretcher::setDelayTime(int numSamplesDelay)
 				//
 				// move the buffer right of where the buffer was.
 				//
-				//readHeadPosition = writeHeadPosition - numSamplesDelay; TODO: AFTER FIXING THE LOOP
+				// readHeadPosition = writeHeadPosition - numSamplesDelay; TODO: AFTER FIXING THE LOOP
 				readHeadPosition = 0;
 				writeHeadPosition = numSamplesDelay;
 }
