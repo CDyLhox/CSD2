@@ -28,10 +28,11 @@ void Timestretcher::applyEffect(const float& input, float& output)
 }
 void Timestretcher::prepare(const float &input)
 {
+				if(trackBuffer){//FIXME 
 				trackBufferSize(input);
 				writeHead(input);
 				incrementWriteHead();
-
+				}
 
 				clock++;
 				if (clock > 10000) {

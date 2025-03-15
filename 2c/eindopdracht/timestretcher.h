@@ -17,7 +17,7 @@ class Timestretcher : public Effect {
 				// void setFeedback
 
 				// use the numZeroCrossings to fill buffer
-				void prepare();
+				void prepare(const float &input);
 				float trackBufferSize(const float& input);
 				void fillBuffer(const float& input);
 
