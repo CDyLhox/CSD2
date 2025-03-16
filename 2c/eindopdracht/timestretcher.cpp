@@ -3,7 +3,7 @@
 Timestretcher::Timestretcher()
 {
 				std::cout << "Timestretcher::timestretcher" << std::endl;
-				circBuffer(5000, 500); // 2000 samples buffersize, 500 numsamplesdelay
+				circBuffer(10000, 500); // 2000 samples buffersize, 500 numsamplesdelay
 }
 Timestretcher::~Timestretcher()
 {
@@ -20,6 +20,9 @@ Timestretcher::~Timestretcher()
 
 void Timestretcher::applyEffect(const float& input, float& output)
 {
+				trackBufferSize(input);
+				writeHead(input);
+				incrementWriteHead();
 
 				output = readHead();
 				incrementReadHead();
@@ -28,12 +31,6 @@ void Timestretcher::applyEffect(const float& input, float& output)
 }
 void Timestretcher::prepare(const float &input)
 {
-				if(trackBuffer){//FIXME 
-				trackBufferSize(input);
-				writeHead(input);
-				incrementWriteHead();
-				}
-
 				clock++;
 				if (clock > 10000) {
 								std::cout << "TimeStretcher::Prepare to be amazed\n";

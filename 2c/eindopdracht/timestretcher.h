@@ -28,7 +28,7 @@ class Timestretcher : public Effect {
 				int clock; 
 
 				int m_NumZeroCrossings = 0;
-				int m_maxNumZeroCrossings = 8;
+				int m_maxNumZeroCrossings = 16;
 				int m_zeroCrossingTimer = 0;
 				float prevSample = 0;
 				float sample = 0;
@@ -76,7 +76,7 @@ class Timestretcher : public Effect {
 				inline void wrapHeads(uint& head)
 				{
 
-								if (head >= m_loopSize) {
+								if (readHeadPosition >= m_loopSize) {
 												head -= m_loopSize;
 												std::cout << "LOWKEY wrapping head ( loopsize ) \n"
 																	<< "loopsize" << m_loopSize << "\n";
