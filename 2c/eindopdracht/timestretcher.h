@@ -28,7 +28,7 @@ class Timestretcher : public Effect {
 				int clock; 
 
 				int m_NumZeroCrossings = 0;
-				int m_maxNumZeroCrossings = 50;
+				int m_maxNumZeroCrossings = 50;//FIXME interesting parameter, maxnumzerocrossings
 				int m_zeroCrossingTimer = 0;
 				float prevSample = 0;
 				float sample = 0;
