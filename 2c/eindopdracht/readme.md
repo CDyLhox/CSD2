@@ -1,5 +1,4 @@
+## THE EINDOPDRACHT 2c :: 17 mar 2025
 
-## aantekening
-threading
-
-
+for videos and information check out:
+    http://cagedotlog.com/csdDemo/index.html

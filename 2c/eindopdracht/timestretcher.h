@@ -15,6 +15,9 @@ class Timestretcher : public Effect {
 				void setAmountZeroCrossings(int timeStretchLength);
 				// TODO: MAYBE SET FEEDBAKC
 				// void setFeedback
+				// TODO: BPM INTEREGRATION
+				//TODO: interpolatie toevoegen om clicks te voorkomen -- maybe
+				//TODO variable buffer length -- multiple buffers for overlap of buffers 
 
 				// use the numZeroCrossings to fill buffer
 				void prepare(const float &input);

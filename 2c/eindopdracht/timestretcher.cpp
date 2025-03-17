@@ -32,7 +32,7 @@ void Timestretcher::applyEffect(const float& input, float& output)
 void Timestretcher::prepare(const float &input)
 {
 				clock++;
-				if (clock > 50000) { //FIXME this is an interesting parameter. lfo rate.
+				if (clock > 90000) { //FIXME this is an interesting parameter. lfo rate.
 								std::cout << "TimeStretcher::Prepare to be amazed\n";
 								m_NumZeroCrossings = 0;
 								m_zeroCrossingTimer = 0;
