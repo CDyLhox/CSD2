@@ -38,11 +38,23 @@ class Timestretcher : public Effect {
 
 				// CIRCBUFFER STUFF
 				void circBuffer(int bufferSize, int numSamplesDelay);
-				float* buffer;
 				float readHead();
 				void writeHead(float currentSample);
+
+				void writeLoopHead(float currentSample);
+				float readLoopHead();
+
+
+				// Buffer Stuffer 
+				float* buffer;
+				float* m_loopBuffer;
 				void allocateBuffer(int size);
+				
 				void releaseBuffer();
+				void releaseLoopBuffer();
+
+
+
 
 				void setDelayTime(int numSamplesDelay);
 
@@ -63,6 +75,12 @@ class Timestretcher : public Effect {
 
 				uint readHeadPosition = 0;
 				uint writeHeadPosition = 10;
+
+
+				uint m_readLoopHeadPosition = 0;
+				uint m_writeLoopHeadPosition = 0;
+
+
 				uint m_loopSize = bufferSize;
 				uint m_loopSizeLast = 0;
 
@@ -76,17 +94,44 @@ class Timestretcher : public Effect {
 				{
 								readHeadPosition++;
 								//std::cout << "readheadposition" << readHeadPosition << std::endl;
+								
 								wrapHeads(readHeadPosition);
 				}
 				inline void wrapHeads(uint& head)
 				{
 
-								if (readHeadPosition >= m_loopSize) {//writehead = readhead+loopsize
-												head -= m_loopSize+m_loopSizeLast;
+							/*	if (readHeadPosition >= m_loopSize) {//writehead = readhead+loopsize
+												head -= m_loopSize;
 												std::cout << "LOWKEY wrapping head ( loopsize ) \n"
 																	<< "loopsize" << m_loopSize << "\n";
-								}	else if (head >= bufferSize) {
-												m_loopSizeLast = 0;
+								}*/	if (head >= bufferSize) {
+												head -= bufferSize;
+												std::cout << "HIGHKEY wrapping head( buffersize )" << "loopsize" << m_loopSize << std::endl;
+								}
+				}
+
+
+				inline void incrementLoopWriteHead()
+				{
+								writeLoopHeadPosition++;
+								//std::cout << "writeheadpostiin" << writeHeadPosition << std::endl;
+								wrapHeads(writeHeadPosition);
+				}
+				inline void incrementLoopReadHead()
+				{
+								readLoopHeadPosition++;
+								//std::cout << "readheadposition" << readHeadPosition << std::endl;
+								
+								wrapHeads(readHeadPosition);
+				}
+				inline void wrapHeads(uint& head)
+				{
+
+								if (readLoopHeadPosition >= m_loopSize) {//writehead = readhead+loopsize
+												head -= m_loopSize;
+												std::cout << "LOWKEY wrapping head ( loopsize ) \n"
+																	<< "loopsize" << m_loopSize << "\n";
+								}else 	if (head >= bufferSize) {
 												head -= bufferSize;
 												std::cout << "HIGHKEY wrapping head( buffersize )" << "loopsize" << m_loopSize << std::endl;
 								}
