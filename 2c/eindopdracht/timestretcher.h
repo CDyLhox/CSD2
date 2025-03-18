@@ -31,7 +31,7 @@ class Timestretcher : public Effect {
 				int clock; 
 
 				int m_NumZeroCrossings = 0;
-				int m_maxNumZeroCrossings = 50;//FIXME interesting parameter, maxnumzerocrossings
+				int m_maxNumZeroCrossings = 32;//FIXME interesting parameter, maxnumzerocrossings
 				int m_zeroCrossingTimer = 0;
 				float prevSample = 0;
 				float sample = 0;
@@ -45,7 +45,6 @@ class Timestretcher : public Effect {
 				void releaseBuffer();
 
 				void setDelayTime(int numSamplesDelay);
-				void setDelayTime(float miliSecondsDelay);
 
 				inline void tick()
 				{
@@ -65,25 +64,29 @@ class Timestretcher : public Effect {
 				uint readHeadPosition = 0;
 				uint writeHeadPosition = 10;
 				uint m_loopSize = bufferSize;
+				uint m_loopSizeLast = 0;
 
 				inline void incrementWriteHead()
 				{
 								writeHeadPosition++;
+								//std::cout << "writeheadpostiin" << writeHeadPosition << std::endl;
 								wrapHeads(writeHeadPosition);
 				}
 				inline void incrementReadHead()
 				{
 								readHeadPosition++;
+								//std::cout << "readheadposition" << readHeadPosition << std::endl;
 								wrapHeads(readHeadPosition);
 				}
 				inline void wrapHeads(uint& head)
 				{
 
-								if (readHeadPosition >= m_loopSize) {
-												head -= m_loopSize;
+								if (readHeadPosition >= m_loopSize) {//writehead = readhead+loopsize
+												head -= m_loopSize+m_loopSizeLast;
 												std::cout << "LOWKEY wrapping head ( loopsize ) \n"
 																	<< "loopsize" << m_loopSize << "\n";
-								} else if (head >= bufferSize) {
+								}	else if (head >= bufferSize) {
+												m_loopSizeLast = 0;
 												head -= bufferSize;
 												std::cout << "HIGHKEY wrapping head( buffersize )" << "loopsize" << m_loopSize << std::endl;
 								}

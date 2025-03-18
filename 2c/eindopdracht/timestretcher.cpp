@@ -29,14 +29,15 @@ void Timestretcher::applyEffect(const float& input, float& output)
 
 				prepare(input);
 }
-void Timestretcher::prepare(const float &input)
+void Timestretcher::prepare(const float& input)
 {
 				clock++;
-				if (clock > 90000) { //FIXME this is an interesting parameter. lfo rate.
+				if (clock > 10000) { // FIXME this is an interesting parameter. lfo rate.
 								std::cout << "TimeStretcher::Prepare to be amazed\n";
 								m_NumZeroCrossings = 0;
 								m_zeroCrossingTimer = 0;
 								clock = 0;
+								writeHeadPosition = readHeadPosition + m_loopSize;
 				}
 }
 
@@ -130,9 +131,4 @@ void Timestretcher::setDelayTime(int numSamplesDelay)
 				// readHeadPosition = writeHeadPosition - numSamplesDelay; TODO: AFTER FIXING THE LOOP
 				readHeadPosition = 0;
 				writeHeadPosition = numSamplesDelay;
-}
-
-void Timestretcher::setDelayTime(float miliSecondsDelay)
-{
-				// SAMPLERATE / (miliSecondsDelay/1000)
 }
