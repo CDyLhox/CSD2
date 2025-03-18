@@ -143,7 +143,7 @@ void Timestretcher::releaseLoopBuffer()
 
 float Timestretcher::readHead()
 {
-				return buffer[m_readLoopHeadPosition];
+				return buffer[readHeadPosition];
 }
 
 void Timestretcher::writeHead(float currentSample)
