@@ -11,13 +11,13 @@ Timestretcher::~Timestretcher()
 				std::cout << "CircBuffer::~circBuffer \n"
 									<< "Elements of the Buffer were: ";
 				for (int i = 0; i < 512; i++) {
-								std::cout << "\033[32m" <<buffer[i] <<"\033[0m" <<" ";
+								std::cout << "\033[32m" << buffer[i] << "\033[0m" << " ";
 				}
 				std::cout << buffer << std::endl;
 
 				std::cout << "Elements of the loopBuffer were: ";
 				for (int i = 0; i < 512; i++) {
-								std::cout << "\033[34m" << loopBuffer[i] <<"\033[0m" <<" ";
+								std::cout << "\033[34m" << m_loopBuffer[i] << "\033[0m" << " ";
 				}
 				std::cout << buffer << std::endl;
 
@@ -39,17 +39,17 @@ void Timestretcher::applyEffect(const float& input, float& output)
 void Timestretcher::prepare(const float& input)
 {
 				clock++;
-				if (clock > 90000) { // FIXME this is an interesting parameter. lfo rate.
+				if (clock > 9000) { // FIXME this is an interesting parameter. lfo rate.
 								std::cout << "TimeStretcher::Prepare to be amazed\n";
-												
-								
-								readHeadPosition = m_loopSize;
-								
-								//Note: copy the loop from the big buffer to the loopBuffer
-								for(int i = 0; i<m_loopSize; i++){
-								writeLoopHead(readHead());
-								incrementLoopReadHead();
-												std::cout << "Timesteretechter:: prepare; for loop\n" ;
+
+								readHeadPosition = 0;
+
+								// Note: copy the loop from the big buffer to the loopBuffer
+								std::cout << "Timesteretechter:: prepare; for loop\n";
+								for (int i = 0; i < m_loopSize; i++) {
+												writeLoopHead(readHead());
+												incrementReadHead();
+												incrementLoopReadHead();
 								}
 
 								m_NumZeroCrossings = 0;
@@ -111,7 +111,7 @@ void Timestretcher::circBuffer(int size, int numSamplesDelay)
 }
 
 void Timestretcher::allocateBuffer(int size)
-{ 
+{
 
 				buffer = new float[size];
 				for (int i = 0; i < size; i++) {
@@ -119,14 +119,13 @@ void Timestretcher::allocateBuffer(int size)
 				}
 
 				std::cout << "allocateLoopBuffer" << std::endl;
-				
-				// the size of the buffers are the same but the loopbuffer doesn't need to write constantly 
+
+				// the size of the buffers are the same but the loopbuffer doesn't need to write constantly
 				m_loopBuffer = new float[size];
 				for (int i = 0; i < size; i++) {
 								m_loopBuffer[i] = 0;
 				}
 }
-
 
 void Timestretcher::releaseBuffer()
 {
@@ -157,7 +156,8 @@ void Timestretcher::writeLoopHead(float currentSample)
 				m_loopBuffer[m_writeLoopHeadPosition] = currentSample;
 }
 
-float Timestretcher::readLoopHead(){
+float Timestretcher::readLoopHead()
+{
 				std::cout << "Timestretcher::ReadLoopHead" << std::endl;
 				return m_loopBuffer[m_readLoopHeadPosition];
 }

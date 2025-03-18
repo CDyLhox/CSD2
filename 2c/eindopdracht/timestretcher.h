@@ -93,7 +93,7 @@ class Timestretcher : public Effect {
 				inline void incrementReadHead()
 				{
 								readHeadPosition++;
-								//std::cout << "readheadposition" << readHeadPosition << std::endl;
+								std::cout << "readheadposition" << readHeadPosition << std::endl;
 								
 								wrapHeads(readHeadPosition);
 				}
@@ -106,7 +106,7 @@ class Timestretcher : public Effect {
 																	<< "loopsize" << m_loopSize << "\n";
 								}*/	if (head >= bufferSize) {
 												head -= bufferSize;
-												std::cout << "HIGHKEY wrapping head( buffersize )" << "loopsize" << m_loopSize << std::endl;
+												std::cout << "-------------------- Timestretcher::WrapHeads" << "head" << head << std::endl;
 								}
 				}
 
@@ -131,7 +131,7 @@ class Timestretcher : public Effect {
 												head -= m_loopSize;
 												std::cout << "LOWKEY wrapping head ( loopsize ) \n"
 																	<< "loopsize" << m_loopSize << "\n";
-								}else 	if (head >= bufferSize) {
+								}else if (head >= bufferSize) {
 												head -= bufferSize;
 												std::cout << "HIGHKEY wrapping head( buffersize )" << "loopsize" << m_loopSize << std::endl;
 								}
