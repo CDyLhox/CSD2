@@ -113,21 +113,21 @@ class Timestretcher : public Effect {
 
 				inline void incrementLoopWriteHead()
 				{
-								writeLoopHeadPosition++;
+								m_writeLoopHeadPosition++;
 								//std::cout << "writeheadpostiin" << writeHeadPosition << std::endl;
-								wrapHeads(writeHeadPosition);
+								wrapLoopHeads(writeHeadPosition);
 				}
 				inline void incrementLoopReadHead()
 				{
-								readLoopHeadPosition++;
+								m_readLoopHeadPosition++;
 								//std::cout << "readheadposition" << readHeadPosition << std::endl;
 								
-								wrapHeads(readHeadPosition);
+								wrapLoopHeads(readHeadPosition);
 				}
-				inline void wrapHeads(uint& head)
+				inline void wrapLoopHeads(uint& head)
 				{
 
-								if (readLoopHeadPosition >= m_loopSize) {//writehead = readhead+loopsize
+								if (m_readLoopHeadPosition >= m_loopSize) {//writehead = readhead+loopsize
 												head -= m_loopSize;
 												std::cout << "LOWKEY wrapping head ( loopsize ) \n"
 																	<< "loopsize" << m_loopSize << "\n";

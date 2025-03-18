@@ -9,11 +9,18 @@ Timestretcher::~Timestretcher()
 {
 				std::cout << "Timestretcher::~timestretcher" << std::endl;
 				std::cout << "CircBuffer::~circBuffer \n"
-									<< "Elements of the array were: ";
+									<< "Elements of the Buffer were: ";
 				for (int i = 0; i < 512; i++) {
-								std::cout << buffer[i] << " ";
+								std::cout << "\033[32m" <<buffer[i] <<"\033[0m" <<" ";
 				}
 				std::cout << buffer << std::endl;
+
+				std::cout << "Elements of the loopBuffer were: ";
+				for (int i = 0; i < 512; i++) {
+								std::cout << "\033[34m" << loopBuffer[i] <<"\033[0m" <<" ";
+				}
+				std::cout << buffer << std::endl;
+
 				std::cout << "readhead pos was: " << readHeadPosition << "\nwritehead pos was: " << writeHeadPosition << std::endl;
 				releaseBuffer();
 }
@@ -24,10 +31,8 @@ void Timestretcher::applyEffect(const float& input, float& output)
 				writeHead(input);
 				incrementWriteHead();
 
-				std::cout << "Loopbuffer::applyeffect \n";
-				output = readHead();
-				std::cout <<"Loopbuffer::applyeeffect after readhead\n";
-				incrementReadHead();
+				output = readLoopHead();
+				incrementLoopReadHead();
 
 				prepare(input);
 }
@@ -39,13 +44,11 @@ void Timestretcher::prepare(const float& input)
 												
 								
 								readHeadPosition = m_loopSize;
-								releaseLoopBuffer();
-								allocateLoopBuffer(m_loopSize);
-
+								
 								//Note: copy the loop from the big buffer to the loopBuffer
 								for(int i = 0; i<m_loopSize; i++){
 								writeLoopHead(readHead());
-								incrementReadHead();
+								incrementLoopReadHead();
 												std::cout << "Timesteretechter:: prepare; for loop\n" ;
 								}
 
@@ -155,6 +158,7 @@ void Timestretcher::writeLoopHead(float currentSample)
 }
 
 float Timestretcher::readLoopHead(){
+				std::cout << "Timestretcher::ReadLoopHead" << std::endl;
 				return m_loopBuffer[m_readLoopHeadPosition];
 }
 
