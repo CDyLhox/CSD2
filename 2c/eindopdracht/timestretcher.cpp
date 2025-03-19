@@ -27,6 +27,7 @@ Timestretcher::~Timestretcher()
 
 void Timestretcher::applyEffect(const float& input, float& output)
 {
+				std::cout << "Timestretcher::applyeffect" << std::endl;
 				trackBufferSize(input);
 				writeHead(input);
 				incrementWriteHead();
@@ -38,20 +39,22 @@ void Timestretcher::applyEffect(const float& input, float& output)
 }
 void Timestretcher::prepare(const float& input)
 {
+				std::cout << "TimeStretcher::Prepare to be amazed\n";
 				clock++;
 				if (clock > 9000) { // FIXME this is an interesting parameter. lfo rate.
-								std::cout << "TimeStretcher::Prepare to be amazed\n";
 
-								readHeadPosition = 0;
 
 								// Note: copy the loop from the big buffer to the loopBuffer
-								std::cout << "Timesteretechter:: prepare; for loop\n";
+								//std::cout << "Timesteretechter:: prepare; for loop\n";
 								for (int i = 0; i < m_loopSize; i++) {
+												//write
 												writeLoopHead(readHead());
+												incrementLoopWriteHead();
+
 												incrementReadHead();
-												incrementLoopReadHead();
 								}
 
+								readHeadPosition = 0;
 								m_NumZeroCrossings = 0;
 								m_zeroCrossingTimer = 0;
 								clock = 0;
@@ -91,10 +94,6 @@ float Timestretcher::trackBufferSize(const float& input)
 								// TODO: readheadPOstiion = writeheadposition - m_zerocrossingstimer
 								writeHeadPosition = m_zeroCrossingTimer;
 								m_loopSize = m_zeroCrossingTimer;
-								std::cout << "change in m_loopsize" << std::endl;
-
-								// m_NumZeroCrossings = 0;
-								// m_zeroCrossingTimer = 0;
 				}
 				return m_zeroCrossingTimer;
 }
@@ -152,12 +151,13 @@ void Timestretcher::writeHead(float currentSample)
 
 void Timestretcher::writeLoopHead(float currentSample)
 {
+				std::cout << "timestretcher::writeloophead the writing of a loophead" << std::endl;
 				m_loopBuffer[m_writeLoopHeadPosition] = currentSample;
 }
 
 float Timestretcher::readLoopHead()
 {
-				std::cout << "Timestretcher::ReadLoopHead" << std::endl;
+				//std::cout << "Timestretcher::ReadLoopHead" << std::endl;
 				return m_loopBuffer[m_readLoopHeadPosition];
 }
 

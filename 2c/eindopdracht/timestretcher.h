@@ -28,7 +28,7 @@ class Timestretcher : public Effect {
 		private:
 				// Delay circbuffer; // implement parts directly into the timestretcher from circular buffer
 				//
-				int clock; 
+				int clock = 0; 
 
 				int m_NumZeroCrossings = 0;
 				int m_maxNumZeroCrossings = 32;//FIXME interesting parameter, maxnumzerocrossings
@@ -93,7 +93,7 @@ class Timestretcher : public Effect {
 				inline void incrementReadHead()
 				{
 								readHeadPosition++;
-								std::cout << "readheadposition" << readHeadPosition << std::endl;
+								//std::cout << "readheadposition" << readHeadPosition << std::endl;
 								
 								wrapHeads(readHeadPosition);
 				}
@@ -114,7 +114,7 @@ class Timestretcher : public Effect {
 				inline void incrementLoopWriteHead()
 				{
 								m_writeLoopHeadPosition++;
-								//std::cout << "writeheadpostiin" << writeHeadPosition << std::endl;
+								std::cout << "timestretcher::incrementLoopWriteHead" << writeHeadPosition << std::endl;
 								wrapLoopHeads(writeHeadPosition);
 				}
 				inline void incrementLoopReadHead()
@@ -129,11 +129,11 @@ class Timestretcher : public Effect {
 
 								if (m_readLoopHeadPosition >= m_loopSize) {//writehead = readhead+loopsize
 												head -= m_loopSize;
-												std::cout << "LOWKEY wrapping head ( loopsize ) \n"
-																	<< "loopsize" << m_loopSize << "\n";
+												//std::cout << "LOWKEY wrapping head ( loopsize ) \n"
+																	//<< "loopsize" << m_loopSize << "\n";
 								}else if (head >= bufferSize) {
 												head -= bufferSize;
-												std::cout << "HIGHKEY wrapping head( buffersize )" << "loopsize" << m_loopSize << std::endl;
+												//std::cout << "HIGHKEY wrapping head( buffersize )" << "loopsize" << m_loopSize << std::endl;
 								}
 				}
 };
