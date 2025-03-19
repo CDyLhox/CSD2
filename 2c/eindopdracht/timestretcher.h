@@ -31,7 +31,7 @@ class Timestretcher : public Effect {
 				int clock = 0; 
 
 				int m_NumZeroCrossings = 0;
-				int m_maxNumZeroCrossings = 32;//FIXME interesting parameter, maxnumzerocrossings
+				int m_maxNumZeroCrossings = 64;//FIXME interesting parameter, maxnumzerocrossings
 				int m_zeroCrossingTimer = 0;
 				float prevSample = 0;
 				float sample = 0;
@@ -106,7 +106,7 @@ class Timestretcher : public Effect {
 																	<< "loopsize" << m_loopSize << "\n";
 								}*/	if (head >= bufferSize) {
 												head -= bufferSize;
-												std::cout << "-------------------- Timestretcher::WrapHeads" << "head" << head << std::endl;
+												//std::cout << "-------------------- Timestretcher::WrapHeads" << "head" << head << std::endl;
 								}
 				}
 
@@ -114,15 +114,15 @@ class Timestretcher : public Effect {
 				inline void incrementLoopWriteHead()
 				{
 								m_writeLoopHeadPosition++;
-								std::cout << "timestretcher::incrementLoopWriteHead" << writeHeadPosition << std::endl;
-								wrapLoopHeads(writeHeadPosition);
+								//std::cout << "timestretcher::incrementLoopWriteHead" << writeHeadPosition << std::endl;
+								wrapLoopHeads(m_writeLoopHeadPosition);
 				}
 				inline void incrementLoopReadHead()
 				{
 								m_readLoopHeadPosition++;
 								//std::cout << "readheadposition" << readHeadPosition << std::endl;
 								
-								wrapLoopHeads(readHeadPosition);
+								wrapLoopHeads(m_readLoopHeadPosition);
 				}
 				inline void wrapLoopHeads(uint& head)
 				{

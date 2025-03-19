@@ -22,6 +22,11 @@ Timestretcher::~Timestretcher()
 				std::cout << buffer << std::endl;
 
 				std::cout << "readhead pos was: " << readHeadPosition << "\nwritehead pos was: " << writeHeadPosition << std::endl;
+
+				std::cout << "readLoophead pos was: " << m_readLoopHeadPosition << "\nwritehead pos was: " << writeHeadPosition << std::endl;
+				std::cout << "WriteLoopHead pos was: " << m_writeLoopHeadPosition << "\nwritehead pos was: " << writeHeadPosition << std::endl;
+
+				std::cout << "the loop was " << m_loopSize << " long\n";
 				releaseBuffer();
 }
 
@@ -32,6 +37,7 @@ void Timestretcher::applyEffect(const float& input, float& output)
 				incrementWriteHead();
 
 				output = readLoopHead();
+				std::cout << "output"<< output << std::endl;
 				incrementLoopReadHead();
 
 				prepare(input);
@@ -39,12 +45,13 @@ void Timestretcher::applyEffect(const float& input, float& output)
 void Timestretcher::prepare(const float& input)
 {
 				clock++;
-				if (clock > 9000) { // FIXME this is an interesting parameter. lfo rate.
+				if (clock > 15000) { // FIXME this is an interesting parameter. lfo rate.
 
 				std::cout << "TimeStretcher::Prepare to be amazed\n";
 
 								// Note: copy the loop from the big buffer to the loopBuffer
 								//std::cout << "Timesteretechter:: prepare; for loop\n";
+								m_writeLoopHeadPosition = 0;
 								for (int i = 0; i < m_loopSize; i++) {
 												//write
 												writeLoopHead(readHead());
