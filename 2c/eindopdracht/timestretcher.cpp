@@ -32,7 +32,7 @@ Timestretcher::~Timestretcher()
 
 void Timestretcher::applyEffect(const float& input, float& output)
 {
-				trackBufferSize(input);
+				trackBufferSize(input, m_zeroCrossingTimer);
 				writeHead(input);
 				incrementWriteHead();
 
@@ -61,8 +61,6 @@ void Timestretcher::prepare(const float& input)
 								}
 
 								readHeadPosition = 0;
-								m_NumZeroCrossings = 0;
-								m_zeroCrossingTimer = 0;
 								clock = 0;
 				}
 }
@@ -74,7 +72,7 @@ void Timestretcher::setAmountZeroCrossings(int timeStretchLength)
 				// circbuffer.setNumDelaySamples(5);
 }
 
-float Timestretcher::trackBufferSize(const float& input)
+void Timestretcher::trackBufferSize(const float& input, int &m_zeroCrossingTimer)
 {
 				//
 				prevSample = sample;
@@ -100,8 +98,9 @@ float Timestretcher::trackBufferSize(const float& input)
 								// TODO: readheadPOstiion = writeheadposition - m_zerocrossingstimer
 								writeHeadPosition = m_zeroCrossingTimer;
 								m_loopSize = m_zeroCrossingTimer;
+								m_NumZeroCrossings = 0;
+								m_zeroCrossingTimer = 0;
 				}
-				return m_zeroCrossingTimer;
 }
 
 // ______________________ CIRCBUFFER _______________________
