@@ -133,9 +133,8 @@ void Timestretcher::releaseBuffer()
 				buffer = nullptr;
 				std::cout << "circBuffer::releaseBuffer; i am releasing the buffer: "
 									<< buffer << std::endl;
-}
-void Timestretcher::releaseLoopBuffer()
-{
+
+				
 				delete[] m_loopBuffer;
 				buffer = nullptr;
 				std::cout << "Releasing Loop Buffer" << std::endl;
