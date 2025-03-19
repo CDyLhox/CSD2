@@ -127,7 +127,7 @@ class Timestretcher : public Effect {
 				inline void wrapLoopHeads(uint& head)
 				{
 
-								if (m_readLoopHeadPosition >= m_loopSize) {//writehead = readhead+loopsize
+								if (head >= m_loopSize) {//writehead = readhead+loopsize
 												head -= m_loopSize;
 												//std::cout << "LOWKEY wrapping head ( loopsize ) \n"
 																	//<< "loopsize" << m_loopSize << "\n";

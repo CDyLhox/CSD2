@@ -27,7 +27,6 @@ Timestretcher::~Timestretcher()
 
 void Timestretcher::applyEffect(const float& input, float& output)
 {
-				std::cout << "Timestretcher::applyeffect" << std::endl;
 				trackBufferSize(input);
 				writeHead(input);
 				incrementWriteHead();
@@ -39,10 +38,10 @@ void Timestretcher::applyEffect(const float& input, float& output)
 }
 void Timestretcher::prepare(const float& input)
 {
-				std::cout << "TimeStretcher::Prepare to be amazed\n";
 				clock++;
 				if (clock > 9000) { // FIXME this is an interesting parameter. lfo rate.
 
+				std::cout << "TimeStretcher::Prepare to be amazed\n";
 
 								// Note: copy the loop from the big buffer to the loopBuffer
 								//std::cout << "Timesteretechter:: prepare; for loop\n";
@@ -130,8 +129,7 @@ void Timestretcher::releaseBuffer()
 {
 				delete[] buffer;
 				buffer = nullptr;
-				std::cout << "circBuffer::releaseBuffer; i am releasing the buffer: "
-									<< buffer << std::endl;
+				std::cout << "circBuffer::releaseBuffer; i am releasing the buffer: " << buffer << std::endl;
 
 				
 				delete[] m_loopBuffer;
