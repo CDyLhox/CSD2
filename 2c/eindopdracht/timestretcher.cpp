@@ -37,7 +37,6 @@ void Timestretcher::applyEffect(const float& input, float& output)
 				incrementWriteHead();
 
 				output = readLoopHead();
-				std::cout << "output"<< output << std::endl;
 				incrementLoopReadHead();
 
 				prepare(input);
@@ -45,7 +44,7 @@ void Timestretcher::applyEffect(const float& input, float& output)
 void Timestretcher::prepare(const float& input)
 {
 				clock++;
-				if (clock > 15000) { // FIXME this is an interesting parameter. lfo rate.
+				if (clock > nextClock) { // FIXME this is an interesting parameter. lfo rate.
 
 				std::cout << "TimeStretcher::Prepare to be amazed\n";
 
@@ -62,6 +61,7 @@ void Timestretcher::prepare(const float& input)
 
 								readHeadPosition = 0;
 								clock = 0;
+								nextClock = rand()%90000;
 				}
 }
 

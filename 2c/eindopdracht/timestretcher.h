@@ -29,9 +29,10 @@ class Timestretcher : public Effect {
 				// Delay circbuffer; // implement parts directly into the timestretcher from circular buffer
 				//
 				int clock = 0; 
+				int nextClock;
 
 				int m_NumZeroCrossings = 0;
-				int m_maxNumZeroCrossings = 64;//FIXME interesting parameter, maxnumzerocrossings
+				int m_maxNumZeroCrossings = 512;//FIXME interesting parameter, maxnumzerocrossings
 				int m_zeroCrossingTimer = 0;
 				float prevSample = 0;
 				float sample = 0;
