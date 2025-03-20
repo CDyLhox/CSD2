@@ -1,0 +1,13 @@
+minimalViableProduct
+
+
+magic box
+|		|
+|		|
+|		|
+|		|
+|_______________|
+
+the box plays audio through a bone conductor
+the timestretcher, waveshaper, and delay are controlled at different rates by
+the incoming audio's rms. audio input is done via a microphone 

@@ -2,6 +2,7 @@
 
 #include "delay.h"
 #include "effect.h"
+#include "rms.h"
 #include <iostream>
 
 class Timestretcher : public Effect {
@@ -26,16 +27,20 @@ class Timestretcher : public Effect {
 
 		protected:
 		private:
+
+				Rms rms{3000};
+
 				// Delay circbuffer; // implement parts directly into the timestretcher from circular buffer
 				//
 				int clock = 0; 
 				int nextClock;
 
 				int m_NumZeroCrossings = 0;
-				int m_maxNumZeroCrossings = 128;//FIXME interesting parameter, maxnumzerocrossings
+								int m_maxNumZeroCrossings = 128;//FIXME interesting parameter, maxnumzerocrossings
 				int m_zeroCrossingTimer = 0;
 				float prevSample = 0;
 				float sample = 0;
+				float m_rmsSignal;
 
 				// CIRCBUFFER STUFF
 				void circBuffer(int bufferSize, int numSamplesDelay);

@@ -27,6 +27,7 @@ Timestretcher::~Timestretcher()
 				std::cout << "WriteLoopHead pos was: " << m_writeLoopHeadPosition << "\nwritehead pos was: " << writeHeadPosition << std::endl;
 
 				std::cout << "the loop was " << m_loopSize << " long\n";
+				//std::cout << "rmsSignal was " << 
 				releaseBuffer();
 }
 
@@ -36,6 +37,7 @@ void Timestretcher::applyEffect(const float& input, float& output)
 				writeHead(input);
 				incrementWriteHead();
 
+				m_rmsSignal = rms.trackSignal(input);
 				output = readLoopHead();
 				incrementLoopReadHead();
 
@@ -44,8 +46,8 @@ void Timestretcher::applyEffect(const float& input, float& output)
 void Timestretcher::prepare(const float& input)
 {
 				clock++;
-				if (clock > nextClock) { // FIXME this is an interesting parameter. lfo rate.
-
+				//if (clock > nextClock) { // FIXME this is an interesting parameter. lfo rate.
+				if(m_rmsSignal > 1.3){ //FIXME 0.3 is sensitivity of the effect
 				std::cout << "TimeStretcher::Prepare to be amazed\n";
 
 								// Note: copy the loop from the big buffer to the loopBuffer
@@ -63,6 +65,9 @@ void Timestretcher::prepare(const float& input)
 								clock = 0;
 								//m_NumZeroCrossings = 0
 								nextClock =  20000;//TODO: rand()%20000;
+								//rms.resetRmsSize();
+								//m_rmsSignal = 0;
+								return;
 				}
 }
 
@@ -156,7 +161,7 @@ void Timestretcher::writeHead(float currentSample)
 
 void Timestretcher::writeLoopHead(float currentSample)
 {
-				std::cout << "timestretcher::writeloophead the writing of a loophead" << std::endl;
+				//std::cout << "timestretcher::writeloophead the writing of a loophead" << std::endl;
 				m_loopBuffer[m_writeLoopHeadPosition] = currentSample;
 }
 

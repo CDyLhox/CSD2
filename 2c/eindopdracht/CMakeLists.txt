@@ -1,6 +1,6 @@
 project(Eindopdracht VERSION 0.0.1)
 juce_add_console_app(Eindopdracht PRODUCT_NAME "MagicBox")
-target_sources(Eindopdracht  PRIVATE main.cpp callback.cpp effect.cpp tremolo.cpp delay.cpp Waveshaper.cpp timestretcher.cpp)
+target_sources(Eindopdracht  PRIVATE main.cpp callback.cpp effect.cpp tremolo.cpp delay.cpp Waveshaper.cpp timestretcher.cpp rms.cpp)
 target_compile_definitions(Eindopdracht PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
 
 target_link_libraries(Eindopdracht PRIVATE

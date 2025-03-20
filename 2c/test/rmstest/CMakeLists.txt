@@ -6,7 +6,6 @@ target_compile_definitions(06_RMS PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 SOU
 target_link_libraries(06_RMS PRIVATE
         oscillators
         audio
-	TOOLBELT
 	#interpolation
 
         juce::juce_audio_basics
