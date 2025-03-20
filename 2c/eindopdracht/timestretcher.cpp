@@ -61,7 +61,8 @@ void Timestretcher::prepare(const float& input)
 
 								readHeadPosition = 0;
 								clock = 0;
-								nextClock = rand()%90000;
+								//m_NumZeroCrossings = 0
+								nextClock =  20000;//TODO: rand()%20000;
 				}
 }
 
