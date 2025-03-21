@@ -40,7 +40,7 @@ class Timestretcher : public Effect {
 				int m_zeroCrossingTimer = 0;
 				float prevSample = 0;
 				float sample = 0;
-				float m_rmsSignal;
+				float m_rmsSignal = 0;
 
 				// CIRCBUFFER STUFF
 				void circBuffer(int bufferSize, int numSamplesDelay);

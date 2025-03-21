@@ -46,8 +46,8 @@ void Timestretcher::applyEffect(const float& input, float& output)
 void Timestretcher::prepare(const float& input)
 {
 				clock++;
-				if (clock > nextClock) { // FIXME this is an interesting parameter. lfo rate.
-				//if(m_rmsSignal > 1.3){ //FIXME 0.3 is sensitivity of the effect
+				//if (clock > nextClock) { // FIXME this is an interesting parameter. lfo rate.
+				if(m_rmsSignal > 0.3){ //FIXME 0.3 is sensitivity of the effect
 				std::cout << "TimeStretcher::Prepare to be amazed\n";
 
 								// Note: copy the loop from the big buffer to the loopBuffer
@@ -64,8 +64,8 @@ void Timestretcher::prepare(const float& input)
 								readHeadPosition = 0;
 								clock = 0;
 								//m_NumZeroCrossings = 0
-								nextClock =  20000;//TODO: rand()%20000;
-								//rms.resetRmsSize();
+								nextClock = rand()%20000;
+								rms.resetRmsSize();
 								m_rmsSignal = 0;
 								return;
 				}

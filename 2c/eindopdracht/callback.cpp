@@ -23,11 +23,11 @@ void CustomCallback::prepare(int rate)
 	tremolo.setDryWet(0.5);
 	waveshaper.setDryWet(0.5);
 	delay.setDryWet(0.5);
-	timestretcher.setDryWet(1);
+	timestretcher.setDryWet(0.5);
 
 	tremolo.setModFreq(9);
 	waveshaper.setSlope(9999);
-	delay.setNumDelaySamples(3);
+	delay.setNumDelaySamples(2000);
 	
 	//granulator
 }
@@ -39,9 +39,9 @@ void CustomCallback::process(AudioBuffer buffer)
 	//NOTE: user input 
 	for (int channel = 0u; channel < numInputChannels; channel++) {
 		for (int i = 0u; i < numFrames; i++) {
-			tremolo.processFrame(inputChannels[channel][i], sample);
+							timestretcher.processFrame(inputChannels[channel][i], sample);//TODO: also make second sample variable
+			tremolo.processFrame(sample, sample);
 
-							timestretcher.processFrame(sample, sample);//TODO: also make second sample variable
 			waveshaper.processFrame(sample, sample);//TODO: also make second sample variable
 			delay.processFrame(sample, outputChannels[channel][i]);
 		}

@@ -16,10 +16,11 @@ Rms::~Rms()
 
 float Rms::trackSignal(float incomingSignal)
 {
+				bufferPosition++;
 
 				bufferSum += incomingSignal * incomingSignal;
 				std::cout << "RmsSignal is: " << RMSSignal << std::endl;
-				RMSSignal = sqrt(bufferSum / bufferSize);
+				RMSSignal = sqrt(bufferSum / bufferPosition);
 				return RMSSignal;
 }
 
