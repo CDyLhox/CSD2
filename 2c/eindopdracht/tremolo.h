@@ -2,6 +2,7 @@
 
 #include "effect.h"
 #include "oscillator.h"
+#include "rms.h"
 
 class Tremolo : public Effect
 {
@@ -26,7 +27,10 @@ public:
   void setModFreq(float modFreq);
 
 protected:
+	Rms rms{4100};
   Oscillator* m_osc;
+
+	float m_rmsSignal;
 
   // default modulation frequency range values
   // TODO: setters 

@@ -20,8 +20,6 @@ Tremolo::Tremolo(float modFreq, float modDepth,
 		break;
 	}
 	case WaveformType::SQUARE: {
-		// TODO: alter calculation of to create a non-aliasing square,
-		// similar to the calculation within the Saw class
 		m_osc = new Square(modFreq, samplerate);
 		break;
 	}
@@ -46,13 +44,18 @@ void Tremolo::prepare(float samplerate)
 
 void Tremolo::applyEffect(const float& input, float& output)
 {
+				
 		// transform sine in range [-1, 1] to range [0, 1]
 		m_modSignal = m_osc->genNextSample() * 0.5 + 0.5;
 		// apply modDepth
 		m_modSignal *= m_modDepth;
 		m_modSignal += 1.0 - m_modDepth;
 		// apply modulation signal to input and return result
+		// TODO: set the rms signal to never get lower than 0.1
+		m_rmsSignal = rms.trackSignal(input);
 		output = input * m_modSignal;
+		// set the modfreq to the rms signal times 2
+		setModFreq(m_rmsSignal+0.1); // so that the rms signal doesnt get lower than 0.1
 }
 
 void Tremolo::setModFreq(float modFreq)

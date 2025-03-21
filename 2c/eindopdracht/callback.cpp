@@ -16,7 +16,7 @@ void CustomCallback::prepare(int rate)
 	tremolo.prepare(rate);
 	// location for bypasses
 	timestretcher.setBypass(false);
-	tremolo.setBypass(true);
+	tremolo.setBypass(false);
 	waveshaper.setBypass(true);
 	delay.setBypass(true);
 

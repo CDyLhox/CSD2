@@ -55,20 +55,26 @@ void Timestretcher::prepare(const float& input)
 								// std::cout << "Timesteretechter:: prepare; for loop\n";
 								m_writeLoopHeadPosition = 0;
 
-								readHeadPosition = writeHeadPosition - m_loopSize;
 								// dankje marijn Voor slimme brein 
 								// TODO: WRITE A COMMINGTE
-								if (writeHeadPosition - m_loopSize > 0) {
-												readHeadPosition = writeHeadPosition;
+								// place the readHead at the beginning of the loop. 
+								// wrapping is done in if statements to make sure the uInt doesnt flip out.
+								/*if (writeHeadPosition - m_loopSize > 0) {
+												std::cout << "Pre segmentation" << std::endl;
+												readHeadPosition = writeHeadPosition-m_loopSize;
 								} else {
-												readHeadPosition += bufferSize - m_loopSize;
-								}
+												std::cout << "Post segmentation" << std::endl;
+												readHeadPosition = writeHeadPosition + bufferSize - m_loopSize;
+								}*/
+
+								
 								std::cout << "Timestretcher::prepare : readheadposition: " << readHeadPosition << std::endl;
 
 								for (int i = 0; i < bufferSize; i++) {
 												// write
 												writeLoopHead(readHead());
 												incrementLoopWriteHead();
+
 
 												incrementReadHead();
 								}

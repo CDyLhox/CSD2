@@ -2,7 +2,7 @@
 
 Rms::Rms(int bufferSize)
 {
-				std::cout << "initialising RMS buffer" << std::endl;
+				std::cout << "initialising RMS" << std::endl;
 }
 
 Rms::~Rms()
