@@ -35,6 +35,11 @@ void Delay::applyEffect(const float &input, float &output)
   // write value to circular buffer
   m_buffer[m_writeH++] = output * m_feedback + input;
   wrapH(m_writeH);
+
+	//apply rms to feedback
+	m_rmsSignal = rms.trackSignal(input);
+	setFeedback(m_rmsSignal);
+
 }
 
 // sets the number of samples to delay

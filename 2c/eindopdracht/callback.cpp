@@ -18,7 +18,7 @@ void CustomCallback::prepare(int rate)
 	timestretcher.setBypass(false);
 	tremolo.setBypass(false);
 	waveshaper.setBypass(true);
-	delay.setBypass(true);
+	delay.setBypass(false);
 
 	tremolo.setDryWet(0.5);
 	waveshaper.setDryWet(0.5);
