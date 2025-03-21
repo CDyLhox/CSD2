@@ -17,7 +17,7 @@ Timestretcher::~Timestretcher()
 
 				std::cout << "Elements of the loopBuffer were: ";
 				for (int i = 0; i < 512; i++) {
-								std::cout << "\033[34m" << m_loopBuffer[i] << "\033[0m" << " ";
+								std::cout << "\033[34m" << m_loopBuffer[i]  << "\033[0m" << " ";
 				}
 				std::cout << buffer << std::endl;
 
@@ -27,7 +27,7 @@ Timestretcher::~Timestretcher()
 				std::cout << "WriteLoopHead pos was: " << m_writeLoopHeadPosition << "\nwritehead pos was: " << writeHeadPosition << std::endl;
 
 				std::cout << "the loop was " << m_loopSize << " long\n";
-				//std::cout << "rmsSignal was " << 
+				// std::cout << "rmsSignal was " <<
 				releaseBuffer();
 }
 
@@ -39,6 +39,7 @@ void Timestretcher::applyEffect(const float& input, float& output)
 
 				m_rmsSignal = rms.trackSignal(input);
 				output = readLoopHead();
+				std::cout << output << std::endl;
 				incrementLoopReadHead();
 
 				prepare(input);
@@ -46,15 +47,26 @@ void Timestretcher::applyEffect(const float& input, float& output)
 void Timestretcher::prepare(const float& input)
 {
 				clock++;
-				//if (clock > nextClock) { // FIXME this is an interesting parameter. lfo rate.
-				if(m_rmsSignal > 0.3){ //FIXME 0.3 is sensitivity of the effect
-				std::cout << "TimeStretcher::Prepare to be amazed\n";
+				// if (clock > nextclock) { // FIXME this is an interesting parameter. lfo rate.
+				if (m_rmsSignal > 0.3) { // FIXME 0.3 is sensitivity of the effect
+								// std::cout << "TimeStretcher::Prepare to be amazed\n";
 
 								// Note: copy the loop from the big buffer to the loopBuffer
-								//std::cout << "Timesteretechter:: prepare; for loop\n";
+								// std::cout << "Timesteretechter:: prepare; for loop\n";
 								m_writeLoopHeadPosition = 0;
-								for (int i = 0; i < m_loopSize; i++) {
-												//write
+
+								readHeadPosition = writeHeadPosition - m_loopSize;
+								// dankje marijn Voor slimme brein 
+								// TODO: WRITE A COMMINGTE
+								if (writeHeadPosition - m_loopSize > 0) {
+												readHeadPosition = writeHeadPosition;
+								} else {
+												readHeadPosition += bufferSize - m_loopSize;
+								}
+								std::cout << "Timestretcher::prepare : readheadposition: " << readHeadPosition << std::endl;
+
+								for (int i = 0; i < bufferSize; i++) {
+												// write
 												writeLoopHead(readHead());
 												incrementLoopWriteHead();
 
@@ -63,10 +75,9 @@ void Timestretcher::prepare(const float& input)
 
 								readHeadPosition = 0;
 								clock = 0;
-								//m_NumZeroCrossings = 0
-								nextClock = rand()%20000;
+								// m_NumZeroCrossings = 0
+								nextClock = rand() % 20000;
 								rms.resetRmsSize();
-								m_rmsSignal = 0;
 								return;
 				}
 }
@@ -78,7 +89,7 @@ void Timestretcher::setAmountZeroCrossings(int timeStretchLength)
 				// circbuffer.setNumDelaySamples(5);
 }
 
-void Timestretcher::trackBufferSize(const float& input, int &m_zeroCrossingTimer)
+void Timestretcher::trackBufferSize(const float& input, int& m_zeroCrossingTimer)
 {
 				//
 				prevSample = sample;
@@ -143,7 +154,6 @@ void Timestretcher::releaseBuffer()
 				buffer = nullptr;
 				std::cout << "circBuffer::releaseBuffer; i am releasing the buffer: " << buffer << std::endl;
 
-				
 				delete[] m_loopBuffer;
 				buffer = nullptr;
 				std::cout << "Releasing Loop Buffer" << std::endl;
@@ -161,13 +171,13 @@ void Timestretcher::writeHead(float currentSample)
 
 void Timestretcher::writeLoopHead(float currentSample)
 {
-				//std::cout << "timestretcher::writeloophead the writing of a loophead" << std::endl;
+				// std::cout << "timestretcher::writeloophead the writing of a loophead" << std::endl;
 				m_loopBuffer[m_writeLoopHeadPosition] = currentSample;
 }
 
 float Timestretcher::readLoopHead()
 {
-				//std::cout << "Timestretcher::ReadLoopHead" << std::endl;
+				// std::cout << "Timestretcher::ReadLoopHead" << std::endl;
 				return m_loopBuffer[m_readLoopHeadPosition];
 }
 
@@ -180,6 +190,8 @@ void Timestretcher::setDelayTime(int numSamplesDelay)
 				// move the buffer right of where the buffer was.
 				//
 				// readHeadPosition = writeHeadPosition - numSamplesDelay; TODO: AFTER FIXING THE LOOP
-				readHeadPosition = 0;
+				//
+				//
+				// readHeadPosition = 0;
 				writeHeadPosition = numSamplesDelay;
 }
