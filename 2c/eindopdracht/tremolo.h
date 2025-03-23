@@ -27,7 +27,7 @@ public:
   void setModFreq(float modFreq);
 
 protected:
-	Rms rms{4100};
+	Rms rms{10000};
   Oscillator* m_osc;
 
 	float m_rmsSignal;
@@ -35,7 +35,8 @@ protected:
   // default modulation frequency range values
   // TODO: setters 
   float m_modFreqMin = 0.01f;
-  float m_modFreqMax = 500000.0f;
+  float m_modFreqMax = 1000.0f;
+	float m_rmsModFreqAmplifier = m_modFreqMax / 100;
   // modulation depth value
   float m_modDepth;
 

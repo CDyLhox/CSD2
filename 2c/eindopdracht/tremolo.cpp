@@ -51,11 +51,11 @@ void Tremolo::applyEffect(const float& input, float& output)
 		m_modSignal *= m_modDepth;
 		m_modSignal += 1.0 - m_modDepth;
 		// apply modulation signal to input and return result
-		// TODO: set the rms signal to never get lower than 0.1
-		m_rmsSignal = rms.trackSignal(input);
+		// invert rmsSignal -- loud is slow trem, quiet is fast trem
+		m_rmsSignal = 1 - rms.trackSignal(input);
 		output = input * m_modSignal;
 		// set the modfreq to the rms signal times 2
-		setModFreq(m_rmsSignal+0.1); // so that the rms signal doesnt get lower than 0.1
+		setModFreq(m_rmsSignal * m_rmsModFreqAmplifier); // so that the rms signal doesnt get lower than 0.1
 }
 
 void Tremolo::setModFreq(float modFreq)

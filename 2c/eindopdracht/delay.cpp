@@ -55,8 +55,12 @@ void Delay::setNumDelaySamples(uint numDelaySamples)
 // sets the feedback value, should be in range [0, 1]
 void Delay::setFeedback(float feedback)
 {
-  if(feedback < 0 || feedback > 1) {
-    throw "Delay::setFeedback - feedback exceeds range [0, 1]";
-  }
+  if(feedback < 0) {
+					feedback = 0;
+  }else if (feedback > 0.999){
+				feedback = 0.999;
+	}
+	
   m_feedback = feedback;
+	std::cout <<"setFeedBack " <<  m_feedback << std::endl;
 }

@@ -4,8 +4,8 @@
 
 class Delay : public Effect {
 		public:
-				Delay(float feedback = 0.7, uint numDelaySamples = 2048,
-						uint maxDelaySize = 2048, float dryWet = 1.0);
+				Delay(float feedback = 0.7, uint numDelaySamples = 4099,
+						uint maxDelaySize = 4100, float dryWet = 1.0);
 				~Delay();
 
 				// override base class method
@@ -27,7 +27,7 @@ class Delay : public Effect {
 				float m_feedback = 0.0f;
 
 				// maxDelaySize
-				Rms rms { 2048 };
+				Rms rms { 90000 };
 				float m_rmsSignal;
 				// circular buffer variables
 				// pointer to the buffer

@@ -15,33 +15,35 @@ void CustomCallback::prepare(int rate)
 				tremolo.prepare(rate);
 				// location for bypasses
 				timestretcher.setBypass(false);
-				tremolo.setBypass(true);
+				tremolo.setBypass(false);
 				waveshaper.setBypass(true);
-				delay.setBypass(true);
+				delay.setBypass(false);
 
-				tremolo.setDryWet(0.5);
-				waveshaper.setDryWet(0.5);
-				delay.setDryWet(0.5);
-				timestretcher.setDryWet(0.5);
+				tremolo.setDryWet(1);
+				waveshaper.setDryWet(1);
+				delay.setDryWet(1);
+				timestretcher.setDryWet(1);
 
 				tremolo.setModFreq(9);
 				waveshaper.setSlope(9999);
-				delay.setNumDelaySamples(3);
+				delay.setNumDelaySamples(4000);
 				// granulator
 }
 
 void CustomCallback::process(AudioBuffer buffer)
 {
 				auto [inputChannels, outputChannels, numInputChannels, numOutputChannels, numFrames] = buffer;
-				float sample;
+				float sample1;
+				float sample2;
 				// NOTE: user input
 				for (int channel = 0u; channel < numInputChannels; channel++) {
 								for (int i = 0u; i < numFrames; i++) {
-												timestretcher.processFrame(inputChannels[channel][i], sample);
-														tremolo.processFrame(sample, sample);
+												timestretcher.processFrame(inputChannels[channel][i], sample1);
+												tremolo.processFrame(sample1, sample2);
 
-												waveshaper.processFrame(sample, sample); // TODO: also make second sample variable
-												delay.processFrame(sample, outputChannels[channel][i]);
+												waveshaper.processFrame(sample2, sample1); 
+												delay.processFrame(sample1, outputChannels[channel][i]);
+
 								}
 				}
 }
