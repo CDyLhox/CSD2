@@ -17,7 +17,7 @@ class Waveshaper : public Effect {
 	// pirkle 
 	double  m_slope = 1; //NOTE: this is the k value of the pirkle function
 	float* m_waveTableBuffer;
-	float m_bufferSize = 4086;
+	int m_bufferSize = 4086;
 	float m_index; 
 	float m_sample;
 	

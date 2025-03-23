@@ -4,6 +4,8 @@
 #include "square.h"
 #include <iostream>
 
+// based on code from Ciska Vriezenga
+
 Tremolo::Tremolo(float modFreq, float modDepth,
     WaveformType waveformType, float samplerate)
     : Effect()
@@ -31,14 +33,12 @@ Tremolo::Tremolo(float modFreq, float modDepth,
 
 Tremolo::~Tremolo()
 {
-	// release dynamically allocated oscillator object.
 	delete m_osc;
 	m_osc = nullptr;
 }
 
 void Tremolo::prepare(float samplerate)
 {
-	// NOTE: example, keeping things 'simple', hence no validation
 	m_osc->prepare(samplerate);
 }
 
@@ -51,8 +51,8 @@ void Tremolo::applyEffect(const float& input, float& output)
 		m_modSignal *= m_modDepth;
 		m_modSignal += 1.0 - m_modDepth;
 		// apply modulation signal to input and return result
-		// invert rmsSignal -- loud is slow trem, quiet is fast trem
-		m_rmsSignal = 1 - rms.trackSignal(input);
+		// invert rmsSignal -- loud is slow trem, quiet is fast trem --- plus also 0.1 so the safetycheck of the setModFreq is okay
+		m_rmsSignal = 1.1 - rms.trackSignal(input);
 		output = input * m_modSignal;
 		// set the modfreq to the rms signal times 2
 		setModFreq(m_rmsSignal * m_rmsModFreqAmplifier); // so that the rms signal doesnt get lower than 0.1

@@ -12,13 +12,9 @@ class Timestretcher : public Effect {
 
 				// appies the delay effect as a timestretcher
 				void applyEffect(const float& input, float& output) override;
+
 				// set the amount of time the inputSig has to cross the 0 before the circbuffer repeats
 				void setAmountZeroCrossings(int timeStretchLength);
-				// TODO: MAYBE SET FEEDBAKC
-				// void setFeedback
-				// TODO: BPM INTEREGRATION
-				// TODO: interpolatie toevoegen om clicks te voorkomen -- maybe
-				// TODO variable buffer length -- multiple buffers for overlap of buffers
 
 				// use the numZeroCrossings to fill buffer
 				void prepare(const float& input);
@@ -31,10 +27,8 @@ class Timestretcher : public Effect {
 				Rms rms { 3000 };
 
 				// Delay circbuffer; // implement parts directly into the timestretcher from circular buffer
-				//
-				int clock = 0;
-				int nextClock;
-
+				
+				float m_threshold = 0.3;
 				bool effectTriggered = false;
 
 				int m_NumZeroCrossings = 0;
@@ -44,7 +38,7 @@ class Timestretcher : public Effect {
 				float sample = 0;
 				float m_rmsSignal = 0;
 
-				// CIRCBUFFER STUFF
+				// ------- CIRCBUFFER STUFF ------
 				void circBuffer(int bufferSize, int numSamplesDelay);
 				float readHead();
 				void writeHead(float currentSample);
@@ -56,47 +50,32 @@ class Timestretcher : public Effect {
 				float* buffer;
 				float* m_loopBuffer;
 				void allocateBuffer(int size);
-
 				void releaseBuffer();
-				void releaseLoopBuffer();
 
 				void setDelayTime(int numSamplesDelay);
 
-				inline void tick()
-				{
-								std::cout << "tick" << std::endl;
-								incrementWriteHead();
-								incrementReadHead();
-
-								std::cout << "readHeadPosition" << readHeadPosition << std::endl;
-								std::cout << "writeHeadPosition" << writeHeadPosition << std::endl;
-				}
 
 				uint bufferSize = 200;
 				float currentSample;
 				int numSamplesDelay;
-				float miliSecondsDelay;
 
 				int readHeadPosition = 0;
-								int writeHeadPosition = 0;
-				int whPositionCheck = 0;
+				int writeHeadPosition = 0;
 
 				uint m_readLoopHeadPosition = 0;
 				uint m_writeLoopHeadPosition = 0;
 
 				uint m_loopSize = bufferSize;
-				uint m_loopSizeLast = 0;
 
+				//Duplicate code but im leaving it this way because the incrementLoophead has different logistics
 				inline void incrementWriteHead()
 				{
 								writeHeadPosition++;
-								// std::cout << "writeheadpostiin" << writeHeadPosition << std::endl;
 								wrapHeads(writeHeadPosition);
 				}
 				inline void incrementReadHead()
 				{
 								readHeadPosition++;
-								// std::cout << "readheadposition" << readHeadPosition << std::endl;
 
 								wrapHeads(readHeadPosition);
 				}
@@ -105,36 +84,32 @@ class Timestretcher : public Effect {
 
 								while (head >= bufferSize) {
 												head -= bufferSize;
-												// std::cout << "-------------------- Timestretcher::WrapHeads" << "head" << head << std::endl;
-								}while (head < 0){
+								}
+								while (head < 0) {
 												head += bufferSize;
-								}return;
+								}
+								return;
 				}
 
 				inline void incrementLoopWriteHead()
 				{
 								m_writeLoopHeadPosition++;
-								// std::cout << "timestretcher::incrementLoopWriteHead" << writeHeadPosition << std::endl;
 								wrapLoopHeads(m_writeLoopHeadPosition);
 				}
 				inline void incrementLoopReadHead()
 				{
 								m_readLoopHeadPosition++;
-								// std::cout << "readheadposition" << readHeadPosition << std::endl;
 
 								wrapLoopHeads(m_readLoopHeadPosition);
 				}
 				inline void wrapLoopHeads(uint& head)
 				{
 
-								if (head >= m_loopSize) { // writehead = readhead+loopsize
+								if (head >= m_loopSize) { 
 												head -= m_loopSize;
-												// std::cout << "LOWKEY wrapping head ( loopsize ) \n"
-												//<< "loopsize" << m_loopSize << "\n";
+												
 								} else if (head >= bufferSize) {
 												head -= bufferSize;
-												// std::cout << "HIGHKEY wrapping head( buffersize )" << "loopsize" << m_loopSize << std::endl;
 								}
 				}
 };
-//

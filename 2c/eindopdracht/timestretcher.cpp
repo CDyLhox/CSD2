@@ -45,30 +45,20 @@ void Timestretcher::applyEffect(const float& input, float& output)
 }
 void Timestretcher::prepare(const float& input)
 {
-				clock++;
-				 //if (clock > nextClock) { // FIXME this is an interesting parameter. lfo rate.
-				if (m_rmsSignal > 0.3 && effectTriggered == false) { // FIXME 0.3 is sensitivity of the effect
-								std::cout << "TimeStretcher::Prepare to be amazed\n";
+				if (m_rmsSignal > m_threshold && effectTriggered == false) { // FIXME 0.3 is sensitivity of the effect
 								effectTriggered = true;
 
 								m_writeLoopHeadPosition = 0;
 
-
-								std::cout << "writeHeadPosition: " << writeHeadPosition
-          << ", m_loopSize: " << m_loopSize
-          << ", bufferSize: " << bufferSize << std::endl;
-				
-								if(writeHeadPosition - m_loopSize < 0){
-								readHeadPosition = writeHeadPosition - m_loopSize + bufferSize;
-								}else{
-								readHeadPosition = writeHeadPosition - m_loopSize;
+								if (writeHeadPosition - m_loopSize < 0) {
+												readHeadPosition = writeHeadPosition - m_loopSize + bufferSize;
+								} else {
+												readHeadPosition = writeHeadPosition - m_loopSize;
 								}
-								if (readHeadPosition < 0){ readHeadPosition += bufferSize;}
 								wrapHeads(readHeadPosition);
-								std::cout << "readHeadPosition" << readHeadPosition << std::endl;
+
 								// Note: copy the loop from the big buffer to the loopBuffer
 								for (int i = 0; i < bufferSize; i++) {
-												// write
 												writeLoopHead(readHead());
 												incrementLoopWriteHead();
 
@@ -76,39 +66,37 @@ void Timestretcher::prepare(const float& input)
 								}
 
 								readHeadPosition = 0;
-								clock = 0;
-								// m_NumZeroCrossings = 0
-								nextClock = rand() % 20000;
 								rms.resetRmsSize();
 								m_rmsSignal = 0;
 								return;
 				}
-				if(effectTriggered && m_rmsSignal < 0.05){effectTriggered = false;}
+				if (effectTriggered && m_rmsSignal < 0.05) {
+								effectTriggered = false;
+				}
 }
 
-void Timestretcher::setAmountZeroCrossings(int timeStretchLength)
+void Timestretcher::setAmountZeroCrossings(int amountOfZeroCrossings)
 { // TODO: safety checks: check if the number is devisable by 2 else correct the number upwards (dc offset)
 				std::cout << "Timestretcher::setAmountZeroCrossings be like\n";
-				m_maxNumZeroCrossings = timeStretchLength;
-				// circbuffer.setNumDelaySamples(5);
+				if (amountOfZeroCrossings > 12 || amountOfZeroCrossings < 256) {
+								m_maxNumZeroCrossings = amountOfZeroCrossings;
+				} else {
+								std::cout << "value is out of range. please select a number between 256" << std::endl;
+				}
 }
 
 void Timestretcher::trackBufferSize(const float& input, int& m_zeroCrossingTimer)
 {
-				//
 				prevSample = sample;
 				sample = input;
 				m_zeroCrossingTimer++;
 
-				// if goes from positive to negative yknow 2 if statements :
-				// XOR
-				// bool prevsample positive
-				// bool cursamplepos
-				// coment
-				// if ((prev >= 0) != (cur >=0))
+				// if goes from positive to negative
+				// XOR gate to check the zeroCrossings
 				if ((prevSample >= 0) != (sample >= 0)) {
 								m_NumZeroCrossings++;
 				}
+				// check when the zerocrossings has reached its max. update the delaytime 
 				if (m_NumZeroCrossings == m_maxNumZeroCrossings) {
 								std::cout << "crossed 0 : " << m_NumZeroCrossings << "amount of times" << std::endl;
 								std::cout << m_zeroCrossingTimer << " time between zerocrossings" << std::endl;
@@ -116,7 +104,6 @@ void Timestretcher::trackBufferSize(const float& input, int& m_zeroCrossingTimer
 								setDelayTime(m_zeroCrossingTimer);
 
 								// Update ReadheadPosition based on how long the zerocrossingstimer says the amount of zerocrossings took
-								// TODO: readheadPOstiion = writeheadposition - m_zerocrossingstimer
 								writeHeadPosition = m_zeroCrossingTimer;
 								m_loopSize = m_zeroCrossingTimer;
 								m_NumZeroCrossings = 0;
@@ -162,7 +149,7 @@ void Timestretcher::releaseBuffer()
 {
 				delete[] buffer;
 				buffer = nullptr;
-				std::cout << "circBuffer::releaseBuffer; i am releasing the buffer: " << buffer << std::endl;
+				std::cout << "Timestretcher::releaseBuffer; i am releasing the buffer: " << buffer << std::endl;
 
 				delete[] m_loopBuffer;
 				buffer = nullptr;
