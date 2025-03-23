@@ -1,1 +1,1 @@
-add_subdirectory(effectOne)
+add_subdirectory(06effectOne)
