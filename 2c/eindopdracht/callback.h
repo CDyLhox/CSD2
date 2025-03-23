@@ -20,6 +20,7 @@ class CustomCallback : public AudioCallback {
 	Delay delay;
 	Waveshaper waveshaper;
 	Timestretcher timestretcher;
+
 };
 
 #endif // CALLBACK_H

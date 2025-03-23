@@ -24,6 +24,7 @@ class Timestretcher : public Effect {
 				void prepare(const float& input);
 				void trackBufferSize(const float& input, int& m_zeroCrossingTimer);
 				void fillBuffer(const float& input);
+				float getRmsSignal(float rmsSignal);
 
 		protected:
 		private:
@@ -35,7 +36,7 @@ class Timestretcher : public Effect {
 				int nextClock;
 
 				int m_NumZeroCrossings = 0;
-				int m_maxNumZeroCrossings = 256; // FIXME interesting parameter, maxnumzerocrossings
+				int m_maxNumZeroCrossings = 128; // FIXME interesting parameter, maxnumzerocrossings
 				int m_zeroCrossingTimer = 0;
 				float prevSample = 0;
 				float sample = 0;
@@ -76,6 +77,7 @@ class Timestretcher : public Effect {
 
 				uint readHeadPosition = 0;
 				uint writeHeadPosition = 0;
+				int whPositionCheck = 0;
 
 				uint m_readLoopHeadPosition = 0;
 				uint m_writeLoopHeadPosition = 0;
