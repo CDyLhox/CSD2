@@ -17,26 +17,25 @@ class Timestretcher : public Effect {
 				// TODO: MAYBE SET FEEDBAKC
 				// void setFeedback
 				// TODO: BPM INTEREGRATION
-				//TODO: interpolatie toevoegen om clicks te voorkomen -- maybe
-				//TODO variable buffer length -- multiple buffers for overlap of buffers 
+				// TODO: interpolatie toevoegen om clicks te voorkomen -- maybe
+				// TODO variable buffer length -- multiple buffers for overlap of buffers
 
 				// use the numZeroCrossings to fill buffer
-				void prepare(const float &input);
-				void trackBufferSize(const float& input, int &m_zeroCrossingTimer);
+				void prepare(const float& input);
+				void trackBufferSize(const float& input, int& m_zeroCrossingTimer);
 				void fillBuffer(const float& input);
 
 		protected:
 		private:
-
-				Rms rms{3000};
+				Rms rms { 3000 };
 
 				// Delay circbuffer; // implement parts directly into the timestretcher from circular buffer
 				//
-				int clock = 0; 
+				int clock = 0;
 				int nextClock;
 
 				int m_NumZeroCrossings = 0;
-								int m_maxNumZeroCrossings = 256;//FIXME interesting parameter, maxnumzerocrossings
+				int m_maxNumZeroCrossings = 256; // FIXME interesting parameter, maxnumzerocrossings
 				int m_zeroCrossingTimer = 0;
 				float prevSample = 0;
 				float sample = 0;
@@ -50,17 +49,13 @@ class Timestretcher : public Effect {
 				void writeLoopHead(float currentSample);
 				float readLoopHead();
 
-
-				// Buffer Stuffer 
+				// Buffer Stuffer
 				float* buffer;
 				float* m_loopBuffer;
 				void allocateBuffer(int size);
-				
+
 				void releaseBuffer();
 				void releaseLoopBuffer();
-
-
-
 
 				void setDelayTime(int numSamplesDelay);
 
@@ -82,10 +77,8 @@ class Timestretcher : public Effect {
 				uint readHeadPosition = 0;
 				uint writeHeadPosition = 0;
 
-
 				uint m_readLoopHeadPosition = 0;
 				uint m_writeLoopHeadPosition = 0;
-
 
 				uint m_loopSize = bufferSize;
 				uint m_loopSizeLast = 0;
@@ -93,14 +86,14 @@ class Timestretcher : public Effect {
 				inline void incrementWriteHead()
 				{
 								writeHeadPosition++;
-								//std::cout << "writeheadpostiin" << writeHeadPosition << std::endl;
+								// std::cout << "writeheadpostiin" << writeHeadPosition << std::endl;
 								wrapHeads(writeHeadPosition);
 				}
 				inline void incrementReadHead()
 				{
 								readHeadPosition++;
-								//std::cout << "readheadposition" << readHeadPosition << std::endl;
-								
+								// std::cout << "readheadposition" << readHeadPosition << std::endl;
+
 								wrapHeads(readHeadPosition);
 				}
 				inline void wrapHeads(uint& head)
@@ -108,34 +101,33 @@ class Timestretcher : public Effect {
 
 								if (head >= bufferSize) {
 												head -= bufferSize;
-												//std::cout << "-------------------- Timestretcher::WrapHeads" << "head" << head << std::endl;
+												// std::cout << "-------------------- Timestretcher::WrapHeads" << "head" << head << std::endl;
 								}
 				}
-
 
 				inline void incrementLoopWriteHead()
 				{
 								m_writeLoopHeadPosition++;
-								//std::cout << "timestretcher::incrementLoopWriteHead" << writeHeadPosition << std::endl;
+								// std::cout << "timestretcher::incrementLoopWriteHead" << writeHeadPosition << std::endl;
 								wrapLoopHeads(m_writeLoopHeadPosition);
 				}
 				inline void incrementLoopReadHead()
 				{
 								m_readLoopHeadPosition++;
-								//std::cout << "readheadposition" << readHeadPosition << std::endl;
-								
+								// std::cout << "readheadposition" << readHeadPosition << std::endl;
+
 								wrapLoopHeads(m_readLoopHeadPosition);
 				}
 				inline void wrapLoopHeads(uint& head)
 				{
 
-								if (head >= m_loopSize) {//writehead = readhead+loopsize
+								if (head >= m_loopSize) { // writehead = readhead+loopsize
 												head -= m_loopSize;
-												//std::cout << "LOWKEY wrapping head ( loopsize ) \n"
-																	//<< "loopsize" << m_loopSize << "\n";
-								}else if (head >= bufferSize) {
+												// std::cout << "LOWKEY wrapping head ( loopsize ) \n"
+												//<< "loopsize" << m_loopSize << "\n";
+								} else if (head >= bufferSize) {
 												head -= bufferSize;
-												//std::cout << "HIGHKEY wrapping head( buffersize )" << "loopsize" << m_loopSize << std::endl;
+												// std::cout << "HIGHKEY wrapping head( buffersize )" << "loopsize" << m_loopSize << std::endl;
 								}
 				}
 };
