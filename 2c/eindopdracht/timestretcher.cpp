@@ -97,7 +97,7 @@ void Timestretcher::trackBufferSize(const float& input, int& m_zeroCrossingTimer
 								m_NumZeroCrossings++;
 				}
 				// check when the zerocrossings has reached its max. update the delaytime 
-				if (m_NumZeroCrossings == m_maxNumZeroCrossings) {
+				if (m_NumZeroCrossings == m_maxNumZeroCrossings && !effectTriggered) {
 								std::cout << "crossed 0 : " << m_NumZeroCrossings << "amount of times" << std::endl;
 								std::cout << m_zeroCrossingTimer << " time between zerocrossings" << std::endl;
 
