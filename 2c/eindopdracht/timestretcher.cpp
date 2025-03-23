@@ -47,30 +47,26 @@ void Timestretcher::prepare(const float& input)
 {
 				clock++;
 				 //if (clock > nextClock) { // FIXME this is an interesting parameter. lfo rate.
-				if (m_rmsSignal > 0.3) { // FIXME 0.3 is sensitivity of the effect
+				if (m_rmsSignal > 0.3 && effectTriggered == false) { // FIXME 0.3 is sensitivity of the effect
 								std::cout << "TimeStretcher::Prepare to be amazed\n";
+								effectTriggered = true;
 
-								// Note: copy the loop from the big buffer to the loopBuffer
-								// std::cout << "Timesteretechter:: prepare; for loop\n";
 								m_writeLoopHeadPosition = 0;
 
-								// dankje marijn Voor slimme brein
-								// TODO: WRITE A COMMINGTE
-								// place the readHead at the beginning of the loop.
-								// wrapping is done in if statements to make sure the uInt doesnt flip out.
-							/*	if ((int)writeHeadPosition - m_loopSize > 0) {
-												std::cout << "Pre segmentation" << std::endl;
-												readHeadPosition = writeHeadPosition - m_loopSize;
-								} else {
-												std::cout << "Post segmentation" << std::endl;
-												readHeadPosition = writeHeadPosition + bufferSize - m_loopSize;
-								}*/
 
-								//use the wrappign function to increment the writehead forward until it is at the beginning of the loop. copy position of writehead to readhead. make the writeHead not write over the loop
-								whPositionCheck = (int)writeHeadPosition;
-								std::cout << whPositionCheck  - bufferSize<< " int whpositinon";
-								//readHeadPosition = writeHeadPosition;
-								//writeHeadPosition += m_loopSize;
+								std::cout << "writeHeadPosition: " << writeHeadPosition
+          << ", m_loopSize: " << m_loopSize
+          << ", bufferSize: " << bufferSize << std::endl;
+				
+								if(writeHeadPosition - m_loopSize < 0){
+								readHeadPosition = writeHeadPosition - m_loopSize + bufferSize;
+								}else{
+								readHeadPosition = writeHeadPosition - m_loopSize;
+								}
+								if (readHeadPosition < 0){ readHeadPosition += bufferSize;}
+								wrapHeads(readHeadPosition);
+								std::cout << "readHeadPosition" << readHeadPosition << std::endl;
+								// Note: copy the loop from the big buffer to the loopBuffer
 								for (int i = 0; i < bufferSize; i++) {
 												// write
 												writeLoopHead(readHead());
@@ -84,8 +80,10 @@ void Timestretcher::prepare(const float& input)
 								// m_NumZeroCrossings = 0
 								nextClock = rand() % 20000;
 								rms.resetRmsSize();
+								m_rmsSignal = 0;
 								return;
 				}
+				if(effectTriggered && m_rmsSignal < 0.05){effectTriggered = false;}
 }
 
 void Timestretcher::setAmountZeroCrossings(int timeStretchLength)

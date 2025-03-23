@@ -62,5 +62,4 @@ void Delay::setFeedback(float feedback)
 	}
 	
   m_feedback = feedback;
-	std::cout <<"setFeedBack " <<  m_feedback << std::endl;
 }

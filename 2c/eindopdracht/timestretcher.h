@@ -35,6 +35,8 @@ class Timestretcher : public Effect {
 				int clock = 0;
 				int nextClock;
 
+				bool effectTriggered = false;
+
 				int m_NumZeroCrossings = 0;
 				int m_maxNumZeroCrossings = 128; // FIXME interesting parameter, maxnumzerocrossings
 				int m_zeroCrossingTimer = 0;
@@ -75,8 +77,8 @@ class Timestretcher : public Effect {
 				int numSamplesDelay;
 				float miliSecondsDelay;
 
-				uint readHeadPosition = 0;
-				uint writeHeadPosition = 0;
+				int readHeadPosition = 0;
+								int writeHeadPosition = 0;
 				int whPositionCheck = 0;
 
 				uint m_readLoopHeadPosition = 0;
@@ -98,13 +100,15 @@ class Timestretcher : public Effect {
 
 								wrapHeads(readHeadPosition);
 				}
-				inline void wrapHeads(uint& head)
+				inline void wrapHeads(int& head)
 				{
 
-								if (head >= bufferSize) {
+								while (head >= bufferSize) {
 												head -= bufferSize;
 												// std::cout << "-------------------- Timestretcher::WrapHeads" << "head" << head << std::endl;
-								}
+								}while (head < 0){
+												head += bufferSize;
+								}return;
 				}
 
 				inline void incrementLoopWriteHead()
