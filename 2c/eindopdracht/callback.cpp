@@ -16,7 +16,7 @@ void CustomCallback::prepare(int rate)
 				// location for bypasses
 				timestretcher.setBypass(false);
 				tremolo.setBypass(false);
-				waveshaper.setBypass(true);
+				waveshaper.setBypass(false);
 				delay.setBypass(false);
 
 				tremolo.setDryWet(0.6);
@@ -25,7 +25,7 @@ void CustomCallback::prepare(int rate)
 				timestretcher.setDryWet(1);
 
 				tremolo.setModFreq(9);
-				waveshaper.setSlope(9999);
+				waveshaper.setSlope(0.5);
 				delay.setNumDelaySamples(4000);
 				// granulator
 }
@@ -40,9 +40,9 @@ void CustomCallback::process(AudioBuffer buffer)
 								for (int i = 0u; i < numFrames; i++) {
 												timestretcher.processFrame(inputChannels[channel][i], sample1);
 												tremolo.processFrame(sample1, sample2);
+												delay.processFrame(sample2, sample1);
 
-												waveshaper.processFrame(sample2, sample1); 
-												delay.processFrame(sample1, outputChannels[channel][i]);
+												waveshaper.processFrame(sample1, outputChannels[channel][i]); 
 
 								}
 				}

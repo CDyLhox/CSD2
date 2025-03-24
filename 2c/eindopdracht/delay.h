@@ -27,7 +27,7 @@ class Delay : public Effect {
 				float m_feedback = 0.0f;
 
 				// maxDelaySize
-				Rms rms { 90000 };
+				Rms rms { 9000 };
 				float m_rmsSignal;
 				// circular buffer variables
 				// pointer to the buffer
