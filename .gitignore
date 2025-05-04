@@ -12,6 +12,10 @@
 *.swp
 *.swo
 *.swn
+*.mov
+*.MOV
+*.avi
+*.AVI
 
 */example
 
@@ -28,6 +32,7 @@ csd2b/ciskadingen/
 aantekeningen/
 csd2a/python_basics/audio_cat/
 
+DS_Store
 #cmake
 *cmake-build-dir*
 # cmakelists.txt

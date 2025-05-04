@@ -6,6 +6,15 @@ http://cagedotlog.com/backend/csdDemo/TS17mar.html
 for vocals, a lower maxNumZeroCrossings is recommended.
 
 
+feel better:
+    beter wroden in vragen stellen 
+    opdracht doorlezen met geduld en een plan voor mezelf bedenken (grootschalig probleem)
+    beter geworden in loslaten 
+    ideaalbeeld wel los laten in ruil voor het eindproduct
+    heb wel meer confidence en minder gevoel van een tekort aan overzicht
+    het is er wel nog
+
+
 TODOS:
 
 =-=-=-=-=-=-=-=-=
