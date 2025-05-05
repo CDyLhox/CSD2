@@ -1,3 +1,10 @@
 video{
 width: 100%
 }
+
+#negativeVideoContainer{
+position:absolute;
+top:0;
+left:0;
+mix-blend-mode:hard-light;
+}

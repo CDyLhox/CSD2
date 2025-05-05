@@ -6,11 +6,11 @@ const videos = [
 
 
 // check if the video has ended, activate function grabNextvideo()
-document.querySelector('#videoContainer').addEventListener('ended', grabNextVideo, false);
+document.querySelector('#positiveVideoContainer').addEventListener('ended', grabNextVideo, false);
 // log the current video to the system. 
-console.log(document.getElementById("videoContainer").getAttribute('src'))
+console.log(document.getElementById("positiveVideoContainer").getAttribute('src'))
 function grabNextVideo(e) {
 	console.log('next video');
-	videoContainer.setAttribute('src', videos[Math.floor(Math.random()*videos.length)]);
+	positiveVideoContainer.setAttribute('src', videos[Math.floor(Math.random()*videos.length)]);
 	
 }
