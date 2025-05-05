@@ -11,6 +11,7 @@ document.querySelector('#positiveVideoContainer').addEventListener('ended', grab
 console.log(document.getElementById("positiveVideoContainer").getAttribute('src'))
 function grabNextVideo(e) {
 	console.log('next video');
-	positiveVideoContainer.setAttribute('src', videos[Math.floor(Math.random()*videos.length)]);
 	
+	positiveVideoContainer.setAttribute('onloadStart', this.volume= 0);
+	positiveVideoContainer.setAttribute('src', videos[Math.floor(Math.random()*videos.length)]);
 }

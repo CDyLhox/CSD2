@@ -20,7 +20,7 @@ const usrDataArray = new Uint8Array(bufferSize)
 let pitchInterval;
 
 
-// Osc
+// ____________ Osc    ___________
 const osc = audioCtxt.createOscillator();
 const frequencies = [261.63, 493.88, 329.63, 349.23];
 osc.connect(genAnalyser);
@@ -30,6 +30,34 @@ osc.connect(audioCtxt.destination);
 range.addEventListener('input', e => {
 	osc.frequency.value = range.value;
 });
+
+// ____________ MOTIFS ____________
+
+const motifArray = [
+  new Audio("assets/music/motifs/flute/01_motifs_flute.wav"),
+  new Audio("assets/music/motifs/flute/02_motifs_flute.wav"),
+  new Audio("assets/music/motifs/flute/03_motifs_flute.wav"),
+  new Audio("assets/music/motifs/flute/04_motifs_flute.wav"),
+  new Audio("assets/music/motifs/flute/05_motifs_flute.wav"),
+  new Audio("assets/music/motifs/flute/06_motifs_flute.wav"),
+  new Audio("assets/music/motifs/flute/07_motifs_flute.wav"),
+  new Audio("assets/music/motifs/flute/08_motifs_flute.wav"),
+  new Audio("assets/music/motifs/flute/09_motifs_flute.wav")
+]
+
+setInterval(() => {
+  const audio = motifArray[Math.floor(Math.random() * motifArray.length)];
+  audio.play();
+}, 12000);
+
+
+
+
+
+
+
+
+
 
 if (audioCtxt.state) {
 	log.textContent = 'click anywhere to begin';
