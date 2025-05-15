@@ -1,0 +1,18 @@
+video{
+width: 100%;
+margin:10%;
+}
+
+#negativeVideoContainer{
+position:absolute;
+top:0;
+left:0;
+/*mix-blend-mode:hard-light;*/
+mix-blend-mode: normal;
+}
+
+.center {
+  margin: auto;
+  width: 95%;
+  padding: 10px;
+}

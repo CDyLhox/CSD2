@@ -51,7 +51,7 @@ in het klein vormgegeven worden als popup installatie op andermans site of adwar
 | 25 Apr        | pitch tracking in p5js/javascript werkend krijgen, 2 passende filmpjes hebben, 3 motifjes geschreven hebben |
 | 2  Mei        | nog 2 filmpjes, nog 2 motifjes, pitch tracking gebruiken om iets van een parameter in p5 aan te sturen, (kijken naar harmonisatie bij motifjes)               |
 | 9  Mei        | vrije tijd om te expirimenteren, geluiden zoeken |
-| 16 Mei        | User interaction finaliseren             |
+| 16 Mei        | User interaction finaliseren, planning herzien!           |
 | 23 Mei        | laatste fixen doen voor de deadline             |
 | 30 Mei        | [project 2? / uitdestileren weekdoelen project 1]              |
 | 6  Juni       | [etc]       |

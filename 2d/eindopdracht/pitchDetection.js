@@ -29,10 +29,13 @@ range.addEventListener('input', e => {
 });
 
 // ____________ MOTIFS ____________
+// TODO: extract
 
 let audio;
 
-const motifArray = [
+var fs = require('fs');
+var motifArray = fs.readdirSync('/assets/music/motifs/flute/');
+/*const motifArray = [
 	new Audio('assets/music/motifs/flute/01_motifs_flute.wav'),
 	new Audio('assets/music/motifs/flute/02_motifs_flute.wav'),
 	new Audio('assets/music/motifs/flute/03_motifs_flute.wav'),
@@ -42,7 +45,7 @@ const motifArray = [
 	new Audio('assets/music/motifs/flute/07_motifs_flute.wav'),
 	new Audio('assets/music/motifs/flute/08_motifs_flute.wav'),
 	new Audio('assets/music/motifs/flute/09_motifs_flute.wav'),
-];
+];*/
 function newMotif() {
 	console.log('next motif');
 	audio = motifArray[Math.floor(Math.random() * motifArray.length)];
@@ -87,7 +90,8 @@ let logData = '';
 
 function draw() {
 	requestAnimationFrame(draw);
-
+	//TODO:
+	//
 	genAnalyser.getByteFrequencyData(genDataArray);
 	usrAnalyser.getByteFrequencyData(usrDataArray);
 
@@ -119,7 +123,7 @@ function draw() {
 		canvasContext.fillStyle = 'rgb(' + (genBarHeight + 100) + ',50,50)';
 		canvasContext.fillRect(x, HEIGHT - genBarHeight / 2, barWidth, genBarHeight / 2);
 
-		canvasContext.fillStyle = 'rgb(50,50,' + (genBarHeight + 100) + ')';
+		canvasContext.fillStyle = 'rgb(50,100,' + (genBarHeight + 150) + ')';
 		canvasContext.fillRect(x, HEIGHT - usrBarHeight / 2, barWidth, usrBarHeight / 2);
 
 		x += barWidth;
@@ -148,6 +152,10 @@ var negativeOpacity = (90 - similarityPercentage) * -0.1
 	{
 	negativeOpacity+0.05;
 	negativeVideoContainer.style.opacity = negativeOpacity;
+	}
+	else{
+	negativeVideoContainer.style.opacity = 1;
+
 	}
 }
 
