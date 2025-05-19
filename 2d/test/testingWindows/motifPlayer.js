@@ -1,26 +1,33 @@
 let audio;
 
-const motifArray = [
-	new Audio('assets/music/motifs/flute/01_motifs_flute.wav'),
-	new Audio('assets/music/motifs/flute/02_motifs_flute.wav'),
-	new Audio('assets/music/motifs/flute/03_motifs_flute.wav'),
-	new Audio('assets/music/motifs/flute/04_motifs_flute.wav'),
-	new Audio('assets/music/motifs/flute/05_motifs_flute.wav'),
-	new Audio('assets/music/motifs/flute/06_motifs_flute.wav'),
-	new Audio('assets/music/motifs/flute/07_motifs_flute.wav'),
-	new Audio('assets/music/motifs/flute/08_motifs_flute.wav'),
-	new Audio('assets/music/motifs/flute/09_motifs_flute.wav'),
-];
+		const motifArray = [];
+
+fetch('motifs.json')
+	.then(response => response.json()) // Parse the json file
+	.then(data => {
+		const fluteMotifs = data.fluteMotifs; // extract flutemotifs from json data
+		console.log(data);
+
+
+		for (let i = 0; i < fluteMotifs.length; i++) {
+			motifArray[i] = fluteMotifs[i].path;
+		}
+	},
+	)
+
+	.catch(error => console.error('error fetching json', error));
+
 function newMotif() {
 	console.log('next motif');
 	audio = motifArray[Math.floor(Math.random() * motifArray.length)];
 	const sourceNode = audioCtxt.createMediaElementSource(audio);
 	sourceNode.connect(genAnalyser);
 	sourceNode.connect(audioCtxt.destination);
+	audio.play();
 }
 
-setInterval(() => {
+/*setInterval(() => {
 	audio.play();
-}, 12_000);
+}, 12_000);*/
 
 setInterval(newMotif, 20_000);
