@@ -12,11 +12,12 @@ if (audioCtxt.state) {
 }
 
 function begin() {
-	const localAudio = document.createElement('audio');
-	localAudio.id = 'localAudio';
+		const localAudio = document.createElement('audio');
+		localAudio.id="localAudio";
 	document.body.append(localAudio);
 	getLocalStream();
 	draw();
+
 }
 
 pitchInterval = setInterval(newPitch, 1000);
@@ -44,18 +45,18 @@ function draw() {
 	}
 }
 
-function getLocalStream() {
-	navigator.mediaDevices
-		.getUserMedia({video: false, audio: true})
-		.then(stream => {
-			const source = audioCtxt.createMediaStreamSource(stream);
-			source.connect(usrAnalyser);
+	function getLocalStream() {
+		navigator.mediaDevices
+			.getUserMedia({video: false, audio: true})
+			.then(stream => {
+				const source = audioCtxt.createMediaStreamSource(stream);
+				source.connect(usrAnalyser);
 
-			globalThis.localStream = stream; // A
-			globalThis.localAudio.srcObject = stream; // B
-			globalThis.localAudio.autoplay = true; // C
-		})
-		.catch(error => {
-			console.error(`you got an error: ${error}`);
-		});
-}
+				globalThis.localStream = stream; // A
+				globalThis.localAudio.srcObject = stream; // B
+				globalThis.localAudio.autoplay = true; // C
+			})
+			.catch(error => {
+				console.error(`you got an error: ${error}`);
+			});
+	}
