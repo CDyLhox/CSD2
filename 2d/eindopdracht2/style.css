@@ -1,0 +1,40 @@
+video{
+width: 100%;
+}
+body{
+background-color:#FFC300
+}
+
+.videoContainer {
+  display: grid;
+  place-items: center; 
+  width: 640px;
+  height: 360px;
+  border: 2px solid red; 
+  position: relative; 
+  padding:5%
+}
+
+#negativeVideoContainer,
+#positiveVideoContainer {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+}
+
+#negativeVideoContainer {
+  z-index: 2;
+  mix-blend-mode: normal;
+}
+
+#positiveVideoContainer {
+  z-index: 1;
+  mix-blend-mode: normal;
+}
+
+
+.center {
+  margin: auto;
+  width: 95%;
+  padding: 10px;
+}

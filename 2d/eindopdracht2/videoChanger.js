@@ -8,42 +8,59 @@ const negativeVideos = [
 	"assets/videos/londerSmog.webm",
 	"assets/videos/lightning.webm"
 ]
-//TODO: make a single  grabnextvideo function which takes an argument for video type
 
+let videoContainer = document.createElement('div');
+videoContainer.className = "videoContainer";
+
+let positiveWrapper = document.createElement('div');
+positiveWrapper.id = "positiveVideoContainer";
+
+let negativeWrapper = document.createElement('div');
+negativeWrapper.id = "negativeVideoContainer";
 
 let positiveVideo = document.createElement('video');
 let negativeVideo = document.createElement('video');
 
+positiveVideo.autoplay = negativeVideo.autoplay = true;
+positiveVideo.loop = negativeVideo.loop = false;
+positiveVideo.muted = true;
+negativeVideo.muted = true;
+negativeVideo.volume = 0.2;
 
-positiveVideo.id = "positiveVideoContainer";
-negativeVideo.id = "negativeVideoContainer";
+positiveWrapper.appendChild(positiveVideo);
+negativeWrapper.appendChild(negativeVideo);
+
+videoContainer.appendChild(negativeWrapper);
+videoContainer.appendChild(positiveWrapper);
+
+document.body.appendChild(videoContainer);
 
 
-document.body.appendChild(negativeVideo);
-document.body.appendChild(positiveVideo);
 
-positiveVideo.setAttribute('src', positiveVideos[Math.floor(Math.random()*positiveVideos.length)]);
-// check if the video has ended, activate function grabNextvideo()
-document.querySelector('#positiveVideoContainer').addEventListener('ended', grabNextPositiveVideo, false);
-// log the current video to the system. 
+
 console.log(document.getElementById("positiveVideoContainer").getAttribute('src'))
-function grabNextPositiveVideo(e) {
-	console.log('next video');
-	
-	positiveVideoContainer.setAttribute('onloadStart', this.volume= 0);
-	positiveVideoContainer.setAttribute('src', positiveVideos[Math.floor(Math.random()*positiveVideos.length)]);
+
+function grabNextVideo(type) {
+  if (type === "positive") {
+    const nextSrc = positiveVideos[Math.floor(Math.random() * positiveVideos.length)];
+    positiveVideo.src = nextSrc;
+    positiveVideo.load();
+    positiveVideo.play();
+    console.log("Loaded positive video:", nextSrc);
+  } else if (type === "negative") {
+    const nextSrc = negativeVideos[Math.floor(Math.random() * negativeVideos.length)];
+    negativeVideo.src = nextSrc;
+    negativeVideo.load();
+    negativeVideo.play();	
+
+negativeVideo.playbackRate = 1.8;
+    console.log("Loaded negative video:", nextSrc);
+  }
 }
 
+grabNextVideo("positive");
+grabNextVideo("negative");
 
-
-//same as above but for the negative Videos
-document.querySelector('#negativeVideoContainer').addEventListener('ended', grabNextNegativeVideo, false);
-// log the current video to the system. 
-console.log(document.getElementById("negativeVideoContainer").getAttribute('src'))
-function grabNextNegativeVideo(e) {
-	console.log('next  sad video');
-	
-	negativeVideoContainer.setAttribute('onloadStart', this.volume= 0);
-	negativeVideoContainer.setAttribute('src', negativeVideos[Math.floor(Math.random()*negativeVideos.length)]);
-}
-
+// if the last video has ended, make new video
+positiveVideo.addEventListener('ended', () => grabNextVideo("positive"));
+negativeVideo.addEventListener('ended', () => grabNextVideo("negative"));
