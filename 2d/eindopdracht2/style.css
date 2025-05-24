@@ -10,7 +10,7 @@ background-color:#FFC300
   place-items: center; 
   width: 640px;
   height: 360px;
-  border: 2px solid red; 
+  border:14px solid red; 
   position: relative; 
   padding:5%
 }
@@ -31,6 +31,33 @@ background-color:#FFC300
   z-index: 1;
   mix-blend-mode: normal;
 }
+
+
+.analiserContainer{
+	float:right;
+  display: grid;
+  place-items: center; 
+  width: 640px;
+  height: 360px;
+  border: 16px solid blue; 
+  position: relative; 
+  padding:2%
+
+}
+
+
+.motifContainer{
+  display: grid;
+  place-items: center; 
+  width: 640px;
+  height: 360px;
+  border: 16px solid green; 
+  position: relative; 
+  padding:2%
+
+}
+
+
 
 
 .center {

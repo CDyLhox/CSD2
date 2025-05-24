@@ -1,3 +1,6 @@
+let analiserContainer = document.createElement('div');
+analiserContainer.className = "analiserContainer";
+
 
 const audioCtxt = new (globalThis.AudioContext || globalThis.webkitAudioContext)();
 
@@ -7,7 +10,7 @@ const canvasContext = ftCanvas.getContext('2d');
 const WIDTH = ftCanvas.width = 500;
 const HEIGHT = ftCanvas.height = 150;
 
-document.body.append(ftCanvas);
+analiserContainer.appendChild(ftCanvas);
 let logData = '';
 
 const genAnalyser = audioCtxt.createAnalyser();
@@ -15,13 +18,13 @@ const usrAnalyser = audioCtxt.createAnalyser();
 
 const nyquist = audioCtxt.sampleRate / 2;
 
-genAnalyser.fftSize = 2048;
+genAnalyser.fftSize = 32;
 usrAnalyser.fftSize = 1024;
 
 genAnalyser.smoothingTimeConstant = 0.8;
 usrAnalyser.smoothingTimeConstant = 0.8;
 
-const bufferSize = genAnalyser.frequencyBinCount;
+const bufferSize = usrAnalyser.frequencyBinCount;
 
 const genDataArray = new Uint8Array(bufferSize);
 const usrDataArray = new Uint8Array(bufferSize);
@@ -29,7 +32,7 @@ const usrDataArray = new Uint8Array(bufferSize);
 let pitchInterval;
 const log = document.createElement('p');
 log.id = 'log';
-document.body.appendChild(log);
+analiserContainer.appendChild(log);
 const negativeVideoContainer = document.querySelector('#negativeVideoContainer');
 
 // _________ DRAW SPECTRUM _________
@@ -215,3 +218,5 @@ function getLocalStream() {
 			console.error(`you got an error: ${error}`);
 		});
 }
+
+document.body.appendChild(analiserContainer);
