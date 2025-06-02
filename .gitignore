@@ -17,7 +17,8 @@
 *.avi
 *.AVI
 *.jpeg
-
+*.jpg
+*.png
 */example
 
 .vscode/

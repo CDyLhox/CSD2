@@ -2,7 +2,9 @@ video{
 width: 100%;
 }
 body{
-background-color:#FFC300
+background-color:#FFC300;
+background-image:url('assets/images/playground/colorfulPlayground.jpg');
+background-size:contain;
 }
 
 .videoContainer {
@@ -10,9 +12,12 @@ background-color:#FFC300
   place-items: center; 
   width: 640px;
   height: 360px;
-  border:14px solid red; 
+  border:16px solid red;
+  border-image: url('assets/images/playground/redPlayground.webp') 27 repeat;
   position: relative; 
-  padding:5%
+  padding:5%;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  background-color:rgba(100,100,100,0.7);
 }
 
 #negativeVideoContainer,
@@ -25,6 +30,7 @@ background-color:#FFC300
 #negativeVideoContainer {
   z-index: 2;
   mix-blend-mode: normal;
+
 }
 
 #positiveVideoContainer {
@@ -34,15 +40,18 @@ background-color:#FFC300
 
 
 .analiserContainer{
-	float:right;
+  float:right;
   display: grid;
   place-items: center; 
-  width: 640px;
-  height: 360px;
+  width: 640/2px;
+  height: 360/2px;
   border: 16px solid blue; 
+  border-image: url('assets/images/playground/yellowPlayground.webp') 27 repeat;
+  
   position: relative; 
-  padding:2%
-
+  padding:2%;
+box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  background-color:rgba(100,100,100,0.7);
 }
 
 
@@ -52,9 +61,12 @@ background-color:#FFC300
   width: 640px;
   height: 360px;
   border: 16px solid green; 
+  border-image: url('assets/images/playground/greenPlayground.webp') 27 repeat;
   position: relative; 
-  padding:2%
-
+  padding:2%;
+  overflow:hidden;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  background-color:rgba(100,100,100,0.7);
 }
 
 
