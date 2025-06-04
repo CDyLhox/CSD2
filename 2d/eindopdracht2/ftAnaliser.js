@@ -204,15 +204,15 @@ function downloadLog(content) {
 function getLocalStream() {
 	navigator.mediaDevices
 		.getUserMedia({video: false, audio: true})
-		.then(stream => {
+		.then(async(stream) => {
 			const source = audioCtxt.createMediaStreamSource(stream);
 			source.connect(usrAnalyser);
 			source.connect(audioCtxt.destination); // for hearing mic input
 
 
-			globalThis.localStream = stream; // A
+			/*globalThis.localStream = stream; // A
 			globalThis.localAudio.srcObject = stream; // B
-			globalThis.localAudio.autoplay = true; // C
+			globalThis.localAudio.autoplay = true; // C*/
 		})
 		.catch(error => {
 			console.error(`you got an error: ${error}`);

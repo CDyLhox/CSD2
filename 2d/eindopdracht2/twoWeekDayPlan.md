@@ -10,7 +10,7 @@
 |03 jun      | pitchDetection troubleshooting     |
 |04 jun      | pitch list integration             |
 |05 jun      | Update video library              |
-|06 jun      |                                    |
+|06 jun      | start writing final report         |
 |07 jun      |                                    |
 |08 jun      |                                    |
 |09 jun      |                                    |
