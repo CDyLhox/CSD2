@@ -1,25 +1,34 @@
-const positiveVideos = [
-	"assets/videos/1960sPlayground1.webm",
-	"assets/videos/drone.webm",
-	"assets/videos/forest.webm"
-];
+const positiveVideos = [];
+const negativeVideos = [];
 
-const negativeVideos = [
-	"assets/videos/londerSmog.webm",
-	"assets/videos/lightning.webm"
-]
+Promise.all([
+	fetch('videos.json').then(res => res.json()),
+]).then(([videoData]) => {
+	const {positiveVideoPath, negativeVideoPath} = videoData;
 
-let videoContainer = document.createElement('div');
-videoContainer.className = "videoContainer";
+	for (const positiveVideo of positiveVideoPath) {
+		positiveVideos.push(positiveVideo);
+	}
 
-let positiveWrapper = document.createElement('div');
-positiveWrapper.id = "positiveVideoContainer";
+	for (const negativeVideo of negativeVideoPath) {
+		negativeVideos.push(negativeVideo);
+	}
 
-let negativeWrapper = document.createElement('div');
-negativeWrapper.id = "negativeVideoContainer";
+	grabNextVideo('positive');
+	grabNextVideo('negative');
+}).catch(error => console.error('fetch error:', error));
 
-let positiveVideo = document.createElement('video');
-let negativeVideo = document.createElement('video');
+const videoContainer = document.createElement('div');
+videoContainer.className = 'videoContainer';
+
+const positiveWrapper = document.createElement('div');
+positiveWrapper.id = 'positiveVideoContainer';
+
+const negativeWrapper = document.createElement('div');
+negativeWrapper.id = 'negativeVideoContainer';
+
+const positiveVideo = document.createElement('video');
+const negativeVideo = document.createElement('video');
 
 positiveVideo.autoplay = negativeVideo.autoplay = true;
 positiveVideo.loop = negativeVideo.loop = false;
@@ -27,40 +36,43 @@ positiveVideo.muted = true;
 negativeVideo.muted = true;
 negativeVideo.volume = 0.2;
 
-positiveWrapper.appendChild(positiveVideo);
-negativeWrapper.appendChild(negativeVideo);
+positiveWrapper.append(positiveVideo);
+negativeWrapper.append(negativeVideo);
 
-videoContainer.appendChild(negativeWrapper);
-videoContainer.appendChild(positiveWrapper);
+videoContainer.append(negativeWrapper);
+videoContainer.append(positiveWrapper);
 
-document.body.appendChild(videoContainer);
+document.body.append(videoContainer);
 
+console.log(document.querySelector('#positiveVideoContainer').getAttribute('src'));
 
-
-
-console.log(document.getElementById("positiveVideoContainer").getAttribute('src'))
-
+// Updated with help of chatgpt
 function grabNextVideo(type) {
-  if (type === "positive") {
-    const nextSrc = positiveVideos[Math.floor(Math.random() * positiveVideos.length)];
-    positiveVideo.src = nextSrc;
-    positiveVideo.load();
-    positiveVideo.play();
-    console.log("Loaded positive video:", nextSrc);
-  } else if (type === "negative") {
-    const nextSrc = negativeVideos[Math.floor(Math.random() * negativeVideos.length)];
-    negativeVideo.src = nextSrc;
-    negativeVideo.load();
-    negativeVideo.play();	
-
-negativeVideo.playbackRate = 1.8;
-    console.log("Loaded negative video:", nextSrc);
-  }
+	if (type === 'positive') {
+		const nextSrc = positiveVideos[Math.floor(Math.random() * positiveVideos.length)];
+		positiveVideo.src = nextSrc;
+		positiveVideo.load();
+		positiveVideo.addEventListener('canplay', function playOnce() {
+			positiveVideo.removeEventListener('canplay', playOnce);
+			positiveVideo.play().catch(error => console.error('Positive video play error:', error));
+		});
+		console.log('Loaded positive video:', nextSrc);
+	} else if (type === 'negative') {
+		const nextSrc = negativeVideos[Math.floor(Math.random() * negativeVideos.length)];
+		negativeVideo.src = nextSrc;
+		negativeVideo.load();
+		negativeVideo.addEventListener('canplay', function playOnce() {
+			negativeVideo.removeEventListener('canplay', playOnce);
+			negativeVideo.playbackRate = 1.8;
+			negativeVideo.play().catch(error => console.error('Negative video play error:', error));
+		});
+		console.log('Loaded negative video:', nextSrc);
+	}
 }
 
-grabNextVideo("positive");
-grabNextVideo("negative");
+grabNextVideo('positive');
+grabNextVideo('negative');
 
-// if the last video has ended, make new video
-positiveVideo.addEventListener('ended', () => grabNextVideo("positive"));
-negativeVideo.addEventListener('ended', () => grabNextVideo("negative"));
+// If the last video has ended, make new video
+positiveVideo.addEventListener('ended', () => grabNextVideo('positive'));
+negativeVideo.addEventListener('ended', () => grabNextVideo('negative'));

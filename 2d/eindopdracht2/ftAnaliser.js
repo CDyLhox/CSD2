@@ -83,15 +83,17 @@ logData += logLine;
 log.textContent = logLine;
 
 // Check if the percentage is higher than 90, decrease negativevidopacity
-
 if (similarityPercentage > 90) {
 	var negativeOpacity = (90 - similarityPercentage) * -0.1;
 	negativeVideoContainer.style.opacity = negativeOpacity;
-} else if (similarityPercentage < 90 && negativeOpacity < 1) {
+    console.log("option 1");
+} else if (similarityPercentage < 90 && negativeVideoContainer.style.opacity < 0.8) {
+    console.log("option 2");
 	negativeOpacity += 0.05;
 	negativeVideoContainer.style.opacity = negativeOpacity;
 } else {
-	negativeVideoContainer.style.opacity = 1;
+    console.log("option 3 ");
+	negativeVideoContainer.style.opacity = 0.8;
 }
 
 // ____________ audioCtx _________
@@ -185,7 +187,6 @@ function draw() {
 		negativeOpacity = Math.min(1, negativeOpacity + 0.05);
 	}
 
-	negativeVideoContainer.style.opacity = negativeOpacity;
 }
 
 // _________ downloadLogContent _________
