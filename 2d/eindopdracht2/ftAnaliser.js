@@ -46,6 +46,7 @@ for (let i = 0; i < bufferSize; i++) {
 	const usrBarHeight = usrDataArray[i];
 	if (usrBarHeight > usrMax_value) {
 		usrMax_value = usrBarHeight;
+
 		usrMax_index = i;
 	}
 
@@ -97,6 +98,7 @@ function begin() {
 	const localAudio = document.createElement('audio');
 	localAudio.id = 'localAudio';
 	document.body.append(localAudio);
+
 	getLocalStream();
 	if (audioCtxt.state === 'suspended') {
 	audioCtxt.resume();
@@ -133,7 +135,6 @@ function draw() {
 			usrMax_value = usrBarHeight;
 			usrMax_index = i;
 		}
-
 
 		canvasContext.fillStyle = `rgb(50, 100, ${usrBarHeight + 150})`;
 		canvasContext.fillRect(x, HEIGHT - usrBarHeight / 2, barWidth, usrBarHeight / 2);

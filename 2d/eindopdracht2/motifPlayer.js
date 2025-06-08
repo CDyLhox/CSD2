@@ -11,6 +11,8 @@ let poetryAudio;
 const activeAudioFunctions = new Set();
 const MAX_ACTIVE_FUNCTIONS = 5;
 
+//NOTE: i realised 2 nights before the deadline that i could have made the musicplayer a function which creates an instant of a musicplayer for each instrument instead of hardcoding the functions by hand. i have decided to not try to fix this because of time related issues 
+
 // Chatgpt suggestion
 function runAudioFunction(name, fn) {
 	if (activeAudioFunctions.size >= MAX_ACTIVE_FUNCTIONS) {
@@ -186,7 +188,9 @@ function newGuitarMotif(done) {
 
 // ___________ NOISE MUSIC ___________
 const noiseTrack = new Audio('/assets/music/noise/noiseTracks/meanNoise.1.wav');
+const birdNoises = new Audio('/assets/music/noise/birdsanddogs.WAV');
 const sourceNoiseNode = audioCtxt.createMediaElementSource(noiseTrack);
+const sourceBirdNoiseNode = audioCtxt.createMediaElementSource(birdNoises);
 
 function playNoiseMusic() {
 	console.log('noisetrack is ' + noiseTrack.duration);
@@ -194,8 +198,13 @@ function playNoiseMusic() {
 	noiseTrack.volume = 1 - guitarVolumeSlider.value;
 
 	noiseTrack.play();
-	console.log('playNoiseMusic: ' + noiseTrack.currentTime);
-	noiseTrack.currentTime = (Math.random() * noiseTrack.duration);
+	/*console.log('playNoiseMusic: ' + noiseTrack.currentTime);
+	noiseTrack.currentTime = (Math.random() * noiseTrack.duration);*/
+
+
+sourceBirdNoiseNode.connect(gainNode);
+birdNoises.play();
+birdNoises.addEventListener('ended', birdNoises.play);
 }
 
 function playpianoMotif(done) {
@@ -221,13 +230,29 @@ function playpianoMotif(done) {
 //
 // MUSIC REAL MUSIC
 
-function playMusic(done) { //TODO: add flute 
-	console.log('Starting drum & electric guitar');
+function playFluteImpro(done){
+	fluteImrpoAudio = new Audio(fluteImproMotifArray[Math.floor(Math.random()*fluteImproMotifArray.length)]);
+    const sourceImrpoNode = audioCtxt.createMediaElementSource(fluteImrpoAudio);
+    sourceImrpoNode.connect(gainNode);
+    fluteImrpoAudio.volume = 0.3;
+    fluteImrpoAudio.play();
+    fluteImrpoAudio.addEventListener('ended', done);
+}
+
+function playDrums(done){
+
+    console.log("playing drums");
 	const drumPath = drumMotifArray[Math.floor(Math.random() * drumMotifArray.length)];
 	drumAudio = new Audio(drumPath);
 	const sourceDrumNode = audioCtxt.createMediaElementSource(drumAudio);
 	sourceDrumNode.connect(gainNode);
 	drumAudio.volume = 0.6;
+	drumAudio.play();
+    drumAudio.addEventListener('ended', done);
+}
+
+function playElecticGuitar(done) { //TODO: add flute 
+	console.log('Starting drum & electric guitar');
 
 	const guitarIndex = Math.floor(Math.random() * electricGuitarArray.length);
 	electricGuitarAudio = new Audio(electricGuitarArray[guitarIndex]);
@@ -237,27 +262,19 @@ function playMusic(done) { //TODO: add flute
 	const sourceEG2Node = audioCtxt.createMediaElementSource(electricGuitarAudio2);
 	sourceEGNode.connect(gainNode);
 	sourceEG2Node.connect(gainNode);
-
-	fluteImrpoAudio = new Audio(fluteImproMotifArray[Math.floor(Math.random()*fluteImproMotifArray.length)]);
-    const sourceImrpoNode = audioCtxt.createMediaElementSource(fluteImrpoAudio);
-    sourceImrpoNode.connect(gainNode);
-    fluteImrpoAudio.volume = 0.3;
-    fluteImrpoAudio.play();
 	electricGuitarAudio.volume =0.5 //TODO:: VOLUME
 	electricGuitarAudio2.volume =0.5 
 
 	electricGuitarAudio.play();
 	electricGuitarAudio2.play();
-	drumAudio.play();
 
 	// When ALL are done:
 	const checkEnded = () => {
-		if (drumAudio.ended && electricGuitarAudio.ended && electricGuitarAudio2.ended) {
+		if (electricGuitarAudio.ended && electricGuitarAudio2.ended) {
 			done();
 		}
 	};
 
-	drumAudio.addEventListener('ended', checkEnded);
 	electricGuitarAudio.addEventListener('ended', checkEnded);
 	electricGuitarAudio2.addEventListener('ended', checkEnded);
 }
@@ -269,7 +286,7 @@ function playChoirMusic(done){
     choirAudio = new Audio(choirPath);
     const sourceChoirNode = audioCtxt.createMediaElementSource(choirAudio);
     sourceChoirNode.connect(gainNode);
-    choirAudio.volume = 0.4;
+    choirAudio.volume = 0.3;
 
     choirAudio.play();
 choirAudio.addEventListener('ended', done);
@@ -296,10 +313,6 @@ function playPoetry() {
 		console.log("Poetry finished.");
 	});
 }
-/* SetInterval(() => {;
-
-	audio.play();
-}, 12_000); */
 
 var gainNode = audioCtxt.createGain();
 gainNode.gain.value = volumeSlider.value; // 10 %
@@ -317,11 +330,15 @@ guitarVolumeSlider.addEventListener('input', () => {
 });
 setInterval(playNoiseMusic, 17_000);
 setInterval(playPoetry,83000);
-setInterval(() => runAudioFunction('guitar', done => newGuitarMotif(done)), 11000);
-setInterval(() => runAudioFunction('music', done => playMusic(done)), 41000);
-setInterval(() => runAudioFunction('pianomusic', done => playpianoMotif(done)), 7000);
-setInterval(() => runAudioFunction('choir', done => playChoirMusic(done)), 13000);
-setInterval(() => runAudioFunction('flute', done => newMotif(done)), 6000);
+
+//Note: changed to prime numbers because i feel like its more musical. this seems to have worked
+setInterval(() => runAudioFunction('guitar', done => newGuitarMotif(done)), 10997);
+setInterval(() => runAudioFunction('EGMUSIC', done => playElecticGuitar(done)), 40993);
+setInterval(() => runAudioFunction('the drums ', done => playDrums(done)), 32143);
+setInterval(() => runAudioFunction('someFluteImrpo', done => playFluteImpro(done)),17093);
+setInterval(() => runAudioFunction('pianomusic', done => playpianoMotif(done)), 6997);
+setInterval(() => runAudioFunction('choir', done => playChoirMusic(done)), 12983);
+setInterval(() => runAudioFunction('flute', done => newMotif(done)), 5987);
 
 document.body.addEventListener('click', () => {
 	audioCtxt.resume();
