@@ -142,7 +142,27 @@ function draw() {
 		x += barWidth;
 	}
 
-	const usrFreq = usrMax_index * (nyquist / bufferSize);
+const usrFreq = usrMax_index * (nyquist / bufferSize);
+
+if (currentExpectedPitch && !fullMusicUnlocked) {
+	const freqDiff = Math.abs(usrFreq - currentExpectedPitch);
+	const matchThreshold = 30; // Hz tolerance
+
+	if (freqDiff < matchThreshold) {
+		correctMotifCount++;
+		console.log(`Motif match count: ${correctMotifCount}`);
+        addSticker()
+		// Prevent repeat counts for the same match
+		currentExpectedPitch = null;
+        
+		if (correctMotifCount >= 3) {
+			fullMusicUnlocked = true;
+			console.log("🎉 Full music unlocked!");
+
+			startFullMusic(); // <- Your activation function
+		}
+	}
+}
 
 	const similarityPercentage = 100 - (freqDifference / maxFreq) * 100;
 

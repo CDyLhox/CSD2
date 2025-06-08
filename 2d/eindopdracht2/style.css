@@ -40,6 +40,27 @@ filter: saturate(100%);
   mix-blend-mode: normal;
 }
 
+.stickerContainer{
+  float:right;
+  display: grid;
+  place-items: center; 
+  margin:1%;
+  width: 320px;
+  height: 320px;
+  border: 16px solid purple; 
+  border-image: url('assets/images/playground/purplePlayground.webp') 27 repeat;
+  
+  position: relative; 
+  padding:2%;
+box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  background-color:rgba(200,200,200,0.7);
+
+}
+
+.sticker{
+width:30%;
+}
+
 
 .analiserContainer{
   float:right;

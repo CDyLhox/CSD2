@@ -8,6 +8,12 @@ let electricGuitarAudio2;
 let choirAudio, fluteImrpoAudio;
 let poetryAudio;
 
+
+let currentExpectedPitch = null;
+let correctMotifCount = 0;
+let fullMusicUnlocked = false;
+
+
 const activeAudioFunctions = new Set();
 const MAX_ACTIVE_FUNCTIONS = 5;
 
@@ -64,6 +70,7 @@ motifContainer.append(volumeWrapper);
 
 const motifArray = [];
 const motifNotationArray = [];
+const motifPitchArray = [];
 const fluteImproMotifArray = [];
 
 const guitarLeftMotifArray = [];
@@ -97,6 +104,7 @@ Promise.all([
 	for (const motif of fluteMotifs) {
 		motifArray.push(motif.path);
 		motifNotationArray.push(motif.notation);
+        motifPitchArray.push(motif.notes);
 	}
 
     for (const imrpo of fluteImpro){
@@ -145,10 +153,12 @@ function newMotif(done) {
 	const sourceNode = audioCtxt.createMediaElementSource(audio);
 
 	sourceNode.connect(gainNode);
-	audio.volume = 0.1;
+	audio.volume = 0.5;
 	audio.play();
 
 	notation.src = motifNotationArray[newMotif];
+    currentExpectedPitch = motifPitchArray[newMotif];
+
 
 	audio.addEventListener('ended', () => {
 		done();
@@ -328,18 +338,21 @@ guitarVolumeSlider.addEventListener('input', () => {
 	electricGuitarAudio.volume = guitarVolumeSlider.value;
 	noiseTrack.volume = 1 - guitarVolumeSlider.value;
 });
+
 setInterval(playNoiseMusic, 17_000);
-setInterval(playPoetry,83000);
 
 //Note: changed to prime numbers because i feel like its more musical. this seems to have worked
-setInterval(() => runAudioFunction('guitar', done => newGuitarMotif(done)), 10997);
-setInterval(() => runAudioFunction('EGMUSIC', done => playElecticGuitar(done)), 40993);
-setInterval(() => runAudioFunction('the drums ', done => playDrums(done)), 32143);
-setInterval(() => runAudioFunction('someFluteImrpo', done => playFluteImpro(done)),17093);
-setInterval(() => runAudioFunction('pianomusic', done => playpianoMotif(done)), 6997);
-setInterval(() => runAudioFunction('choir', done => playChoirMusic(done)), 12983);
-setInterval(() => runAudioFunction('flute', done => newMotif(done)), 5987);
+function startFullMusic() {
+	setInterval(() => runAudioFunction('guitar', done => newGuitarMotif(done)), 10997);
+	setInterval(() => runAudioFunction('EGMUSIC', done => playElecticGuitar(done)), 40993);
+	setInterval(() => runAudioFunction('the drums ', done => playDrums(done)), 32143);
+	setInterval(() => runAudioFunction('someFluteImrpo', done => playFluteImpro(done)),17093);
+	setInterval(() => runAudioFunction('choir', done => playChoirMusic(done)), 12983);
+    setInterval(() => runAudioFunction('poezie', done => playPoetry(done)), 83000);
+}
 
+	setInterval(() => runAudioFunction('pianomusic', done => playpianoMotif(done)), 6997);
+	setInterval(() => runAudioFunction('flute', done => newMotif(done)), 5987);
 document.body.addEventListener('click', () => {
 	audioCtxt.resume();
 });
