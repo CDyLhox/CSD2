@@ -20,6 +20,7 @@ filter: saturate(100%);
   margin:1%;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   background-color:rgba(100,100,100,0.7);
+  /*background-image:url("assets/images/playground/classroom/schoolbaord.webp")*/
 }
 
 #negativeVideoContainer,
@@ -54,6 +55,7 @@ filter: saturate(100%);
   padding:2%;
 box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   background-color:rgba(200,200,200,0.7);
+  /*background-image:url("assets/images/playground/classroom/bulletin.webp")*/
 
 }
 
@@ -76,6 +78,7 @@ width:30%;
   padding:2%;
 box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   background-color:rgba(100,100,100,0.7);
+ /* background-image:url("assets/images/playground/classroom/schoolbaord.webp")*/
 }
 
 
@@ -92,6 +95,8 @@ box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   overflow:hidden;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   background-color:rgba(100,100,100,0.7);
+
+ /* background-image:url("assets/images/playground/classroom/whiteboard.webp")*/
 }
 
 
