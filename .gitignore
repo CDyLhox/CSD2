@@ -1,4 +1,5 @@
 #files
+
 *.midi
 *.wav
 *.WAV
@@ -20,6 +21,8 @@
 *.jpg
 *.png
 */example
+*.webm
+*.webp
 
 .vscode/
 .venv/
