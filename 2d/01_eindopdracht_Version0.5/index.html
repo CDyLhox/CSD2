@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div>
+  <video autoplay src="assets/videos/forest.webm" id="positiveVideoContainer" class="center"></video>
+  <video  onloadStart="this.volume = 0" autoplay src="assets/videos/londerSmog.webm" id="negativeVideoContainer" class="center"></video>
+  </div>
+  
+  <br> 
+ the house, ello world: 
+ <p id="pitchrepresent">the uh and the pitch</p>
+ <script src="index.js"></script>
+
+ <script src="videoChanger.js"></script>
+
+
+<input id="range" type="range" min="0" max="1000" value="400"><pre id="log"></pre>
+<canvas id="canvas"></canvas>
+
+<script src="pitchDetection.js"></script>
+</body>
+</html>
