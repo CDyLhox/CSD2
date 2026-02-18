@@ -38,6 +38,14 @@ De CSD’er kan het beoogde ontwerp afstellen op de eigen capaciteit, zowel wbt 
 
 ![image](http://cagedotlog.com/backend/elecflute/design/parts%20of%20elecflute.png)
 
+### DESIGN
+hier het design
+![image](http://cagedotlog.com/backend/elecflute/design/diagram.png)
+
+### Prototype Demo
+http://cagedotlog.com/backend/elecflute/
+
+
 [onderzoekpunten]
 - wat is de mmax aantal samples die je kan skippen voor je een click krijgt
 
