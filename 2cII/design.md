@@ -13,8 +13,8 @@ using these effects and 1 slider i can effectively "throw" the incoming signal i
 ## de slider bestuurt deze dingen:
     * de stretch speed van                  (0 - 100)
     * de pitch shifting                     (samen met de stretch speed)
-    * de ladder filter low pass             (0Hz - 20000Hz)
-    * de reverb feedback                    (0.0 - 2.0)
+    * de ladder filter low pass             (300Hz - 15000Hz)
+    * de reverb feedback                    (0.10 - 1.00)
 
 ## MOSCOW
 
@@ -35,6 +35,8 @@ using these effects and 1 slider i can effectively "throw" the incoming signal i
 ## Leerdoelen
 
 De CSD’er kan het beoogde ontwerp afstellen op de eigen capaciteit, zowel wbt het afbakenen ter voorkoming van overbelasting als opschalen ter voorkoming van onderbelasting.
+
+De CSD’er kan stapsgewijs aan afgebakende onderdelen van het ontwerp, systeem en implementatie werken.
 
 ![image](http://cagedotlog.com/backend/elecflute/design/parts%20of%20elecflute.png)
 
