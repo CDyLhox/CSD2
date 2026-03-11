@@ -14,6 +14,7 @@ target_sources(elecflute PRIVATE
     effect.cpp 
     delay.cpp 
     Waveshaper.cpp 
+    allpass.cpp
     rms.cpp)
 
 target_compile_definitions(elecflute PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")

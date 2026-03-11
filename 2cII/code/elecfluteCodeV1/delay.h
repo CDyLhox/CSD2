@@ -24,7 +24,7 @@ class Delay : public Effect {
 												head -= m_size;
 				}
 
-				float m_feedback = 0.0f;
+				float m_feedback = 0.7f;
 
 				// maxDelaySize
 				Rms rms { 9000 };

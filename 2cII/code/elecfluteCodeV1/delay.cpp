@@ -6,6 +6,7 @@ Delay::Delay(float feedback, uint numDelaySamples,
   m_feedback(0), m_numDelaySamples(0),
   m_size(maxDelaySize), m_readH(0), m_writeH(0)
 {
+    std::cout << "delay::delay, ima delay" << std::endl;
   // validate delay size and numDelaySamples
   if(numDelaySamples > maxDelaySize) {
     throw "Delay::Delay - numDelaySamples exceeds maxDelaySize";
@@ -21,6 +22,7 @@ Delay::Delay(float feedback, uint numDelaySamples,
 Delay::~Delay()
 {
   // free data allocated with memset
+    std::cout << "delay::~delay, ima delay" << std::endl;
   free(m_buffer);
 }
 
@@ -37,8 +39,8 @@ void Delay::applyEffect(const float &input, float &output)
   wrapH(m_writeH);
 
 	//apply rms to feedback
-	m_rmsSignal = rms.trackSignal(input);
-	setFeedback(m_rmsSignal);
+	/*m_rmsSignal = rms.trackSignal(input);
+	setFeedback(m_rmsSignal);*/
 
 }
 

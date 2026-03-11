@@ -11,5 +11,10 @@ Allpass::~Allpass(){
 }
 
 void Allpass::applyEffect(const float& input, float& output){
-    //the program comes from 
+    //the program comes from https://thewolfsound.com/allpass-filter/
+    //lets try it out why dont we 
+    //Figure 2. Block diagram of the first-order allpass filter.
+    v = input - a * sample1;
+    output = a * v + sample1;
+    sample1 = v;
 }

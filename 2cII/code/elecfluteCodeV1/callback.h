@@ -5,6 +5,7 @@
 #include "waveshaper.h"
 #include "tools/audiocomponent.h"
 #include "tools/uiutility.h"
+#include "allpass.h"
 
 class CustomCallback : public AudioCallback {
     public:
@@ -16,6 +17,7 @@ class CustomCallback : public AudioCallback {
 	float samplerate = 44100;
 	Delay delay;
 	Waveshaper waveshaper;
+    Allpass allpass;
 
 };
 
