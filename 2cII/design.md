@@ -50,4 +50,5 @@ http://cagedotlog.com/backend/elecflute/
 
 [onderzoekpunten]
 - wat is de mmax aantal samples die je kan skippen voor je een click krijgt
-
+- sommige waarden hoeven niet persee lineair te zijn. 
+    * denk aan de filter een exponentiele waarde geven zodat het eerste deel van de timestretch minder gefilterd word
