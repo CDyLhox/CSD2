@@ -16,7 +16,7 @@ class CustomCallback : public AudioCallback {
 
     private:
         static const int AMOUNT_OF_ALLPASS = 2;
-        static const int AMOUNT_OF_DELAYS = 90;
+        static const int AMOUNT_OF_DELAYS = 4;
         static const int numChannels = 2;
         float samplerate = 44100;
 
@@ -24,7 +24,7 @@ class CustomCallback : public AudioCallback {
         Allpass allpass[numChannels][AMOUNT_OF_ALLPASS];
         Delay delay[numChannels][AMOUNT_OF_DELAYS];
 
-        float targetParameter { 0.8f };
+        float targetParameter { 0.7f };
         LocalOSC oscServer { targetParameter };
         std::string serverport {"7777"};
 };

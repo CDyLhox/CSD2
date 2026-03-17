@@ -43,7 +43,10 @@ void CustomCallback::prepare(int rate)
             float t = (float)q / (AMOUNT_OF_DELAYS - 1);
             int delaySamples = minDelay + t * (maxDelay - minDelay);
 
-            delay[i][q].setNumDelaySamples(delaySamples);
+            // theres a dynamic way of doing it or just straight values. values works better in general
+            int combDelays[4] = {1557, 1617, 1491, 1422};
+
+            delay[i][q].setNumDelaySamples(combDelays[q]);
             // 30ms, 35.5,
             //TODO: set alle delays op een andere hoeveelheid samples
         }
@@ -99,7 +102,7 @@ void CustomCallback::process(AudioBuffer buffer)
             outputChannels[channel][i] = ap2;
 
 
-            std::cout << "output" << outputChannels[channel][i] << std::endl;
+            //std::cout << "output" << outputChannels[channel][i] << std::endl;
         }
     }
 }

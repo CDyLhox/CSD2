@@ -18,7 +18,7 @@ class CircBuffer {
 
         inline void tick()
         {
-            std::cout << "tick" << std::endl;
+            //std::cout << "tick" << std::endl;
             incrementWriteHead();
             incrementReadHead();
 
