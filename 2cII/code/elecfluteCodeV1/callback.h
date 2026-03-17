@@ -15,7 +15,7 @@ class CustomCallback : public AudioCallback {
         void process(AudioBuffer buffer) override;
 
     private:
-        static const int AMOUNT_OF_ALLPASS = 100;
+        static const int AMOUNT_OF_ALLPASS = 2;
         static const int AMOUNT_OF_DELAYS = 4;
         static const int numChannels = 2;
         float samplerate = 44100;

@@ -12,6 +12,7 @@ target_sources(elecflute PRIVATE
     main.cpp
     callback.cpp 
     effect.cpp 
+    circBuffer.cpp
     delay.cpp 
     Waveshaper.cpp 
     allpass.cpp

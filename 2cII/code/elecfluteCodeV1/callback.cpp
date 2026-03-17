@@ -29,6 +29,9 @@ void CustomCallback::prepare(int rate)
         allpass[1][u].setBypass(false);
         allpass[1][u].setDryWet(1);
     }
+
+    float minDelay = 0.03f * samplerate;
+    float maxDelay = 0.045f * samplerate;
     for (int i = 0; i < numChannels; i++){
         for (int q = 0; q < AMOUNT_OF_DELAYS; q++){
             std::cout << "q" << q << std::endl;
@@ -36,8 +39,12 @@ void CustomCallback::prepare(int rate)
             delay[i][q].setBypass(false);
             delay[i][q].setDryWet(0.5);
             delay[i][q].setFeedback(targetParameter);
-            delay[i][q].setNumDelaySamples(300 * q * 1.5);
-            // 30ms, 35.5, 
+
+            float t = (float)q / (AMOUNT_OF_DELAYS - 1);
+            int delaySamples = minDelay + t * (maxDelay - minDelay);
+
+            delay[i][q].setNumDelaySamples(delaySamples);
+            // 30ms, 35.5,
             //TODO: set alle delays op een andere hoeveelheid samples
         }
     }
@@ -52,8 +59,8 @@ void CustomCallback::prepare(int rate)
 void CustomCallback::process(AudioBuffer buffer)
 {
     auto [inputChannels, outputChannels, numInputChannels, numOutputChannels, numFrames] = buffer;
-    float sample1;
-    float sample2;
+    float sample1 = 0.0f;
+    float sample2 = 0.0f;
 
     for (int y = 0u; y < AMOUNT_OF_DELAYS; y++) {
         delay[0][y].setFeedback(targetParameter);
@@ -65,16 +72,41 @@ void CustomCallback::process(AudioBuffer buffer)
         for (int i = 0u; i < numFrames; i++) {
             //std::cout << "input" << inputChannels[channel][i] << std::endl;
 
-            allpass[channel][0].processFrame(inputChannels[0][i],sample1);
+            float mono = (numInputChannels > 0) ? inputChannels[0][i] : 0.0f;
 
-            for (int u = 1; u < AMOUNT_OF_ALLPASS; u++){
-                allpass[channel][u].processFrame(sample1, sample2);
-            }
+            delay[channel][AMOUNT_OF_DELAYS - 1].processFrame(mono, sample2);
+
+
             for (int o = 0; o < AMOUNT_OF_DELAYS - 1; o++ ){
+
                 delay[channel][o].processFrame(sample2, sample1);
             }
-            delay[channel][AMOUNT_OF_DELAYS - 1].processFrame(sample1, outputChannels[channel][i]);
-            //std::cout << "output" << outputChannels[channel][i] << std::endl;
+
+
+float combSum = 0;
+
+for(int c=0;c<4;c++){
+    float combOut;
+    comb[c].processFrame(sample1, combOut);
+
+
+    if(c % 2) combOut = -combOut;
+
+    combSum += combOut;
+}
+
+float ap1;
+allpass1.processFrame(combSum, ap1);
+
+allpass2.processFrame(ap1, output);
+
+            /*for (int u = 1; u < AMOUNT_OF_ALLPASS; u++){
+                allpass[channel][u].processFrame(sample1, sample2);
+            }
+
+            allpass[channel][0].processFrame(sample2, outputChannels[channel][i]);*/
+
+            std::cout << "output" << outputChannels[channel][i] << std::endl;
         }
     }
 }

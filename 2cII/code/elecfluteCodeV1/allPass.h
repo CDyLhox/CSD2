@@ -3,6 +3,7 @@
 #include "effect.h"
 #include <iostream>
 #include <math.h>
+#include "circBuffer.h"
 
 class Allpass : public Effect {
     public:
@@ -15,6 +16,6 @@ class Allpass : public Effect {
     float sample1 = 0.0f; //   z^-1
     float v = 0.0f;       //   v[n-1]
     
-    
+    CircBuffer buffer{800, 400}; 
 
 };
