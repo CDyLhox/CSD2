@@ -15,12 +15,16 @@ class CustomCallback : public AudioCallback {
         void process(AudioBuffer buffer) override;
 
     private:
+        static const int AMOUNT_OF_ALLPASS = 100;
+        static const int AMOUNT_OF_DELAYS = 20;
+        static const int numChannels = 2;
         float samplerate = 44100;
-        Delay delay;
-        Waveshaper waveshaper;
-        Allpass allpass;
 
-        float targetParameter { 440.f };
+        Waveshaper waveshaper;
+        Allpass allpass[numChannels][AMOUNT_OF_ALLPASS];
+        Delay delay[numChannels][AMOUNT_OF_DELAYS];
+
+        float targetParameter { 0.8f };
         LocalOSC oscServer { targetParameter };
         std::string serverport {"7777"};
 };
