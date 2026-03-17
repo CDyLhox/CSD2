@@ -72,39 +72,32 @@ void CustomCallback::process(AudioBuffer buffer)
         for (int i = 0u; i < numFrames; i++) {
             //std::cout << "input" << inputChannels[channel][i] << std::endl;
 
-            float mono = (numInputChannels > 0) ? inputChannels[0][i] : 0.0f;
+            float input = (numInputChannels > 0) ? inputChannels[0][i] : 0.0f;
 
-            delay[channel][AMOUNT_OF_DELAYS - 1].processFrame(mono, sample2);
+            float combSum = 0.0f;
 
+            // comb filter
+            for (int c = 0; c < AMOUNT_OF_DELAYS; c++)
+            {
+                float combOut;
+                delay[channel][c].processFrame(input, combOut);
 
-            for (int o = 0; o < AMOUNT_OF_DELAYS - 1; o++ ){
+                if (c % 2 == 1)
+                    combOut = -combOut;
 
-                delay[channel][o].processFrame(sample2, sample1);
+                combSum += combOut;
             }
 
+            float ap1;
+            allpass[channel][0].processFrame(combSum, ap1);
 
-float combSum = 0;
-
-for(int c=0;c<4;c++){
-    float combOut;
-    comb[c].processFrame(sample1, combOut);
-
-
-    if(c % 2) combOut = -combOut;
-
-    combSum += combOut;
-}
-
-float ap1;
-allpass1.processFrame(combSum, ap1);
-
-allpass2.processFrame(ap1, output);
-
-            /*for (int u = 1; u < AMOUNT_OF_ALLPASS; u++){
-                allpass[channel][u].processFrame(sample1, sample2);
+            // the rest of the allpassess 
+            float ap2;
+            for (int p = 1; p < AMOUNT_OF_ALLPASS; p++){
+            allpass[channel][p].processFrame(ap1, ap2);
             }
+            outputChannels[channel][i] = ap2;
 
-            allpass[channel][0].processFrame(sample2, outputChannels[channel][i]);*/
 
             std::cout << "output" << outputChannels[channel][i] << std::endl;
         }

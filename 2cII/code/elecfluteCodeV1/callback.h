@@ -16,7 +16,7 @@ class CustomCallback : public AudioCallback {
 
     private:
         static const int AMOUNT_OF_ALLPASS = 2;
-        static const int AMOUNT_OF_DELAYS = 4;
+        static const int AMOUNT_OF_DELAYS = 90;
         static const int numChannels = 2;
         float samplerate = 44100;
 
