@@ -36,7 +36,8 @@ void CustomCallback::prepare(int rate)
             delay[i][q].setBypass(false);
             delay[i][q].setDryWet(0.5);
             delay[i][q].setFeedback(targetParameter);
-            delay[i][q].setNumDelaySamples(4000 * q);
+            delay[i][q].setNumDelaySamples(300 * q * 1.5);
+            // 30ms, 35.5, 
             //TODO: set alle delays op een andere hoeveelheid samples
         }
     }
