@@ -48,8 +48,7 @@ void CustomCallback::process(AudioBuffer buffer)
             float input = inputChannels[channel][i];
             float output;
 
-            reverb.applyEffect(input, sample1);
-            onepole.applyEffect(sample1, output);
+            reverb.applyEffect(input, output);
 
             outputChannels[channel][i] = output;
 

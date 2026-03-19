@@ -3,6 +3,7 @@
 #include "allpass.h"
 #include "circBuffer.h"
 #include "delay.h"
+#include "onepole.h"
 #include "config.h"
 #include "effect.h"
 
@@ -17,6 +18,7 @@ float samplerate;
     private:
         Allpass allpass[numChannels][AMOUNT_OF_ALLPASS];
         Delay delay[numChannels][AMOUNT_OF_DELAYS];
+        Onepole onepole;
 
 
 

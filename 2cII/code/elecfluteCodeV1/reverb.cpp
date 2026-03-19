@@ -61,6 +61,8 @@ void Reverb::applyEffect(const float& input, float& output)
     {
         allpass[0][p].processFrame(ap, ap);
     }
+    
+    onepole.processFrame(ap,ap);
 
     output = ap;
 }

@@ -11,6 +11,6 @@ class Onepole : public Effect {
         ~Onepole();
         void applyEffect(const float& input, float& output) override;
     private:
-        float sample= 0;
+        float sample = 0;
 
 };
