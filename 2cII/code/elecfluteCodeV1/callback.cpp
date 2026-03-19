@@ -53,8 +53,7 @@ void CustomCallback::process(AudioBuffer buffer)
         for (int i = 0u; i < numFrames; i++) {
             //std::cout << "input" << inputChannels[channel][i] << std::endl;
 
-            float input = (numInputChannels > 0) ? inputChannels[0][i] : 0.0f;
-            //float input = inputChannels[channel][i];
+           float input = inputChannels[0][i];
             float output;
 
             reverbs[channel].applyEffect(input, output);
