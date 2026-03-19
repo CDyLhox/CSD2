@@ -7,6 +7,9 @@
 #include "tools/uiutility.h"
 #include <osc_server.h>
 #include "allpass.h"
+#include "reverb.h"
+#include "config.h"
+#include "onepole.h"
 
 class CustomCallback : public AudioCallback {
     public:
@@ -14,17 +17,12 @@ class CustomCallback : public AudioCallback {
         void prepare(int rate) override;
         void process(AudioBuffer buffer) override;
 
-    private:
-        static const int AMOUNT_OF_ALLPASS = 2;
-        static const int AMOUNT_OF_DELAYS = 4;
-        static const int numChannels = 2;
         float samplerate = 44100;
-
+    private:
         Waveshaper waveshaper;
-        Allpass allpass[numChannels][AMOUNT_OF_ALLPASS];
-        Delay delay[numChannels][AMOUNT_OF_DELAYS];
-
-        float targetParameter { 0.7f };
+        Reverb reverb{samplerate};
+        Onepole onepole;
+        float targetParameter { parameterInit };
         LocalOSC oscServer { targetParameter };
         std::string serverport {"7777"};
 };

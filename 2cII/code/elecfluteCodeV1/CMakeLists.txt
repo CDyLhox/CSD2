@@ -7,13 +7,14 @@ else()
     pkg_check_modules(LIBLO REQUIRED IMPORTED_TARGET liblo)
 endif()
 
-juce_add_console_app(elecflute PRODUCT_NAME "MagicBox")
+juce_add_console_app(elecflute PRODUCT_NAME "elecflute")
 target_sources(elecflute PRIVATE 
     main.cpp
     callback.cpp 
     effect.cpp 
     circBuffer.cpp
     delay.cpp 
+    reverb.cpp
     Waveshaper.cpp 
     allpass.cpp
     rms.cpp)
