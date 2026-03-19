@@ -6,6 +6,6 @@
 static const int AMOUNT_OF_ALLPASS = 2;
 static const int AMOUNT_OF_DELAYS = 4;
 static const int numChannels = 2;
-static const float parameterInit = 0.7;
+static const float parameterInit = 0.6;
 
 #endif

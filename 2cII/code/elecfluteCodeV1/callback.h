@@ -20,11 +20,13 @@ class CustomCallback : public AudioCallback {
         float samplerate = 44100;
     private:
         Waveshaper waveshaper;
-        Reverb reverb{samplerate};
+        //Reverb reverb{samplerate};
+        std::vector<Reverb> reverbs;
         Onepole onepole;
         float targetParameter { parameterInit };
         LocalOSC oscServer { targetParameter };
         std::string serverport {"7777"};
+        float lastParameter = 0;
 };
 
 #endif // CALLBACK_H

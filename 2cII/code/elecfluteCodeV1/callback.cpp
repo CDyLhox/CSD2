@@ -19,7 +19,11 @@ void CustomCallback::prepare(int rate)
     oscServer.start();
     std::cout << "OSC Server listening on port: " << serverport << std::endl;
 
+    reverbs.clear();
 
+    for (int ch = 0; ch < numChannels; ch++)    {
+        reverbs.emplace_back(samplerate);
+    }
 
     // zet hier ff je bypass
 
@@ -33,22 +37,27 @@ void CustomCallback::prepare(int rate)
 
 void CustomCallback::process(AudioBuffer buffer)
 {
+
+    if (targetParameter != lastParameter) {
+        for (int ch = 0; ch < numChannels; ch++)
+            reverbs[ch].setDelayFeedback(targetParameter);
+        lastParameter = targetParameter;
+    }
+
+
     auto [inputChannels, outputChannels, numInputChannels, numOutputChannels, numFrames] = buffer;
     float sample1 = 0.0f;
     float sample2 = 0.0f;
-
-        reverb.setDelayFeedback(targetParameter);
-    //std::cout<<targetParameter<<std::endl;
     // NOTE: user input
     for (int channel = 0u; channel < numInputChannels; channel++) {
         for (int i = 0u; i < numFrames; i++) {
             //std::cout << "input" << inputChannels[channel][i] << std::endl;
 
-            //float input = (numInputChannels > 0) ? inputChannels[0][i] : 0.0f;
-            float input = inputChannels[channel][i];
+            float input = (numInputChannels > 0) ? inputChannels[0][i] : 0.0f;
+            //float input = inputChannels[channel][i];
             float output;
 
-            reverb.applyEffect(input, output);
+            reverbs[channel].applyEffect(input, output);
 
             outputChannels[channel][i] = output;
 
