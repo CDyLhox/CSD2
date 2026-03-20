@@ -20,6 +20,7 @@ void CustomCallback::prepare(int rate)
     std::cout << "OSC Server listening on port: " << serverport << std::endl;
 
     reverbs.clear();
+    reverbs.reserve(numChannels);
 
     for (int ch = 0; ch < numChannels; ch++)    {
         reverbs.emplace_back(samplerate);

@@ -7,7 +7,7 @@ Allpass::Allpass(){
 
 Allpass::~Allpass(){
     
-    std::cout << "Allpass::~allpass, nan allpass filter" << std::endl;
+    std::cout << "Allpass::~allpass, no allpass filter" << std::endl;
 }
 
 void Allpass::applyEffect(const float& input, float& output){

@@ -59,13 +59,13 @@ void Reverb::applyEffect(const float& input, float& output)
         if (!std::isfinite(ap)) ap = 0.0f;
     }
 
-    ap *= 0.5f;
+    ap *= 0.9f;
     output = std::clamp(ap, -1.0f, 1.0f);
 }
 
 void Reverb::setDelayFeedback(float feedback){
     //  std::cout << "Reverb::setDelayFeedback(), setting feedback to: " << feedback << std::endl;
-    currentFeedback = std::clamp(feedback, 0.0f, 0.95f);
+    currentFeedback = std::clamp(feedback, 0.0f, 0.99f);
 
     /*if(currentFeedback > 0.61){
       std::cout << "ok time to freeze" << std::endl;
