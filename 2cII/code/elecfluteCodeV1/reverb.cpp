@@ -41,7 +41,8 @@ void Reverb::applyEffect(const float& input, float& output)
         delay[i].processFrame(in, y);
 
         //y *= 0.25f;
-
+    
+        // flip the polarity of each combfilter 
         if (i & 1) y = -y;
 
         combSum += y;
