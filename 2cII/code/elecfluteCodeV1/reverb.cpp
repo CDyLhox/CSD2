@@ -4,7 +4,7 @@ Reverb::Reverb(float sr) : samplerate(sr)
 {
     std::cout << "the reverb initialises" << std::endl;
 
-    onepole.setBypass(true);
+    onepole.setBypass(false);
 
 
     for (int i = 0; i < AMOUNT_OF_ALLPASS; i++) {
@@ -61,6 +61,7 @@ void Reverb::applyEffect(const float& input, float& output)
     }
 
     ap *= 0.9f;
+    onepole.processFrame(ap, ap);
     output = std::clamp(ap, -1.0f, 1.0f);
 }
 
